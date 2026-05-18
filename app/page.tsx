@@ -221,7 +221,7 @@ function HeroBody({ step, streamingCursor }: { step: number; streamingCursor: bo
     <div className="flex flex-col sm:flex-row gap-8 sm:gap-12 items-start">
       {step >= 1 && (
         <div className="shrink-0 flex flex-col items-center gap-3">
-          <div className="size-40 sm:size-52 rounded-full overflow-hidden border border-accent/70 shadow-[0_0_80px_-15px_rgba(245,158,11,0.55)]">
+          <div className="size-40 sm:size-52 rounded-full overflow-hidden border border-accent/70 shadow-[0_0_80px_-15px_rgba(168,85,247,0.55)]">
             <Image
               src="/leon.jpeg"
               alt="Leon van Zyl"
