@@ -1,0 +1,82 @@
+[
+  {
+    "patterns": ["^(hi|hey|hello|yo|sup|howdy)\\b", "greetings"],
+    "answer": "Hey 👋 I'm Leon. Ask me anything — try things like \"what's your tech stack?\", \"are you available for work?\", or \"how do I reach you?\"."
+  },
+  {
+    "patterns": ["who are you", "tell me about yourself", "introduce yourself", "^about you", "^about leon"],
+    "answer": "I'm Leon van Zyl, an AI Engineer & YouTuber based in Mosselbay, South Africa. I build AI agents that think, plan, and ship code autonomously, and I publish step-by-step tutorials on my YouTube channel @leonvanzyl."
+  },
+  {
+    "patterns": ["background", "experience", "history", "career", "how long have you"],
+    "answer": "Full-stack developer turned AI engineer. These days I focus on autonomous systems and agentic coding workflows — building AI agents that go beyond chat, then turning what I learn into tutorials for the channel."
+  },
+  {
+    "patterns": ["tech stack", "what tools", "what do you use", "what do you build with", "stack\\?", "tools you use"],
+    "answer": "Day-to-day: TypeScript, JavaScript, Python, Next.js. For AI: LangChain, n8n, Flowise. For agentic coding: Claude Code, Codex, and Cursor. Most projects glue some subset of those together."
+  },
+  {
+    "patterns": ["skills", "what can you do", "what are you good at"],
+    "answer": "AI agents, LangChain, n8n, Flowise, agentic coding with Claude Code / Codex / Cursor, plus full-stack web with Next.js, React, TypeScript, and Python."
+  },
+  {
+    "patterns": ["langchain"],
+    "answer": "LangChain is one of my main tools for building agents — particularly the JS version. I've got a tutorial repo at github.com/leonvanzyl/langchain-js if you want to see how I use it."
+  },
+  {
+    "patterns": ["n8n"],
+    "answer": "n8n is my go-to for automation and no-code AI workflows. I keep a public template repo at github.com/leonvanzyl/n8n-workflows and run a full masterclass course on building AI agents with it."
+  },
+  {
+    "patterns": ["flowise"],
+    "answer": "Flowise is great for visual LLM flow building — drag-and-drop chains and agents. I cover it end-to-end in the flowise-masterclass-2025 repo."
+  },
+  {
+    "patterns": ["claude code", "agentic coding", "claude\\b"],
+    "answer": "Claude Code is where most of my agentic coding work happens now. Sub-agents, skills, hooks, custom commands — I've published tutorials on all of it. The agentic-coding-starter-kit repo is a good place to start."
+  },
+  {
+    "patterns": ["python", "typescript", "javascript", "languages\\?", "programming language"],
+    "answer": "Python and TypeScript are my daily drivers. Python for AI/automation work, TypeScript when I'm shipping web apps with Next.js. Plus the usual JavaScript wherever it's needed."
+  },
+  {
+    "patterns": ["available", "hire", "work with you", "freelance", "consulting", "open to work"],
+    "answer": "I take on selective consulting and collaboration work, mostly around AI agents, agentic coding setups, and automation. Email me at leon.vanzyl@gmail.com with a quick brief and I'll let you know if it's a fit."
+  },
+  {
+    "patterns": ["rate", "price", "pricing", "cost", "how much", "fee"],
+    "answer": "Rates depend entirely on scope. Send a quick description of what you're trying to build to leon.vanzyl@gmail.com and I'll come back with a number."
+  },
+  {
+    "patterns": ["where", "location", "based", "from", "country", "south africa", "mosselbay"],
+    "answer": "Mosselbay, South Africa (UTC+2). I work async most of the time and have collaborators across multiple time zones."
+  },
+  {
+    "patterns": ["contact", "email", "reach", "get in touch", "talk to you", "dm"],
+    "answer": "Best route is email: leon.vanzyl@gmail.com. You can also catch me on X (@leonvz) or via the YouTube channel @leonvanzyl."
+  },
+  {
+    "patterns": ["youtube", "channel", "videos\\?", "subscribe"],
+    "answer": "YouTube channel is @leonvanzyl — step-by-step tutorials on building real-world AI: agents, automation workflows, vibe coding and agentic coding, with both code and no-code tools."
+  },
+  {
+    "patterns": ["tutorial", "course", "masterclass", "teach", "learn from you"],
+    "answer": "Most of my courses live on the channel and in companion GitHub repos — langchain-js, flowise-masterclass-2025, n8n-ai-agents-masterclass-2025, opencode-masterclass, plus a steady stream of shorter Claude Code tutorials."
+  },
+  {
+    "patterns": ["working on", "current project", "right now", "these days", "lately"],
+    "answer": "Lately: deeper Claude Code workflows (sub-agents, plugins, skills), autonomous coding agents, and content on combining n8n with code-based agents. Most of it lands on YouTube within a week or two."
+  },
+  {
+    "patterns": ["github", "open source", "repos?", "repositories?"],
+    "answer": "Everything's at github.com/leonvanzyl. Top repos: agentic-coding-starter-kit, autonomous-coding, langchain-js, flowise-masterclass-2025, n8n-workflows, localforge. ~88 public repos total."
+  },
+  {
+    "patterns": ["how to learn ai", "learn ai", "where to start", "beginner", "advice"],
+    "answer": "Start by building something tiny end-to-end — a single agent that does one useful thing. Don't read frameworks cover to cover; pick a tool (n8n or LangChain or Claude Code), watch one full build-along tutorial, then immediately reskin it for your own problem."
+  },
+  {
+    "patterns": ["fun fact", "hobby", "hobbies", "outside work", "free time", "favorite", "favourite"],
+    "answer": "Outside the laptop: family, the South African coast, and far too much time tinkering with whatever new AI tool dropped that week."
+  }
+]
