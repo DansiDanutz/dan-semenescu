@@ -54,7 +54,30 @@ const bioTokens: Token[] = [
   { text: "." },
 ];
 
-type BodyKind = "hero" | "bio" | "agents" | "projects" | "contact";
+const manifestoSections: { heading: string; body: string }[] = [
+  {
+    heading: "The thesis",
+    body: "Most AI products treat agents as features. DansLab treats agents as employees. One operator plus a fleet of named AI agents can run a real company end-to-end — each agent owns a vertical, the operator directs strategy, and the lights stay on overnight.",
+  },
+  {
+    heading: "The architecture",
+    body: "Four layers stack together: a Tailscale-linked fleet of 8 machines as the substrate; a roster of named agents as the executive team; an OpenClaw collective handling trading and channel work; and a portfolio of shipping products on top — MyWork-AI on PyPI, ZmartyChat for crypto signals, NERVIX as the federation layer, YouTubePipeline for OSS video production.",
+  },
+  {
+    heading: "The agents",
+    body: "Each agent has a name, a personality, a home machine, and a GitHub workspace. David orchestrates from the Mac Studio. Dexter ships backend code on a dedicated droplet. Memo runs PM and n8n flows. Nano enrolls new agents into the federation. Sienna runs the crypto vertical. They coordinate, hand off, and ship — without daily babysitting.",
+  },
+  {
+    heading: "The stack",
+    body: "Claude Code is the agent runtime. Python and TypeScript are the daily languages. n8n handles event-driven automation. Supabase plus Vercel run the web surfaces. The whole fleet sits behind Tailscale — no public ports, no SSH gymnastics, just `ssh dexter` and you're in.",
+  },
+  {
+    heading: "The bet",
+    body: "Stack Finance LLC is the legal wrapper; DansLab is the working prototype. By 2027, the most interesting companies won't be measured by headcount but by how well one operator plus a named fleet can coordinate. We're building the playbook for that — in public, in code, in production.",
+  },
+];
+
+type BodyKind = "hero" | "bio" | "manifesto" | "agents" | "projects" | "contact";
 
 type SectionDef = {
   id: string;
@@ -67,6 +90,7 @@ type SectionDef = {
 const sectionDefs: SectionDef[] = [
   { id: "who", prompt: "who is dan semenescu?", tools: ["Pinging github.com/DansiDanutz", "Loading avatar", "Resolving Stack Finance LLC"], bodyKind: "hero", bodySteps: 5 },
   { id: "bg", prompt: "cat about.md", tools: ["Reading about.md", "Compiling DansLab manifest"], bodyKind: "bio", bodySteps: bioTokens.length },
+  { id: "danslab", prompt: "cat ~/danslab/MANIFESTO.md", tools: ["Reading MANIFESTO.md", "Loading company architecture", "Stamping Stack Finance LLC"], bodyKind: "manifesto", bodySteps: manifestoSections.length },
   { id: "agents", prompt: "ls ~/danslab/agents/", tools: ["Connecting to david@mac-studio", "Enumerating fleet", "Loading agent registry"], bodyKind: "agents", bodySteps: agents.length },
   { id: "projects", prompt: "ls ~/danslab/projects/", tools: ["Fetching repos from github.com/DansiDanutz", "Loading metadata", "Sorting by impact"], bodyKind: "projects", bodySteps: projects.length },
   { id: "contact", prompt: "cat contact.txt", tools: ["Reading contact.txt", "Validating links"], bodyKind: "contact", bodySteps: contacts.length },
@@ -96,7 +120,7 @@ const fullState = (def: SectionDef): SectionState => ({
   done: true,
 });
 
-const STORAGE_KEY = "danslab-portfolio-played";
+const STORAGE_KEY = "danslab-portfolio-played-v2";
 
 // ---------- icons ----------
 function IconGitHub() {
@@ -299,6 +323,20 @@ function BioBody({ step, streamingCursor }: { step: number; streamingCursor: boo
   );
 }
 
+function ManifestoBody({ step, streamingCursor }: { step: number; streamingCursor: boolean }) {
+  return (
+    <div className="space-y-6 max-w-3xl">
+      {manifestoSections.slice(0, step).map((s, i) => (
+        <div key={s.heading} className="space-y-2">
+          <h3 className="text-highlight text-xs uppercase tracking-[0.18em]">{s.heading}</h3>
+          <p className="text-base sm:text-lg leading-relaxed text-foreground/95">{s.body}</p>
+          {streamingCursor && i === step - 1 && step < manifestoSections.length && <Cursor />}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function AgentsBody({ step, streamingCursor }: { step: number; streamingCursor: boolean }) {
   return (
     <ul className="space-y-3 text-base sm:text-lg">
@@ -371,6 +409,8 @@ function renderBody(def: SectionDef, state: SectionState, isActive: boolean) {
       return <HeroBody step={state.bodySteps} streamingCursor={streamingCursor} />;
     case "bio":
       return <BioBody step={state.bodySteps} streamingCursor={streamingCursor} />;
+    case "manifesto":
+      return <ManifestoBody step={state.bodySteps} streamingCursor={streamingCursor} />;
     case "agents":
       return <AgentsBody step={state.bodySteps} streamingCursor={streamingCursor} />;
     case "projects":
@@ -566,7 +606,7 @@ export default function Home() {
         update(i, { toolsCollapsed: true });
         await sleep(120);
 
-        const stepDelay = def.bodyKind === "bio" ? 45 : 60;
+        const stepDelay = def.bodyKind === "bio" ? 45 : def.bodyKind === "manifesto" ? 280 : 60;
         for (let s = 1; s <= def.bodySteps; s++) {
           if (token.cancelled) return;
           await sleep(stepDelay);
