@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Leon van Zyl — AI Engineer",
+  title: "Dan Semenescu — Founder, DansLab",
   description:
-    "AI Engineer & YouTuber building tutorials on AI agents, agentic coding, and automation workflows.",
+    "Multi-Agent AI Architecture. Founder of DansLab and Stack Finance LLC — building named AI agent fleets that orchestrate, ship, and operate real products. MyWork-AI, ZmartyChat, OpenClaw.",
 };
 
 export default function RootLayout({

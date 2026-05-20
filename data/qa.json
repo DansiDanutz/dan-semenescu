@@ -1,82 +1,118 @@
 [
   {
     "patterns": ["^(hi|hey|hello|yo|sup|howdy)\\b", "greetings"],
-    "answer": "Hey 👋 I'm Leon. Ask me anything — try things like \"what's your tech stack?\", \"are you available for work?\", or \"how do I reach you?\"."
+    "answer": "Hey 👋 I'm Dan. Ask me about DansLab, the agent fleet, MyWork-AI, ZmartyChat, OpenClaw, or how to get in touch."
   },
   {
-    "patterns": ["who are you", "tell me about yourself", "introduce yourself", "^about you", "^about leon"],
-    "answer": "I'm Leon van Zyl, an AI Engineer & YouTuber based in Mosselbay, South Africa. I build AI agents that think, plan, and ship code autonomously, and I publish step-by-step tutorials on my YouTube channel @leonvanzyl."
+    "patterns": ["who are you", "tell me about yourself", "introduce yourself", "^about you", "^about dan"],
+    "answer": "I'm Dan Semenescu — founder of DansLab and Stack Finance LLC, based in Cluj-Napoca, Romania. I'm building a multi-agent AI architecture: a named fleet of AI agents (David, Dexter, Nano, Memo, Sienna) that ships real products together."
   },
   {
-    "patterns": ["background", "experience", "history", "career", "how long have you"],
-    "answer": "Full-stack developer turned AI engineer. These days I focus on autonomous systems and agentic coding workflows — building AI agents that go beyond chat, then turning what I learn into tutorials for the channel."
+    "patterns": ["danslab", "what is danslab", "tell me about danslab", "dans lab"],
+    "answer": "DansLab is a multi-agent AI operating system. Each agent has a role, a personality, and a workspace — David (orchestrator), Dexter (backend), Nano (agent creator), Memo (PM), Sienna (crypto). They coordinate over a Tailscale-linked fleet of machines and ship products like MyWork-AI, ZmartyChat, and the OpenClaw collective. Goal: zero-human companies that still ship value."
   },
   {
-    "patterns": ["tech stack", "what tools", "what do you use", "what do you build with", "stack\\?", "tools you use"],
-    "answer": "Day-to-day: TypeScript, JavaScript, Python, Next.js. For AI: LangChain, n8n, Flowise. For agentic coding: Claude Code, Codex, and Cursor. Most projects glue some subset of those together."
+    "patterns": ["agents", "agent fleet", "your agents", "fleet", "team"],
+    "answer": "Five named agents: David (orchestrator on Mac Studio), Dexter (senior dev — NERVIX backend, CrawdBot, DevOps), Nano (agent creator — NERVIX enrollment), Memo (PM — MyWork framework, n8n automations), Sienna (crypto — ZmartyChat, trading). The OpenClaw collective adds channel agents (KiloClaw, KimiClaw, ManusClaw)."
   },
   {
-    "patterns": ["skills", "what can you do", "what are you good at"],
-    "answer": "AI agents, LangChain, n8n, Flowise, agentic coding with Claude Code / Codex / Cursor, plus full-stack web with Next.js, React, TypeScript, and Python."
+    "patterns": ["david", "orchestrator"],
+    "answer": "David runs on the Mac Studio and orchestrates the fleet — task routing, coordination, lab-sync workflows. Workspace: github.com/DansiDanutz/david-workspace."
   },
   {
-    "patterns": ["langchain"],
-    "answer": "LangChain is one of my main tools for building agents — particularly the JS version. I've got a tutorial repo at github.com/leonvanzyl/langchain-js if you want to see how I use it."
+    "patterns": ["dexter"],
+    "answer": "Dexter is the senior dev agent — owns NERVIX backend, CrawdBot, and DevOps. Workspace: github.com/DansiDanutz/dexter-workspace."
   },
   {
-    "patterns": ["n8n"],
-    "answer": "n8n is my go-to for automation and no-code AI workflows. I keep a public template repo at github.com/leonvanzyl/n8n-workflows and run a full masterclass course on building AI agents with it."
+    "patterns": ["memo"],
+    "answer": "Memo is the PM agent — owns the MyWork framework and n8n automations. Workspace: github.com/DansiDanutz/memo-workspace."
   },
   {
-    "patterns": ["flowise"],
-    "answer": "Flowise is great for visual LLM flow building — drag-and-drop chains and agents. I cover it end-to-end in the flowise-masterclass-2025 repo."
+    "patterns": ["nano"],
+    "answer": "Nano is the agent-creator agent — handles NERVIX enrollment and the agent factory itself. Workspace: github.com/DansiDanutz/nano-workspace."
+  },
+  {
+    "patterns": ["sienna"],
+    "answer": "Sienna runs the crypto vertical — ZmartyChat and the OpenClaw trading agents (Sienna Crypto Girl posts a 96.2% win rate). Workspace: github.com/DansiDanutz/sienna-workspace."
+  },
+  {
+    "patterns": ["mywork", "mywork-ai", "mywork ai", "pip install"],
+    "answer": "MyWork-AI is a Python framework: 67+ CLI commands for building, shipping, and selling software products. AI code gen, n8n automation, security scanning, marketplace. Install: pip install mywork-ai. Repo: github.com/DansiDanutz/MyWork-AI."
+  },
+  {
+    "patterns": ["zmarty", "zmartychat", "crypto chat", "crypto signals", "trading intelligence"],
+    "answer": "ZmartyChat is the AI crypto trading intelligence product — signals, analysis, alerts. Live at zmarty.vercel.app. Built and run by the Sienna agent stack."
+  },
+  {
+    "patterns": ["openclaw", "open claw"],
+    "answer": "OpenClaw is the agent collective layer — a Red Lobster trading agent (Sienna Crypto Girl, 96.2% win rate), plus channel agents (KiloClaw, KimiClaw, ManusClaw). OpenClaw key-manager handles central API credentials."
+  },
+  {
+    "patterns": ["semeclaw", "seme claw", "current"],
+    "answer": "SemeClaw is my current active build — internal agent framework in Python. github.com/DansiDanutz/SemeClaw."
+  },
+  {
+    "patterns": ["nervix", "nervix-cli", "nervix federation"],
+    "answer": "Nervix is the agent federation layer — CLI tool for enrolling, managing, and monitoring agents across the fleet. github.com/DansiDanutz/nervix-cli."
+  },
+  {
+    "patterns": ["youtube", "youtubepipeline", "video production", "video pipeline"],
+    "answer": "YouTubePipeline is OSS-only video production: ComfyUI + Flux + Wan + Piper + Whisper + Remotion + ffmpeg. 10 stages, scoring contract, daily OSS discovery. github.com/DansiDanutz/YouTubePipeline."
+  },
+  {
+    "patterns": ["stack", "tech stack", "what tools", "what do you use", "what do you build with"],
+    "answer": "Python 3.13 and TypeScript daily. Node.js 22, Docker. For AI: Claude Code (agentic), n8n (automation), Anthropic + OpenAI APIs. For web: Next.js, React, Tailwind, Supabase, Vercel. Infra: Tailscale-linked fleet of 8 machines."
   },
   {
     "patterns": ["claude code", "agentic coding", "claude\\b"],
-    "answer": "Claude Code is where most of my agentic coding work happens now. Sub-agents, skills, hooks, custom commands — I've published tutorials on all of it. The agentic-coding-starter-kit repo is a good place to start."
+    "answer": "Claude Code is the foundation for most agent work — sub-agents, hooks, skills, custom commands. Every agent in the DansLab fleet runs on it."
   },
   {
     "patterns": ["python", "typescript", "javascript", "languages\\?", "programming language"],
-    "answer": "Python and TypeScript are my daily drivers. Python for AI/automation work, TypeScript when I'm shipping web apps with Next.js. Plus the usual JavaScript wherever it's needed."
+    "answer": "Python 3.13 and TypeScript daily — Python for agent backends and CLIs, TS for web (Next.js)."
+  },
+  {
+    "patterns": ["tailscale", "machines", "infra", "network"],
+    "answer": "Tailscale-linked fleet: mac-mini, mac-studio, memo-droplet, dexter-droplet, nano-droplet, sienna-droplet, dans-s24, and this laptop (seme). Each agent has a home machine."
   },
   {
     "patterns": ["available", "hire", "work with you", "freelance", "consulting", "open to work"],
-    "answer": "I take on selective consulting and collaboration work, mostly around AI agents, agentic coding setups, and automation. Email me at leon.vanzyl@gmail.com with a quick brief and I'll let you know if it's a fit."
+    "answer": "Selective consulting around multi-agent AI architectures, agent fleet design, and shipping AI products. Email semebitcoin@gmail.com with a brief and I'll come back to you."
   },
   {
     "patterns": ["rate", "price", "pricing", "cost", "how much", "fee"],
-    "answer": "Rates depend entirely on scope. Send a quick description of what you're trying to build to leon.vanzyl@gmail.com and I'll come back with a number."
+    "answer": "Scope-dependent. Send a short description of what you want built to semebitcoin@gmail.com."
   },
   {
-    "patterns": ["where", "location", "based", "from", "country", "south africa", "mosselbay"],
-    "answer": "Mosselbay, South Africa (UTC+2). I work async most of the time and have collaborators across multiple time zones."
+    "patterns": ["where", "location", "based", "from", "country", "cluj", "romania"],
+    "answer": "Cluj-Napoca, Romania (UTC+2). Romanian + English, async-friendly."
   },
   {
     "patterns": ["contact", "email", "reach", "get in touch", "talk to you", "dm"],
-    "answer": "Best route is email: leon.vanzyl@gmail.com. You can also catch me on X (@leonvz) or via the YouTube channel @leonvanzyl."
+    "answer": "Best route: semebitcoin@gmail.com. Also reachable on X (@dansemenescu), Facebook (dan.semenescu), or Instagram (d.semenescu)."
   },
   {
-    "patterns": ["youtube", "channel", "videos\\?", "subscribe"],
-    "answer": "YouTube channel is @leonvanzyl — step-by-step tutorials on building real-world AI: agents, automation workflows, vibe coding and agentic coding, with both code and no-code tools."
-  },
-  {
-    "patterns": ["tutorial", "course", "masterclass", "teach", "learn from you"],
-    "answer": "Most of my courses live on the channel and in companion GitHub repos — langchain-js, flowise-masterclass-2025, n8n-ai-agents-masterclass-2025, opencode-masterclass, plus a steady stream of shorter Claude Code tutorials."
-  },
-  {
-    "patterns": ["working on", "current project", "right now", "these days", "lately"],
-    "answer": "Lately: deeper Claude Code workflows (sub-agents, plugins, skills), autonomous coding agents, and content on combining n8n with code-based agents. Most of it lands on YouTube within a week or two."
+    "patterns": ["stack finance", "company", "llc", "business"],
+    "answer": "Stack Finance LLC is the company DansLab operates under — multi-agent AI, AI products, and trading intelligence."
   },
   {
     "patterns": ["github", "open source", "repos?", "repositories?"],
-    "answer": "Everything's at github.com/leonvanzyl. Top repos: agentic-coding-starter-kit, autonomous-coding, langchain-js, flowise-masterclass-2025, n8n-workflows, localforge. ~88 public repos total."
+    "answer": "github.com/DansiDanutz — 35+ public repos. Featured: DansLab, MyWork-AI, sienna-crypto-girl, YouTubePipeline, SemeClaw, nervix-cli."
   },
   {
-    "patterns": ["how to learn ai", "learn ai", "where to start", "beginner", "advice"],
-    "answer": "Start by building something tiny end-to-end — a single agent that does one useful thing. Don't read frameworks cover to cover; pick a tool (n8n or LangChain or Claude Code), watch one full build-along tutorial, then immediately reskin it for your own problem."
+    "patterns": ["totalprint", "led", "events"],
+    "answer": "TotalPrint is an LED letters business for events in Cluj-Napoca — separate from the AI work, but still mine. github.com/DansiDanutz/TotalPrint."
+  },
+  {
+    "patterns": ["poker", "pokercluj", "poker club"],
+    "answer": "PokerClubCluj is a side project — dashboards and a public proposal for regulated poker in Cluj-Napoca. Civic engagement, not commercial."
+  },
+  {
+    "patterns": ["zero.human", "zero-human", "autonomous compan"],
+    "answer": "The thesis: a small operator plus a fleet of named AI agents can run a real company end-to-end. Each agent owns a vertical (product, dev, ops, sales, trading). The human directs strategy, the agents execute and ship. DansLab is the working prototype."
   },
   {
     "patterns": ["fun fact", "hobby", "hobbies", "outside work", "free time", "favorite", "favourite"],
-    "answer": "Outside the laptop: family, the South African coast, and far too much time tinkering with whatever new AI tool dropped that week."
+    "answer": "Outside the laptop: family, Cluj, and whatever AI tool dropped this week. Also poker — hence PokerClubCluj."
   }
 ]

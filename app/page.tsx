@@ -4,50 +4,57 @@ import Image from "next/image";
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import qaData from "../data/qa.json";
 
-type Project = { name: string; description: string; stars: number };
+type Project = { name: string; description: string; tag: string; href: string };
 type Token = { text: string; cls?: string };
+type Agent = { name: string; role: string; focus: string; color: string };
 
-const skills: { label: string; items: string }[] = [
-  { label: "AI", items: "AI agents, LangChain, n8n, Flowise" },
-  { label: "Agentic", items: "Claude Code, Codex, Cursor" },
-  { label: "Languages", items: "TypeScript, JavaScript, Python" },
-  { label: "Web", items: "Next.js, React, full-stack web dev" },
+const agents: Agent[] = [
+  { name: "David", role: "Orchestrator", focus: "Mac Studio · fleet command · lab-sync", color: "#22c55e" },
+  { name: "Dexter", role: "Senior Dev", focus: "NERVIX backend · CrawdBot · DevOps", color: "#3b82f6" },
+  { name: "Nano", role: "Agent Creator", focus: "NERVIX enrollment · agent factory", color: "#a855f7" },
+  { name: "Memo", role: "Product Manager", focus: "MyWork framework · n8n automations", color: "#f97316" },
+  { name: "Sienna", role: "Crypto Operator", focus: "ZmartyChat · OpenClaw trading", color: "#ec4899" },
 ];
 
 const projects: Project[] = [
-  { name: "agentic-coding-starter-kit", description: "Foundation for building agent-based coding systems", stars: 380 },
-  { name: "autonomous-coding", description: "Framework for self-directed coding applications", stars: 170 },
-  { name: "langchain-js", description: "LangChain JS course materials and examples", stars: 113 },
-  { name: "flowise-masterclass-2025", description: "Flowise course — visual LLM workflow builder", stars: 85 },
-  { name: "n8n-workflows", description: "Automation workflow templates for n8n", stars: 83 },
-  { name: "localforge", description: "Local dev and deployment tooling", stars: 78 },
+  { name: "DansLab", description: "Multi-agent AI operating system — orchestration & fleet command", tag: "Python · MIT", href: "https://github.com/DansiDanutz/DansLab" },
+  { name: "MyWork-AI", description: "67+ CLI commands · AI code gen · n8n automation · marketplace", tag: "pip install mywork-ai", href: "https://github.com/DansiDanutz/MyWork-AI" },
+  { name: "ZmartyChat", description: "AI crypto trading intelligence — signals, analysis, alerts", tag: "live · zmarty.vercel.app", href: "https://zmarty.vercel.app" },
+  { name: "sienna-crypto-girl", description: "OpenClaw trading agent — 96.2% win rate, membership funnel", tag: "TypeScript", href: "https://github.com/DansiDanutz/sienna-crypto-girl" },
+  { name: "YouTubePipeline", description: "OSS video production — ComfyUI · Flux · Wan · Whisper · Remotion", tag: "Python · OSS", href: "https://github.com/DansiDanutz/YouTubePipeline" },
+  { name: "SemeClaw", description: "Active build — internal agent framework", tag: "Python · WIP", href: "https://github.com/DansiDanutz/SemeClaw" },
 ];
 
 const contacts: { label: string; value: string; href: string }[] = [
-  { label: "youtube ", value: "@leonvanzyl", href: "https://youtube.com/@leonvanzyl" },
-  { label: "github  ", value: "leonvanzyl", href: "https://github.com/leonvanzyl" },
-  { label: "x       ", value: "@leonvz", href: "https://x.com/leonvz" },
-  { label: "website ", value: "leonvanzyl.com", href: "https://leonvanzyl.com" },
-  { label: "email   ", value: "leon.vanzyl@gmail.com", href: "mailto:leon.vanzyl@gmail.com" },
+  { label: "github  ", value: "DansiDanutz", href: "https://github.com/DansiDanutz" },
+  { label: "x       ", value: "@dansemenescu", href: "https://x.com/dansemenescu" },
+  { label: "facebook", value: "dan.semenescu", href: "https://www.facebook.com/dan.semenescu/" },
+  { label: "instagram", value: "d.semenescu", href: "https://www.instagram.com/d.semenescu/" },
+  { label: "website ", value: "zmarty.vercel.app", href: "https://zmarty.vercel.app" },
+  { label: "email   ", value: "semebitcoin@gmail.com", href: "mailto:semebitcoin@gmail.com" },
 ];
 
 const bioTokens: Token[] = [
-  { text: "AI Engineer specializing in " },
-  { text: "autonomous systems", cls: "text-accent" },
-  { text: " and " },
-  { text: "agentic coding", cls: "text-accent" },
-  { text: " workflows. He builds " },
-  { text: "AI agents", cls: "text-accent" },
-  { text: " that go beyond chat — they think, plan, and ship code autonomously, using tools like " },
-  { text: "LangChain", cls: "text-accent" },
-  { text: ", " },
-  { text: "n8n", cls: "text-accent" },
-  { text: ", and " },
-  { text: "Claude Code", cls: "text-accent" },
-  { text: ". Through his YouTube channel he ships step-by-step tutorials that help developers build real-world AI — with both code and no-code tools." },
+  { text: "Founder of " },
+  { text: "DansLab", cls: "text-accent" },
+  { text: " — building a " },
+  { text: "multi-agent AI architecture", cls: "text-accent" },
+  { text: " where a named fleet (" },
+  { text: "David, Dexter, Nano, Memo, Sienna", cls: "text-accent" },
+  { text: ") orchestrates real products under " },
+  { text: "Stack Finance LLC", cls: "text-accent" },
+  { text: ". Shipping " },
+  { text: "MyWork-AI", cls: "text-accent" },
+  { text: " on pip, " },
+  { text: "ZmartyChat", cls: "text-accent" },
+  { text: " for AI crypto trading, and the " },
+  { text: "OpenClaw", cls: "text-accent" },
+  { text: " agent collective. The goal: " },
+  { text: "zero-human companies that still ship value", cls: "text-accent" },
+  { text: "." },
 ];
 
-type BodyKind = "hero" | "bio" | "skills" | "projects" | "contact";
+type BodyKind = "hero" | "bio" | "agents" | "projects" | "contact";
 
 type SectionDef = {
   id: string;
@@ -58,10 +65,10 @@ type SectionDef = {
 };
 
 const sectionDefs: SectionDef[] = [
-  { id: "who", prompt: "who is leon van zyl?", tools: ["Reading profile.md", "Loading avatar.jpeg", "Resolving location"], bodyKind: "hero", bodySteps: 5 },
-  { id: "bg", prompt: "tell me more about his background", tools: ["Reading bio.md", "Compiling highlights"], bodyKind: "bio", bodySteps: bioTokens.length },
-  { id: "skills", prompt: "cat skills.txt", tools: ["Reading skills.json", "Parsing skills.json", "Sorting by relevance"], bodyKind: "skills", bodySteps: skills.length },
-  { id: "projects", prompt: "ls projects/", tools: ["Fetching projects from GitHub…", "Loading metadata", "Sorting by stars"], bodyKind: "projects", bodySteps: projects.length },
+  { id: "who", prompt: "who is dan semenescu?", tools: ["Pinging github.com/DansiDanutz", "Loading avatar", "Resolving Stack Finance LLC"], bodyKind: "hero", bodySteps: 5 },
+  { id: "bg", prompt: "cat about.md", tools: ["Reading about.md", "Compiling DansLab manifest"], bodyKind: "bio", bodySteps: bioTokens.length },
+  { id: "agents", prompt: "ls ~/danslab/agents/", tools: ["Connecting to david@mac-studio", "Enumerating fleet", "Loading agent registry"], bodyKind: "agents", bodySteps: agents.length },
+  { id: "projects", prompt: "ls ~/danslab/projects/", tools: ["Fetching repos from github.com/DansiDanutz", "Loading metadata", "Sorting by impact"], bodyKind: "projects", bodySteps: projects.length },
   { id: "contact", prompt: "cat contact.txt", tools: ["Reading contact.txt", "Validating links"], bodyKind: "contact", bodySteps: contacts.length },
 ];
 
@@ -89,7 +96,7 @@ const fullState = (def: SectionDef): SectionState => ({
   done: true,
 });
 
-const STORAGE_KEY = "phase1-played";
+const STORAGE_KEY = "danslab-portfolio-played";
 
 // ---------- icons ----------
 function IconGitHub() {
@@ -99,17 +106,26 @@ function IconGitHub() {
     </svg>
   );
 }
-function IconYouTube() {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className="size-5" aria-hidden>
-      <path d="M23.5 6.5a3 3 0 0 0-2.1-2.1C19.5 4 12 4 12 4s-7.5 0-9.4.4A3 3 0 0 0 .5 6.5C.1 8.4.1 12 .1 12s0 3.6.4 5.5a3 3 0 0 0 2.1 2.1C4.5 20 12 20 12 20s7.5 0 9.4-.4a3 3 0 0 0 2.1-2.1c.4-1.9.4-5.5.4-5.5s0-3.6-.4-5.5zM9.7 15.6V8.4l6.3 3.6-6.3 3.6z" />
-    </svg>
-  );
-}
 function IconX() {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className="size-5" aria-hidden>
       <path d="M18.244 2H21l-6.52 7.45L22.5 22h-6.94l-4.53-6.04L5.7 22H3l7.04-8.05L1.5 2h7.06l4.1 5.49L18.244 2zm-2.43 18h1.87L7.27 4H5.28l10.534 16z" />
+    </svg>
+  );
+}
+function IconFacebook() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="size-5" aria-hidden>
+      <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.99 3.66 9.13 8.44 9.88v-6.99H7.9V12h2.54V9.8c0-2.51 1.49-3.89 3.77-3.89 1.09 0 2.24.19 2.24.19v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.77l-.44 2.89h-2.33v6.99C18.34 21.13 22 16.99 22 12z" />
+    </svg>
+  );
+}
+function IconInstagram() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="size-5" aria-hidden>
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
     </svg>
   );
 }
@@ -131,11 +147,12 @@ function IconMail() {
 }
 
 const socials = [
-  { href: "https://github.com/leonvanzyl", label: "GitHub", icon: <IconGitHub /> },
-  { href: "https://youtube.com/@leonvanzyl", label: "YouTube", icon: <IconYouTube /> },
-  { href: "https://x.com/leonvz", label: "X", icon: <IconX /> },
-  { href: "https://leonvanzyl.com", label: "Website", icon: <IconGlobe /> },
-  { href: "mailto:leon.vanzyl@gmail.com", label: "Email", icon: <IconMail /> },
+  { href: "https://github.com/DansiDanutz", label: "GitHub", icon: <IconGitHub /> },
+  { href: "https://x.com/dansemenescu", label: "X", icon: <IconX /> },
+  { href: "https://www.facebook.com/dan.semenescu/", label: "Facebook", icon: <IconFacebook /> },
+  { href: "https://www.instagram.com/d.semenescu/", label: "Instagram", icon: <IconInstagram /> },
+  { href: "https://zmarty.vercel.app", label: "ZmartyChat", icon: <IconGlobe /> },
+  { href: "mailto:semebitcoin@gmail.com", label: "Email", icon: <IconMail /> },
 ];
 
 // ---------- animation atoms ----------
@@ -221,32 +238,32 @@ function HeroBody({ step, streamingCursor }: { step: number; streamingCursor: bo
     <div className="flex flex-col sm:flex-row gap-8 sm:gap-12 items-start">
       {step >= 1 && (
         <div className="shrink-0 flex flex-col items-center gap-3">
-          <div className="size-40 sm:size-52 rounded-full overflow-hidden border border-accent/70 shadow-[0_0_80px_-15px_rgba(168,85,247,0.55)]">
+          <div className="size-40 sm:size-52 rounded-full overflow-hidden border border-accent/70 shadow-[0_0_80px_-15px_rgba(34,211,238,0.55)]">
             <Image
-              src="/leon.jpeg"
-              alt="Leon van Zyl"
+              src="/dan.jpeg"
+              alt="Dan Semenescu"
               width={208}
               height={208}
               priority
               className="size-full object-cover"
             />
           </div>
-          <span className="text-muted text-xs">leon.jpeg</span>
+          <span className="text-muted text-xs">dan.jpeg</span>
         </div>
       )}
       <div className="space-y-4 sm:pt-2 min-h-[12rem]">
         {step >= 2 && (
-          <h1 className="text-4xl sm:text-6xl font-bold tracking-wide text-foreground">LEON VAN ZYL</h1>
+          <h1 className="text-4xl sm:text-6xl font-bold tracking-wide text-foreground">DAN SEMENESCU</h1>
         )}
-        {step >= 3 && <p className="text-success text-xl sm:text-2xl">AI Engineer</p>}
+        {step >= 3 && <p className="text-success text-xl sm:text-2xl">Founder, DansLab — Multi-Agent AI Architecture</p>}
         {step >= 4 && (
           <p className="text-lg max-w-xl text-foreground/95 leading-relaxed">
-            Building <span className="text-accent">AI agents</span> that think, plan, and ship autonomously.
+            Building <span className="text-accent">named AI agent fleets</span> that orchestrate, ship, and operate real products.
           </p>
         )}
         {step >= 5 && (
           <>
-            <p className="text-dim text-sm">// Mosselbay, South Africa</p>
+            <p className="text-dim text-sm">// Cluj-Napoca, Romania · Stack Finance LLC</p>
             <div className="flex gap-5 pt-2 text-dim">
               {socials.map((s) => (
                 <a
@@ -282,14 +299,22 @@ function BioBody({ step, streamingCursor }: { step: number; streamingCursor: boo
   );
 }
 
-function SkillsBody({ step, streamingCursor }: { step: number; streamingCursor: boolean }) {
+function AgentsBody({ step, streamingCursor }: { step: number; streamingCursor: boolean }) {
   return (
-    <ul className="space-y-2 text-base sm:text-lg">
-      {skills.slice(0, step).map((s, i) => (
-        <li key={s.label}>
-          <span className="text-highlight">{s.label.padEnd(11, " ")}</span>
-          <span>{s.items}</span>
-          {streamingCursor && i === step - 1 && step < skills.length && <Cursor />}
+    <ul className="space-y-3 text-base sm:text-lg">
+      {agents.slice(0, step).map((a, i) => (
+        <li key={a.name} className="flex flex-col sm:flex-row sm:items-baseline sm:gap-4">
+          <span className="shrink-0 flex items-center gap-2.5 min-w-[9rem]">
+            <span
+              className="size-2.5 rounded-full"
+              style={{ background: a.color, boxShadow: `0 0 12px ${a.color}` }}
+              aria-hidden
+            />
+            <span className="font-semibold" style={{ color: a.color }}>{a.name}</span>
+            <span className="text-dim text-sm">{a.role}</span>
+          </span>
+          <span className="text-foreground/90">— {a.focus}</span>
+          {streamingCursor && i === step - 1 && step < agents.length && <Cursor />}
         </li>
       ))}
     </ul>
@@ -302,7 +327,7 @@ function ProjectsBody({ step, streamingCursor }: { step: number; streamingCursor
       {projects.slice(0, step).map((p, i) => (
         <li key={p.name} className="flex flex-col sm:flex-row sm:items-baseline sm:gap-4">
           <a
-            href={`https://github.com/leonvanzyl/${p.name}`}
+            href={p.href}
             target="_blank"
             rel="noreferrer noopener"
             className="text-highlight hover:underline shrink-0"
@@ -310,7 +335,7 @@ function ProjectsBody({ step, streamingCursor }: { step: number; streamingCursor
             {p.name}
           </a>
           <span className="text-foreground/90">— {p.description}</span>
-          <span className="text-muted text-xs sm:ml-auto shrink-0">★ {p.stars}</span>
+          <span className="text-muted text-xs sm:ml-auto shrink-0">{p.tag}</span>
           {streamingCursor && i === step - 1 && step < projects.length && <Cursor />}
         </li>
       ))}
@@ -346,8 +371,8 @@ function renderBody(def: SectionDef, state: SectionState, isActive: boolean) {
       return <HeroBody step={state.bodySteps} streamingCursor={streamingCursor} />;
     case "bio":
       return <BioBody step={state.bodySteps} streamingCursor={streamingCursor} />;
-    case "skills":
-      return <SkillsBody step={state.bodySteps} streamingCursor={streamingCursor} />;
+    case "agents":
+      return <AgentsBody step={state.bodySteps} streamingCursor={streamingCursor} />;
     case "projects":
       return <ProjectsBody step={state.bodySteps} streamingCursor={streamingCursor} />;
     case "contact":
@@ -360,7 +385,7 @@ type QAEntry = { patterns: string[]; answer: string };
 const qa = qaData as QAEntry[];
 
 const FALLBACK_ANSWER =
-  "I don't have a canned answer for that one. Try asking about my background, tech stack, projects, availability, rates, location, or how to get in touch. For anything else, email leon.vanzyl@gmail.com.";
+  "I don't have a canned answer for that one. Try asking about DansLab, the agent fleet, MyWork-AI, ZmartyChat, OpenClaw, availability, or my stack. For anything else, email semebitcoin@gmail.com.";
 
 function tokenize(text: string): string[] {
   return text.match(/\S+\s*/g) ?? [text];
@@ -462,7 +487,7 @@ function ChatInterface() {
           onChange={(e) => setValue(e.target.value)}
           spellCheck={false}
           autoComplete="off"
-          aria-label="Ask a question about Leon"
+          aria-label="Ask a question about Dan"
           className="flex-1 bg-transparent outline-none border-none text-foreground caret-accent placeholder:text-muted"
           placeholder="ask me anything…"
         />
@@ -607,7 +632,7 @@ export default function Home() {
               <span className="size-3 rounded-full bg-[#febc2e]" aria-hidden />
               <span className="size-3 rounded-full bg-[#28c840]" aria-hidden />
             </div>
-            <span className="text-dim text-sm hidden sm:inline">leon@terminal &mdash; 0:45</span>
+            <span className="text-dim text-sm hidden sm:inline">dan@danslab &mdash; ~/profile</span>
           </div>
           <div className="flex items-center gap-3">
             <button
