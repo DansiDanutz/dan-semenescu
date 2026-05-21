@@ -6,9 +6,7 @@ import qaData from "../data/qa.json";
 
 // ===== CONFIG =====
 // Dan's WhatsApp number in international format, digits only (no +, no spaces).
-// e.g. for +40 712 345 678 you write "40712345678"
-// TODO: replace placeholder with the real number.
-const WHATSAPP_NUMBER = "40700000000";
+const WHATSAPP_NUMBER = "40744602272";
 const CONTACT_EMAIL = "semebitcoin@gmail.com";
 // ==================
 
