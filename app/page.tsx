@@ -267,15 +267,17 @@ function HeroBody({ step, streamingCursor }: { step: number; streamingCursor: bo
     <div className="flex flex-col sm:flex-row gap-8 sm:gap-12 items-start">
       {step >= 1 && (
         <div className="shrink-0 flex flex-col items-center gap-3">
-          <div className="size-40 sm:size-52 rounded-full overflow-hidden border border-accent/70 shadow-[0_0_80px_-15px_rgba(34,211,238,0.55)]">
-            <Image
-              src="/dan.jpeg"
-              alt="Dan Semenescu"
-              width={208}
-              height={208}
-              priority
-              className="size-full object-cover"
-            />
+          <div className="avatar-ring size-40 sm:size-52 rounded-full p-[3px]">
+            <div className="size-full rounded-full overflow-hidden bg-background">
+              <Image
+                src="/dan.jpeg"
+                alt="Dan Semenescu"
+                width={208}
+                height={208}
+                priority
+                className="size-full object-cover"
+              />
+            </div>
           </div>
           <span className="text-muted text-xs">dan.jpeg</span>
         </div>

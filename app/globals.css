@@ -39,3 +39,45 @@ body {
 .cursor-blink {
   animation: cursor-blink 0.9s steps(2) infinite;
 }
+
+@property --ring-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes ring-spin {
+  to {
+    --ring-angle: 360deg;
+  }
+}
+
+@keyframes avatar-glow {
+  0%, 100% {
+    box-shadow: 0 0 60px -15px rgba(34, 211, 238, 0.45), 0 0 25px -10px rgba(251, 146, 60, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 100px -15px rgba(34, 211, 238, 0.7), 0 0 45px -10px rgba(251, 146, 60, 0.4);
+  }
+}
+
+.avatar-ring {
+  background: conic-gradient(
+    from var(--ring-angle),
+    #22d3ee 0%,
+    #22c55e 14%,
+    #3b82f6 28%,
+    #a855f7 42%,
+    #f97316 56%,
+    #ec4899 70%,
+    #facc15 84%,
+    #22d3ee 100%
+  );
+  animation: ring-spin 8s linear infinite, avatar-glow 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .avatar-ring {
+    animation: none;
+  }
+}
