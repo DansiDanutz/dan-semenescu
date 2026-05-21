@@ -19,21 +19,22 @@ type Boss = {
 };
 type ProductNode = { name: string; tag: string; x: number; color: string; dashed?: boolean };
 
+// Order: leaders first (Hermes, David), then droplets (Dexter, Nano, Memo, Sienna)
 const bosses: Boss[] = [
+  { id: "hermes", name: "Hermes", role: "The Brain", focus: "Most capable model · paired hand-in-hand with OpenClaw", color: "#facc15", img: "/team/hermes.png", video: "/team/hermes.mp4", repo: "https://github.com/DansiDanutz/hermes-agent", machine: "high-reasoning" },
   { id: "david", name: "David", role: "Orchestrator", focus: "Fleet command · task routing · lab-sync workflows", color: "#22c55e", img: "/team/david.png", video: "/team/david.mp4", repo: "https://github.com/DansiDanutz/david-workspace", machine: "mac-studio" },
   { id: "dexter", name: "Dexter", role: "Senior Dev", focus: "NERVIX backend · CrawdBot · DevOps", color: "#3b82f6", img: "/team/dexter.png", video: "/team/dexter.mp4", repo: "https://github.com/DansiDanutz/dexter-workspace", machine: "dexter-droplet" },
   { id: "nano", name: "Nano", role: "Agent Creator", focus: "NERVIX enrollment · agent factory", color: "#a855f7", img: "/team/nano.png", video: "/team/nano.mp4", repo: "https://github.com/DansiDanutz/nano-workspace", machine: "nano-droplet" },
   { id: "memo", name: "Memo", role: "Product Manager", focus: "MyWork framework · n8n automations", color: "#f97316", img: "/team/memo.png", video: "/team/memo.mp4", repo: "https://github.com/DansiDanutz/memo-workspace", machine: "memo-droplet" },
   { id: "sienna", name: "Sienna", role: "Crypto Operator", focus: "ZmartyChat · OpenClaw trading", color: "#ec4899", img: "/team/sienna.png", video: "/team/sienna.mp4", repo: "https://github.com/DansiDanutz/sienna-workspace", machine: "sienna-droplet" },
-  { id: "hermes", name: "Hermes", role: "The Brain", focus: "Most capable model · paired hand-in-hand with OpenClaw", color: "#facc15", img: "/team/hermes.png", video: "/team/hermes.mp4", repo: "https://github.com/DansiDanutz/hermes-agent", machine: "high-reasoning" },
 ];
 
 const productNodes: ProductNode[] = [
-  { name: "Nervix.ai", tag: "★ PRIORITY · federation", x: 100, color: "#fb923c" },
-  { name: "YouTube Studio", tag: "★ GATEWAY · creator", x: 300, color: "#fb923c" },
-  { name: "MyWork-AI", tag: "pip install mywork-ai", x: 500, color: "#22d3ee" },
-  { name: "ZmartyChat", tag: "AI crypto trading", x: 700, color: "#22d3ee" },
-  { name: "OpenClaw", tag: "collective × Hermes", x: 900, color: "#facc15", dashed: true },
+  { name: "Nervix.ai", tag: "★ PRIORITY · federation", x: 125, color: "#fb923c" },
+  { name: "YouTube Studio", tag: "★ GATEWAY · creator", x: 325, color: "#fb923c" },
+  { name: "MyWork-AI", tag: "pip install mywork-ai", x: 525, color: "#22d3ee" },
+  { name: "ZmartyChat", tag: "AI crypto trading", x: 725, color: "#22d3ee" },
+  { name: "OpenClaw", tag: "collective × Hermes", x: 925, color: "#facc15", dashed: true },
 ];
 
 const projects: Project[] = [
@@ -59,13 +60,13 @@ const bioTokens: Token[] = [
   { text: "DansLab", cls: "text-accent" },
   { text: " — a " },
   { text: "multi-agent AI architecture", cls: "text-accent" },
-  { text: " where a named fleet (" },
-  { text: "David, Dexter, Nano, Memo, Sienna", cls: "text-accent" },
-  { text: ") plus " },
+  { text: " led by " },
   { text: "Hermes", cls: "text-accent" },
-  { text: " — the most capable brain, paired hand-in-hand with " },
-  { text: "OpenClaw", cls: "text-accent" },
-  { text: " — orchestrates real products under " },
+  { text: " (the brain) and " },
+  { text: "David", cls: "text-accent" },
+  { text: " (the orchestrator), with " },
+  { text: "Dexter, Nano, Memo, Sienna", cls: "text-accent" },
+  { text: " running the droplets — all under " },
   { text: "Stack Finance LLC", cls: "text-accent" },
   { text: ". Priorities: " },
   { text: "Nervix.ai", cls: "text-accent" },
@@ -81,11 +82,11 @@ const manifestoSections: { heading: string; body: string }[] = [
   },
   {
     heading: "The architecture",
-    body: "Four layers stack together: a Tailscale-linked fleet of 8 machines as the substrate; a roster of named agents as the executive team; an OpenClaw collective handling trading and channel work; and a portfolio of shipping products on top — Nervix.ai, YouTube Studio, MyWork-AI, ZmartyChat.",
+    body: "Four layers stack together: Dan as the human owner; Hermes and David as the leadership pair (brain + orchestrator); four droplet agents (Dexter, Nano, Memo, Sienna) running specialized verticals; and a portfolio of shipping products on top — Nervix.ai, YouTube Studio, MyWork-AI, ZmartyChat, and the OpenClaw collective.",
   },
   {
-    heading: "The agents",
-    body: "Each agent has a name, a personality, a home machine, and a GitHub workspace. David orchestrates from the Mac Studio. Dexter ships backend code. Memo runs PM and n8n flows. Nano enrolls new agents. Sienna runs the crypto vertical. And Hermes — the most capable brain in the fleet — works hand-in-hand with the OpenClaw collective. They coordinate, hand off, and ship — without daily babysitting.",
+    heading: "The leadership",
+    body: "Hermes is the most capable brain in the fleet — it runs the highest-reasoning tasks and pairs hand-in-hand with the OpenClaw collective. David is the orchestrator on Mac Studio — fleet command, task routing, and lab-sync workflows. Together they sit between Dan and the droplet workers: Dan sets direction, Hermes + David translate it into work, the droplets ship.",
   },
   {
     heading: "The priorities",
@@ -116,7 +117,7 @@ const sectionDefs: SectionDef[] = [
   { id: "bg", prompt: "cat about.md", tools: ["Reading about.md", "Compiling DansLab manifest"], bodyKind: "bio", bodySteps: bioTokens.length },
   { id: "danslab", prompt: "cat ~/danslab/MANIFESTO.md", tools: ["Reading MANIFESTO.md", "Loading company architecture", "Stamping Stack Finance LLC"], bodyKind: "manifesto", bodySteps: manifestoSections.length },
   { id: "bosses", prompt: "ls ~/danslab/bosses/", tools: ["Booting fleet", "Loading portraits", "Waking hermes"], bodyKind: "bosses", bodySteps: bosses.length },
-  { id: "diagram", prompt: "cat ~/danslab/topology.svg", tools: ["Reading topology", "Resolving connections", "Rendering org chart"], bodyKind: "diagram", bodySteps: 3 },
+  { id: "diagram", prompt: "cat ~/danslab/topology.svg", tools: ["Reading topology", "Wiring connectors", "Pulsing Hermes ↔ OpenClaw"], bodyKind: "diagram", bodySteps: 4 },
   { id: "projects", prompt: "ls ~/danslab/projects/ --sort=priority", tools: ["Fetching repos from github.com/DansiDanutz", "Loading metadata", "Sorting by priority"], bodyKind: "projects", bodySteps: projects.length },
   { id: "contact", prompt: "cat contact.txt", tools: ["Reading contact.txt", "Validating links"], bodyKind: "contact", bodySteps: contacts.length },
 ];
@@ -145,7 +146,7 @@ const fullState = (def: SectionDef): SectionState => ({
   done: true,
 });
 
-const STORAGE_KEY = "danslab-portfolio-played-v4";
+const STORAGE_KEY = "danslab-portfolio-played-v5";
 
 // ---------- icons ----------
 function IconGitHub() {
@@ -403,80 +404,137 @@ function BossesBody({ step }: { step: number }) {
 }
 
 function DiagramBody({ step }: { step: number }) {
+  const bossById = Object.fromEntries(bosses.map((b) => [b.id, b]));
+  const leaderNodes = [
+    { id: "david", x: 380 },
+    { id: "hermes", x: 620 },
+  ];
+  const dropletNodes = [
+    { id: "dexter", x: 140 },
+    { id: "nano", x: 380 },
+    { id: "memo", x: 620 },
+    { id: "sienna", x: 860 },
+  ];
+
   return (
     <div className="max-w-5xl">
       <svg
-        viewBox="0 0 1000 520"
+        viewBox="0 0 1000 640"
         className="w-full h-auto"
         role="img"
-        aria-label="DansLab company topology — Dan, the agent fleet, and shipping products"
+        aria-label="DansLab company topology — Dan, leadership (Hermes + David), 4 droplets, and products"
       >
-        {/* Connectors render under nodes */}
+        {/* === Connectors (animated flowing dashes) === */}
         {step >= 2 && (
-          <g stroke="#52525b" strokeWidth="1.4" fill="none" opacity="0.7">
-            {bosses.map((b, i) => {
-              const x = 100 + i * 160;
-              return <path key={`dan-${b.id}`} d={`M 500 95 L 500 130 L ${x} 130 L ${x} 160`} />;
-            })}
+          <g fill="none" stroke="#52525b" strokeWidth="1.4" className="flow-line" opacity="0.85">
+            {/* Dan → David */}
+            <path d="M 500 95 V 130 H 380 V 170" />
+            {/* Dan → Hermes */}
+            <path d="M 500 95 V 130 H 620 V 170" />
           </g>
         )}
+
         {step >= 3 && (
+          <g fill="none" stroke="#52525b" strokeWidth="1.4" className="flow-line" opacity="0.85">
+            {/* Leaders down to bar */}
+            <path d="M 380 240 V 290" />
+            <path d="M 620 240 V 290" />
+            {/* Horizontal leadership bar */}
+            <path d="M 140 290 H 860" />
+            {/* Bar down to each droplet */}
+            <path d="M 140 290 V 330" />
+            <path d="M 380 290 V 330" />
+            <path d="M 620 290 V 330" />
+            <path d="M 860 290 V 330" />
+          </g>
+        )}
+
+        {step >= 4 && (
           <>
-            <g stroke="#52525b" strokeWidth="1.4" fill="none" opacity="0.7">
-              {/* Dexter (260) → Nervix.ai (100) */}
-              <path d="M 260 235 L 260 295 L 100 295 L 100 410" />
-              {/* Nano (420) → Nervix.ai (100) */}
-              <path d="M 420 235 L 420 305 L 100 305 L 100 410" />
-              {/* Memo (580) → MyWork-AI (500) */}
-              <path d="M 580 235 L 580 280 L 500 280 L 500 410" />
-              {/* Memo (580) → YouTube Studio (300) */}
-              <path d="M 580 235 L 580 290 L 300 290 L 300 410" />
-              {/* Sienna (740) → ZmartyChat (700) */}
-              <path d="M 740 235 L 740 280 L 700 280 L 700 410" />
-              {/* Sienna (740) → OpenClaw (900) */}
-              <path d="M 740 235 L 740 320 L 900 320 L 900 410" />
+            <g fill="none" stroke="#52525b" strokeWidth="1.4" className="flow-line" opacity="0.85">
+              {/* Dexter → Nervix.ai */}
+              <path d="M 140 405 V 460 H 125 V 520" />
+              {/* Nano → Nervix.ai */}
+              <path d="M 380 405 V 485 H 125 V 520" />
+              {/* Memo → MyWork-AI */}
+              <path d="M 620 405 V 465 H 525 V 520" />
+              {/* Memo → YouTube Studio */}
+              <path d="M 620 405 V 485 H 325 V 520" />
+              {/* Sienna → ZmartyChat */}
+              <path d="M 860 405 V 465 H 725 V 520" />
+              {/* Sienna → OpenClaw */}
+              <path d="M 860 405 V 485 H 925 V 520" />
             </g>
-            {/* Hermes ↔ OpenClaw — paired, dashed gold */}
+            {/* Hermes ↔ OpenClaw — paired, pulsing gold */}
             <path
-              d="M 900 235 L 900 410"
+              d="M 620 240 V 255 H 965 V 505 H 925"
+              fill="none"
               stroke="#facc15"
               strokeWidth="2.5"
-              strokeDasharray="6 4"
-              fill="none"
-              opacity="0.95"
+              className="flow-paired"
             />
           </>
         )}
 
-        {/* Layer 1: Dan */}
+        {/* === Layer 1: Dan === */}
         {step >= 1 && (
           <g>
-            <rect x="430" y="35" width="140" height="60" rx="6" fill="rgba(34,211,238,0.08)" stroke="#22d3ee" strokeWidth="1.5" />
-            <text x="500" y="60" textAnchor="middle" fontSize="14" fontWeight="600" fill="#d4d4d8" fontFamily="ui-monospace, monospace">Dan Semenescu</text>
-            <text x="500" y="80" textAnchor="middle" fontSize="11" fill="#a1a1aa" fontFamily="ui-monospace, monospace">// operator · strategy</text>
+            <rect x="430" y="30" width="140" height="65" rx="6" fill="rgba(34,211,238,0.10)" stroke="#22d3ee" strokeWidth="1.8" />
+            <text x="500" y="56" textAnchor="middle" fontSize="14" fontWeight="700" fill="#d4d4d8" fontFamily="ui-monospace, monospace">Dan Semenescu</text>
+            <text x="500" y="76" textAnchor="middle" fontSize="11" fill="#a1a1aa" fontFamily="ui-monospace, monospace">// human owner</text>
           </g>
         )}
 
-        {/* Layer 2: 6 Bosses */}
-        {step >= 2 && bosses.map((b, i) => {
-          const x = 100 + i * 160;
+        {/* === Layer 2: Hermes + David (leadership) === */}
+        {step >= 2 && leaderNodes.map((node) => {
+          const b = bossById[node.id];
           return (
-            <g key={`node-${b.id}`}>
-              <rect x={x - 55} y="160" width="110" height="75" rx="6"
-                fill={`${b.color}1A`} stroke={b.color} strokeWidth="1.5" />
-              <text x={x} y="184" textAnchor="middle" fontSize="14" fontWeight="700" fill={b.color} fontFamily="ui-monospace, monospace">{b.name}</text>
-              <text x={x} y="203" textAnchor="middle" fontSize="10" fill="#a1a1aa" fontFamily="ui-monospace, monospace">{b.role}</text>
-              <text x={x} y="220" textAnchor="middle" fontSize="9" fill="#71717a" fontFamily="ui-monospace, monospace">{b.machine}</text>
+            <g key={`leader-${node.id}`}>
+              <rect
+                x={node.x - 70}
+                y="170"
+                width="140"
+                height="70"
+                rx="6"
+                fill={`${b.color}1F`}
+                stroke={b.color}
+                strokeWidth="2"
+              />
+              <text x={node.x} y="195" textAnchor="middle" fontSize="14" fontWeight="700" fill={b.color} fontFamily="ui-monospace, monospace">{b.name}</text>
+              <text x={node.x} y="213" textAnchor="middle" fontSize="10" fill="#d4d4d8" fontFamily="ui-monospace, monospace">{b.role}</text>
+              <text x={node.x} y="230" textAnchor="middle" fontSize="9" fill="#71717a" fontFamily="ui-monospace, monospace">{b.machine}</text>
             </g>
           );
         })}
 
-        {/* Layer 3: Products + OpenClaw */}
-        {step >= 3 && productNodes.map((p) => (
+        {/* === Layer 3: 4 Droplets === */}
+        {step >= 3 && dropletNodes.map((node) => {
+          const b = bossById[node.id];
+          return (
+            <g key={`droplet-${node.id}`}>
+              <rect
+                x={node.x - 60}
+                y="330"
+                width="120"
+                height="75"
+                rx="6"
+                fill={`${b.color}14`}
+                stroke={b.color}
+                strokeWidth="1.5"
+              />
+              <text x={node.x} y="354" textAnchor="middle" fontSize="13" fontWeight="700" fill={b.color} fontFamily="ui-monospace, monospace">{b.name}</text>
+              <text x={node.x} y="372" textAnchor="middle" fontSize="10" fill="#a1a1aa" fontFamily="ui-monospace, monospace">{b.role}</text>
+              <text x={node.x} y="389" textAnchor="middle" fontSize="9" fill="#71717a" fontFamily="ui-monospace, monospace">{b.machine}</text>
+            </g>
+          );
+        })}
+
+        {/* === Layer 4: Products + OpenClaw === */}
+        {step >= 4 && productNodes.map((p) => (
           <g key={`prod-${p.name}`}>
             <rect
               x={p.x - 70}
-              y="410"
+              y="520"
               width="140"
               height="55"
               rx="6"
@@ -485,18 +543,18 @@ function DiagramBody({ step }: { step: number }) {
               strokeWidth="1.5"
               strokeDasharray={p.dashed ? "4 3" : undefined}
             />
-            <text x={p.x} y="432" textAnchor="middle" fontSize="13" fontWeight="700" fill={p.color} fontFamily="ui-monospace, monospace">{p.name}</text>
-            <text x={p.x} y="452" textAnchor="middle" fontSize="9" fill="#a1a1aa" fontFamily="ui-monospace, monospace">{p.tag}</text>
+            <text x={p.x} y="542" textAnchor="middle" fontSize="13" fontWeight="700" fill={p.color} fontFamily="ui-monospace, monospace">{p.name}</text>
+            <text x={p.x} y="562" textAnchor="middle" fontSize="9" fill="#a1a1aa" fontFamily="ui-monospace, monospace">{p.tag}</text>
           </g>
         ))}
 
-        {/* Legend */}
-        {step >= 3 && (
-          <g transform="translate(20, 495)" fontFamily="ui-monospace, monospace">
-            <line x1="0" y1="-3" x2="22" y2="-3" stroke="#52525b" strokeWidth="1.4" />
+        {/* === Legend === */}
+        {step >= 4 && (
+          <g transform="translate(20, 615)" fontFamily="ui-monospace, monospace">
+            <line x1="0" y1="-3" x2="22" y2="-3" stroke="#52525b" strokeWidth="1.4" strokeDasharray="3 5" />
             <text x="28" y="0" fontSize="10" fill="#a1a1aa">reports to</text>
-            <line x1="120" y1="-3" x2="142" y2="-3" stroke="#facc15" strokeWidth="2" strokeDasharray="4 3" />
-            <text x="148" y="0" fontSize="10" fill="#a1a1aa">Hermes ↔ OpenClaw (paired)</text>
+            <line x1="130" y1="-3" x2="152" y2="-3" stroke="#facc15" strokeWidth="2.2" strokeDasharray="6 4" />
+            <text x="158" y="0" fontSize="10" fill="#a1a1aa">Hermes ↔ OpenClaw (paired)</text>
           </g>
         )}
       </svg>

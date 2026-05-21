@@ -81,3 +81,39 @@ body {
     animation: none;
   }
 }
+
+@keyframes flow-march {
+  to {
+    stroke-dashoffset: -16;
+  }
+}
+
+@keyframes flow-pulse {
+  0%, 100% {
+    stroke-dashoffset: 0;
+    opacity: 0.85;
+    filter: drop-shadow(0 0 0 rgba(250, 204, 21, 0));
+  }
+  50% {
+    stroke-dashoffset: -20;
+    opacity: 1;
+    filter: drop-shadow(0 0 6px rgba(250, 204, 21, 0.55));
+  }
+}
+
+.flow-line path {
+  stroke-dasharray: 3 5;
+  animation: flow-march 1.4s linear infinite;
+}
+
+.flow-paired {
+  stroke-dasharray: 6 4;
+  animation: flow-pulse 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow-line path,
+  .flow-paired {
+    animation: none;
+  }
+}
