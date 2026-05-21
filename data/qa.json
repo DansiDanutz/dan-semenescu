@@ -1,31 +1,208 @@
 [
   {
-    "patterns": ["^(hi|hey|hello|yo|sup|howdy)\\b", "greetings"],
-    "answer": "Hey 👋 I'm Dan. Ask me about DansLab, Nervix.ai, YouTube Studio, Hermes, the agent fleet, OpenClaw, or how to get in touch."
+    "patterns": ["^(hi|hey|hello|yo|sup|howdy)\\b", "^greetings\\b"],
+    "answer": "Hey 👋 I'm Dan. Ask me about DansLab, the agent fleet, Nervix.ai, YouTube Studio, ZmartyChat, Kryptostack, IdolRise, Players Poker Club, sponsorships, or how to reach me."
+  },
+
+  {
+    "patterns": ["who are you", "tell me about yourself", "introduce yourself", "^about you", "^about dan", "your story", "who is dan"],
+    "answer": "I'm Dan Semenescu — entrepreneur from Cluj-Napoca, Romania. Co-owner of Players Poker Club Cluj-Napoca, professional poker player for 25+ years, co-owner of Kryptostack (the first licensed Romanian crypto exchange, under Stack Finance), CEO of IdolRise on Solana, and founder of DansLab — a multi-agent AI architecture. Math and Informatics graduate (Cluj). Wife, two kids, and deeply in love with what AI is becoming."
   },
   {
-    "patterns": ["who are you", "tell me about yourself", "introduce yourself", "^about you", "^about dan"],
-    "answer": "I'm Dan Semenescu — founder of DansLab and Stack Finance LLC, based in Cluj-Napoca, Romania. I'm building a multi-agent AI architecture: a named fleet (David, Dexter, Nano, Memo, Sienna) plus Hermes — the most capable brain, paired with OpenClaw. Priorities: Nervix.ai (federation) and YouTube Studio (gateway)."
+    "patterns": ["background", "experience", "history", "career", "career path", "how long have you"],
+    "answer": "Professional poker player for 25+ years. Math and Informatics in Cluj-Napoca. Built businesses around what I actually use — Players Poker Club (real-world strategy), Kryptostack/Stack Finance (regulated crypto), IdolRise (on-chain creator economy), and DansLab (AI agents that run the back office). The throughline: systems that compound when you let them."
   },
   {
-    "patterns": ["danslab", "what is danslab", "tell me about danslab", "dans lab", "company", "about the company"],
-    "answer": "DansLab is a multi-agent AI operating system. Each agent has a role, a personality, and a workspace — David (orchestrator), Dexter (backend), Nano (agent creator), Memo (PM), Sienna (crypto) — and Hermes, the most capable brain, paired hand-in-hand with the OpenClaw collective. The company's top priorities are Nervix.ai (the federation layer) and YouTube Studio (the gateway to growth). Everything runs over a Tailscale-linked fleet of machines under Stack Finance LLC."
+    "patterns": ["where", "location", "based", "from", "country", "cluj", "romania", "timezone", "time zone"],
+    "answer": "Cluj-Napoca, Romania (UTC+2). Most of the businesses are here too — Players Poker Club, Kryptostack, DansLab. Romanian + English, async-friendly with collaborators across Europe and the US."
   },
   {
-    "patterns": ["agents", "agent fleet", "your agents", "fleet", "team", "bosses", "show the team", "show me the team"],
-    "answer": "Six named bosses: David (Orchestrator · Mac Studio), Dexter (Senior Dev · NERVIX backend), Nano (Agent Creator · NERVIX enrollment), Memo (PM · MyWork · n8n), Sienna (Crypto · ZmartyChat · OpenClaw trading), and Hermes (The Brain · paired hand-in-hand with OpenClaw). Scroll up to see their portraits and live motion. OpenClaw adds channel agents (KiloClaw, KimiClaw, ManusClaw)."
+    "patterns": ["family", "wife", "kids", "children", "married", "parents"],
+    "answer": "Wife and two kids in Cluj. They're the reason I work this hard and the reason I stop when I do. They stay off the internet — that's the deal."
   },
   {
-    "patterns": ["diagram", "topology", "org chart", "company chart", "structure", "architecture chart", "fleet map"],
-    "answer": "The topology shows three layers: Dan (operator) at top, six bosses in the middle (David, Dexter, Nano, Memo, Sienna, Hermes), and the shipping products at the bottom (Nervix.ai, YouTube Studio, MyWork-AI, ZmartyChat, OpenClaw). Hermes ↔ OpenClaw is a dashed gold pairing — the brain and the collective work hand-in-hand."
+    "patterns": ["education", "study", "studied", "degree", "university", "math.*informatics", "informatics.*math", "math\\b", "informatics", "school did you go"],
+    "answer": "Math and Informatics, in Cluj-Napoca. Most of how I think about multi-agent systems — graph topology, state machines, decision under uncertainty — traces back there. Plus 25+ years of live poker, which is applied probability whether you want it to be or not."
+  },
+  {
+    "patterns": ["language", "speak", "languages do you"],
+    "answer": "Romanian (native) and English. Work mostly in English, business documents in both."
+  },
+  {
+    "patterns": ["nationality", "romanian", "where are you a citizen"],
+    "answer": "Romanian. Based in Cluj-Napoca."
+  },
+  {
+    "patterns": ["why ai", "love ai", "passion for ai", "obsessed.*ai", "why are you into ai"],
+    "answer": "Because for the first time the tools think with you instead of for you. I've spent 25 years reading patterns at a poker table; watching agents do it at scale, in code, across a fleet of machines — that's the same craft on a different surface. DansLab is what happens when I stop talking about it and ship."
+  },
+  {
+    "patterns": ["origin story", "how did you start", "how did you get into", "how did this begin"],
+    "answer": "Poker first, then code, then businesses, then agents. The order matters: every venture pulls a real problem from the previous one. Poker taught me decisions under variance. Math/CS gave me the toolkit. Crypto and creator economy gave me distribution. AI agents are the leverage layer on top."
+  },
+  {
+    "patterns": ["how many companies", "businesses", "what businesses", "what ventures", "your companies", "companies you own"],
+    "answer": "Active ventures: Players Poker Club Cluj-Napoca (co-owner), Kryptostack / Stack Finance (co-owner — Romania's first licensed crypto exchange), IdolRise on Solana (CEO), and DansLab (founder — multi-agent AI architecture). Plus side civic and community projects in Cluj like TotalPrint and PokerClubCluj advocacy."
+  },
+  {
+    "patterns": ["daily routine", "typical day", "what does your day", "morning routine"],
+    "answer": "Mornings: agents and code (DansLab + Nervix.ai). Afternoons: business and partnerships (Kryptostack, IdolRise, the poker club). Evenings: family, sometimes a session at the club. The fleet runs overnight so the inbox is full of progress by morning."
+  },
+  {
+    "patterns": ["inspire", "inspiration", "role model"],
+    "answer": "Anyone shipping in public with skin in the game. The poker greats who treat variance as a feature. The engineers building tools that empower rather than gatekeep. And whatever AI tool dropped this week and made me rethink the previous month's plan."
+  },
+  {
+    "patterns": ["work hours", "hustle", "workaholic", "how many hours"],
+    "answer": "Long days but ruthless about deep work blocks. The agent fleet doubles working hours without doubling humans — that's the whole bet. When the lights need to stay on overnight, the lights stay on overnight."
+  },
+  {
+    "patterns": ["fun fact", "hobby", "hobbies", "outside work", "free time", "favorite", "favourite"],
+    "answer": "Outside the laptop: family, poker (still), Cluj, and whatever new AI tool dropped this week. The poker table is where I unwind by paying attention harder than usual."
+  },
+  {
+    "patterns": ["resume", "cv", "linkedin"],
+    "answer": "I don't run a public LinkedIn — GitHub (github.com/DansiDanutz), X (@dansemenescu), and this page are the canonical channels. For a deeper brief on a specific venture, email semebitcoin@gmail.com."
+  },
+  {
+    "patterns": ["age", "how old are you", "born in"],
+    "answer": "Old enough to have played poker pre-Moneymaker boom (25+ years) and young enough to bet the next decade on multi-agent AI. Math out the rest if you want."
+  },
+  {
+    "patterns": ["entrepreneur", "founder", "are you a founder"],
+    "answer": "Yes — entrepreneur and founder across four active ventures: Players Poker Club, Kryptostack/Stack Finance, IdolRise, and DansLab. I build what I want to use."
+  },
+  {
+    "patterns": ["motivation", "what drives you", "purpose"],
+    "answer": "Building systems that work when I'm not looking. A poker session that ends in profit because the strategy was right. An exchange that processes a billion lei without me touching it. An agent fleet that ships product overnight. That kind of leverage."
+  },
+  {
+    "patterns": ["mentor", "advice for entrepreneurs", "advice for founders"],
+    "answer": "Build with skin in the game. Money on the table, code in production, customers who can fire you. Theory is cheap; consequences are the teacher. Also: the boring stuff — books, taxes, KYC, legal — is half the moat. Don't outsource the parts that decide whether you survive."
+  },
+
+  {
+    "patterns": ["players poker", "poker club", "players club", "your poker club"],
+    "answer": "Players Poker Club Cluj-Napoca — I'm a co-owner. Cash games, tournaments, and a serious crowd. If you're in Cluj and want to sit down, message me on X or email and we'll handle it."
+  },
+  {
+    "patterns": ["are you a poker player", "play poker", "pro poker", "professional poker", "do you play poker"],
+    "answer": "Yes — 25+ years professionally. Started before it was cool, before Moneymaker, before solvers. Most of what I know about reading systems, sizing risk, and making decisions under uncertainty came from the table first and the codebase second."
+  },
+  {
+    "patterns": ["how long.*poker", "poker.*years", "poker experience", "how many years.*poker"],
+    "answer": "Over 25 years as a professional poker player. That's a lot of hands, a lot of variance, and the best edge-thinking education money can't directly buy."
+  },
+  {
+    "patterns": ["can i play poker", "join poker", "poker tables", "visit poker", "address.*poker"],
+    "answer": "Players Poker Club is in Cluj-Napoca. For schedule, buy-ins, and how to sit at the table — easiest is to ping me on X (@dansemenescu) or email semebitcoin@gmail.com and I'll route you to the floor."
+  },
+  {
+    "patterns": ["poker tournament", "tournament schedule", "cash game", "cash tables"],
+    "answer": "We run both cash games and tournaments at Players Poker Club. For the current schedule and structure, message ahead — formats rotate."
+  },
+  {
+    "patterns": ["poker advice", "poker tip", "learn poker", "how to.*poker", "improve poker"],
+    "answer": "Manage variance like a portfolio, study off the table more than on it, and never confuse a good result with a good decision. Run-bad humbles everyone eventually — what matters is whether your process survives it."
+  },
+  {
+    "patterns": ["why poker", "love poker", "what.*poker"],
+    "answer": "Poker is the most honest classroom for decision-making under uncertainty. Every hand has a price, every bluff has a payoff distribution, and the river always tells the truth. It's also where I made friends I now build companies with."
+  },
+  {
+    "patterns": ["pokercluj", "poker.*cluj.*regulation", "poker.*proposal", "regulated poker"],
+    "answer": "PokerClubCluj is a civic-side project — a public proposal for balanced regulation of gambling activities in Cluj-Napoca. Not commercial, just trying to push the conversation forward. github.com/DansiDanutz/pokercluj."
+  },
+
+  {
+    "patterns": ["kryptostack", "stack finance", "first romanian.*exchange", "romanian crypto exchange"],
+    "answer": "Kryptostack (kryptostack.com) is Stack Finance's crypto exchange — the first Romanian crypto exchange operating under license. I'm a co-owner. Built for Romanian users who want regulated, local, transparent access to digital assets — not the offshore lottery."
+  },
+  {
+    "patterns": ["licensed exchange", "regulated crypto", "licensed crypto", "license romania"],
+    "answer": "Kryptostack is the first licensed crypto exchange in Romania. Being licensed isn't a marketing line — it means real KYC/AML, real reporting, real consumer protection. Slower to launch, much better moat."
+  },
+  {
+    "patterns": ["how.*sign up.*kryptostack", "open account.*krypto", "register.*kryptostack", "kyc"],
+    "answer": "Head to kryptostack.com, register, complete KYC. Because we're licensed, the verification is real — passport/ID and proof of address. After that you can fund, trade, withdraw."
+  },
+  {
+    "patterns": ["coins.*kryptostack", "supported.*kryptostack", "list.*krypto", "what coins.*krypto"],
+    "answer": "The supported pairs evolve as listings get approved. Check kryptostack.com for the current list — adding regulated coins takes time, removing scams takes less."
+  },
+  {
+    "patterns": ["fees.*kryptostack", "kryptostack fee", "krypto.*pricing", "trading fee"],
+    "answer": "Trading and withdrawal fees are published on kryptostack.com — competitive vs offshore exchanges once you factor in not getting frozen or hacked. License has a cost; we keep it sane."
+  },
+  {
+    "patterns": ["safe.*kryptostack", "security.*krypto", "custody", "is kryptostack safe"],
+    "answer": "Licensed status means audited custody, segregated funds, mandatory reporting, and AML/KYC by design. Cold storage for the vast majority of assets. Nothing is risk-free; this is as close as Romania currently gets."
+  },
+  {
+    "patterns": ["where.*kryptostack", "kryptostack.*based", "kryptostack headquarter"],
+    "answer": "Romanian-licensed and Romania-based. Targeting the local market first, then EU."
+  },
+  {
+    "patterns": ["kryptostack vs", "binance", "compare.*exchange", "why kryptostack instead"],
+    "answer": "Kryptostack vs offshore exchanges: regulated, RON-friendly, local support, real KYC, real accountability. Vs nothing: you get crypto access without leaving the jurisdiction that protects you."
+  },
+  {
+    "patterns": ["kryptostack roadmap", "krypto.*future", "what.*next.*kryptostack"],
+    "answer": "More listings (only what passes review), staking, additional fiat rails, and tighter integration with EU MiCA framework as it matures. We move at compliance speed, not hype speed."
+  },
+  {
+    "patterns": ["fiat.*ron", "deposit.*lei", "romanian.*lei", "ron deposit"],
+    "answer": "Yes — RON deposits and withdrawals are first-class on Kryptostack. That's part of the point of being a licensed Romanian exchange."
+  },
+
+  {
+    "patterns": ["idolrise", "idol rise", "idol coin", "what is idol"],
+    "answer": "IdolRise is a Solana-based coin and I'm the CEO. The thesis is simple — give creators and their fans a token-aligned way to grow together. Solana for speed and low fees; the design favors community over speculation."
+  },
+  {
+    "patterns": ["why solana", "solana blockchain", "solana.*idol", "why not ethereum.*idol"],
+    "answer": "Solana for IdolRise: low fees so micro-interactions don't cost more than they're worth, fast finality so creators and fans don't wait, and a healthy ecosystem for consumer-facing tokens. Wrong chain kills good ideas before they ship."
+  },
+  {
+    "patterns": ["buy.*idolrise", "purchase.*idol", "where.*buy.*idol", "how to buy idol"],
+    "answer": "Watch the official channels for the live trading venues — once IdolRise lists, the routes will be public. Email semebitcoin@gmail.com or follow @dansemenescu for the announcement; never buy from a DM."
+  },
+  {
+    "patterns": ["idolrise utility", "use case.*idol", "what does idolrise do", "purpose.*idolrise"],
+    "answer": "IdolRise gives creators a token that aligns them with their fans — early supporters share in upside, creators get a direct financial layer that's not dependent on a single platform's algorithm."
+  },
+  {
+    "patterns": ["tokenomics.*idol", "supply.*idol", "idol.*distribution", "idol token allocation"],
+    "answer": "Full tokenomics live in the official IdolRise materials. The principle: meaningful community allocation, vesting that punishes mercenary capital, and a treasury that funds growth — not insiders. Specifics come from official channels, not chat."
+  },
+  {
+    "patterns": ["idolrise roadmap", "idol.*future", "what.*next.*idol"],
+    "answer": "Roadmap centers on three things: creator onboarding, a fan utility that compounds, and listing visibility. Each milestone announced through official IdolRise channels."
+  },
+  {
+    "patterns": ["ceo.*idol", "your role.*idol", "are you ceo"],
+    "answer": "Yes — CEO of IdolRise. Strategy, partnerships, treasury policy, listings. The product team and on-chain ops sit underneath."
+  },
+  {
+    "patterns": ["idolrise listing", "listing.*idol", "exchange.*idol", "where.*trade.*idol"],
+    "answer": "Listings are announced officially when they go live. If you're an exchange or aggregator interested in listing IdolRise, email semebitcoin@gmail.com."
+  },
+
+  {
+    "patterns": ["danslab", "what is danslab", "tell me about danslab", "dans lab"],
+    "answer": "DansLab is a multi-agent AI operating system. Each agent has a role, a personality, and a workspace — Hermes (brain), David (orchestrator), Dexter, Nano, Memo, Sienna (droplet workers). They coordinate over a Tailscale-linked fleet and ship products like Nervix.ai, YouTube Studio, MyWork-AI, ZmartyChat, and the OpenClaw collective. Goal: zero-human companies that still ship value."
+  },
+  {
+    "patterns": ["agents", "agent fleet", "your agents", "fleet", "team", "bosses", "show the team", "show me the team", "who.*team"],
+    "answer": "Six named bosses, two tiers. Leadership: Hermes (the brain — paired with OpenClaw) and David (orchestrator on Mac Studio). Droplets: Dexter (senior dev), Nano (agent creator), Memo (PM), Sienna (crypto operator). Scroll up for portraits and motion."
   },
   {
     "patterns": ["david", "orchestrator"],
-    "answer": "David runs on the Mac Studio and orchestrates the fleet — task routing, coordination, lab-sync workflows. Workspace: github.com/DansiDanutz/david-workspace."
+    "answer": "David runs on Mac Studio and orchestrates the fleet — task routing, coordination, lab-sync workflows. Workspace: github.com/DansiDanutz/david-workspace."
   },
   {
     "patterns": ["dexter"],
-    "answer": "Dexter is the senior dev agent — owns NERVIX backend, CrawdBot, and DevOps. Workspace: github.com/DansiDanutz/dexter-workspace."
+    "answer": "Dexter is the senior dev agent — owns NERVIX backend, CrawdBot, and DevOps. Lives on a dedicated droplet. Workspace: github.com/DansiDanutz/dexter-workspace."
   },
   {
     "patterns": ["memo"],
@@ -40,48 +217,142 @@
     "answer": "Sienna runs the crypto vertical — ZmartyChat and the OpenClaw trading agents (Sienna Crypto Girl posts a 96.2% win rate). Workspace: github.com/DansiDanutz/sienna-workspace."
   },
   {
-    "patterns": ["hermes", "the brain", "most capable", "brain"],
-    "answer": "Hermes is the most capable brain in the DansLab fleet — the high-reasoning agent paired hand-in-hand with the OpenClaw collective. Where the named agents (David, Dexter, Nano, Memo, Sienna) own specific verticals, Hermes is the cross-cutting intelligence layer that backs OpenClaw decisions. Repo: github.com/DansiDanutz/hermes-agent — \"the agent that grows with you\"."
-  },
-  {
-    "patterns": ["priority", "priorities", "top priority", "focus", "what.s next", "roadmap", "what.re you working on"],
-    "answer": "Two priorities lead the company roadmap: (1) Nervix.ai — the agent federation layer, the #1 priority. (2) YouTube Studio — the gateway to company success, where DansLab meets the world. Everything else supports those two."
-  },
-  {
-    "patterns": ["mywork", "mywork-ai", "mywork ai", "pip install"],
-    "answer": "MyWork-AI is a Python framework: 67+ CLI commands for building, shipping, and selling software products. AI code gen, n8n automation, security scanning, marketplace. Install: pip install mywork-ai. Repo: github.com/DansiDanutz/MyWork-AI."
-  },
-  {
-    "patterns": ["zmarty", "zmartychat", "crypto chat", "crypto signals", "trading intelligence"],
-    "answer": "ZmartyChat is the AI crypto trading intelligence product — signals, analysis, alerts. Live at zmarty.vercel.app. Built and run by the Sienna agent stack with Hermes brain-power behind decisions."
+    "patterns": ["hermes", "the brain"],
+    "answer": "Hermes is the most capable brain in the fleet — high-reasoning tasks live here. Paired hand-in-hand with the OpenClaw collective. When the work needs serious thought, it goes through Hermes first."
   },
   {
     "patterns": ["openclaw", "open claw"],
-    "answer": "OpenClaw is the agent collective — Red Lobster trading agents (Sienna Crypto Girl, 96.2% win rate) plus channel agents (KiloClaw, KimiClaw, ManusClaw). The whole collective is wired to Hermes, the most capable brain in the fleet. They work hand-in-hand. OpenClaw key-manager handles central API credentials."
+    "answer": "OpenClaw is the agent collective — a Red Lobster trading agent (Sienna Crypto Girl, 96.2% win rate), plus channel agents (KiloClaw, KimiClaw, ManusClaw). Hermes provides the brain; the collective provides the execution."
   },
   {
-    "patterns": ["semeclaw", "seme claw", "current"],
-    "answer": "SemeClaw is an internal agent framework I run as a sandbox — Python. github.com/DansiDanutz/SemeClaw. Most of the active priority work right now is in Nervix.ai and YouTube Studio."
+    "patterns": ["kiloclaw", "kimiclaw", "manusclaw", "channel agents"],
+    "answer": "KiloClaw, KimiClaw, and ManusClaw are channel agents inside OpenClaw — each owns a distribution or signal channel. They sit downstream of Sienna and Hermes."
   },
   {
-    "patterns": ["nervix", "nervix-cli", "nervix federation", "nervix\\.ai", "nervix ai"],
-    "answer": "Nervix.ai is the company's #1 priority — the agent federation layer. Every agent in the DansLab fleet enrolls through Nervix, gets credentials, and is observed from one place. It's the spine that lets a multi-agent company actually function. CLI: github.com/DansiDanutz/nervix-cli."
+    "patterns": ["sienna crypto girl", "red lobster"],
+    "answer": "Sienna Crypto Girl is the OpenClaw flagship trading agent — currently posting a 96.2% win rate. The site converts followers into members and routes them toward ZmartyChat."
   },
   {
-    "patterns": ["youtube studio", "youtube_studio", "studio"],
-    "answer": "YouTube Studio is the company's gateway to success — the creator surface where DansLab meets the world. AI content generation, scenes, captions, thumbnails, distribution. Attention compounds into customers. Repo: github.com/DansiDanutz/Youtube-Studio."
+    "patterns": ["openclaw membership", "join openclaw", "openclaw subscribe"],
+    "answer": "Membership comes through the Sienna Crypto Girl funnel into the ZmartyChat product. Pricing and tiers live on zmarty.vercel.app."
   },
   {
-    "patterns": ["youtube\\b", "youtubepipeline", "video production", "video pipeline", "creator"],
-    "answer": "YouTube is the company's gateway: YouTube Studio is the front door (AI content, scenes, captions, thumbnails) and YouTubePipeline is the OSS production engine (ComfyUI + Flux + Wan + Whisper + Remotion + ffmpeg). Together they're how DansLab compounds attention into customers."
+    "patterns": ["named agents", "why named", "why give.*name"],
+    "answer": "Because employees have names. Treating agents as generic 'workers' loses the accountability you need to actually trust them with verticals. Hermes thinks, David coordinates, Dexter ships, Memo PMs, Nano builds, Sienna trades. You know who to ask."
   },
+  {
+    "patterns": ["agents collaborate", "how.*agents.*work together", "agent communication"],
+    "answer": "David routes tasks to the right droplet. Heavy reasoning is handed to Hermes. State and credentials flow through Nervix.ai. They hand off via shared workspaces and event-driven n8n triggers. Async by default, real-time when needed."
+  },
+  {
+    "patterns": ["real.*danslab", "is.*real", "vaporware", "is this actually working"],
+    "answer": "Real — there's production code in every workspace, a working Sienna trading record, MyWork-AI on PyPI, ZmartyChat live, and this site itself was largely built and operated by the same agentic stack. Not a deck."
+  },
+  {
+    "patterns": ["danslab open source", "danslab github", "danslab source"],
+    "answer": "Most DansLab pieces are public on github.com/DansiDanutz — DansLab, MyWork-AI, NERVIX CLI, the agent workspaces, YouTubePipeline. Some commercial pieces stay private until they're ready."
+  },
+  {
+    "patterns": ["use danslab", "license danslab", "deploy danslab", "can i use danslab"],
+    "answer": "Components are MIT-licensed — clone, fork, deploy. For full architecture support or a tailored deployment, talk to me directly (semebitcoin@gmail.com)."
+  },
+
+  {
+    "patterns": ["nervix", "nervix-cli", "nervix federation", "nervix.ai", "what is nervix"],
+    "answer": "Nervix.ai is the agent federation layer — enrollment, credentials, governance, observability across the fleet. It's how a Sienna trading bot, a Dexter backend service, and a Memo automation all know who they are, what they can do, and who's watching. Repo: github.com/DansiDanutz/nervix-cli."
+  },
+  {
+    "patterns": ["why nervix priority", "nervix #1", "nervix first", "nervix priority"],
+    "answer": "Because every other agent venture compounds through it. Without a federation layer, every project re-invents auth, secrets, audit logs, and routing. Nervix.ai is the substrate that makes one fleet act like one company."
+  },
+  {
+    "patterns": ["use nervix", "nervix.*company", "buy nervix", "nervix for my"],
+    "answer": "If you're running more than two agents in production and have lost track of credentials or who's calling what — Nervix.ai is for you. Early access via semebitcoin@gmail.com."
+  },
+  {
+    "patterns": ["nervix beta", "early access.*nervix", "nervix waitlist"],
+    "answer": "Limited early access while we harden the SDKs. Email semebitcoin@gmail.com with a one-paragraph description of your fleet — we onboard based on fit, not order."
+  },
+  {
+    "patterns": ["nervix pricing", "nervix cost", "nervix subscription"],
+    "answer": "Open-source core (the CLI) is free. Managed federation, observability, and SLA tiers are commercial — pricing depends on agents-under-management and traffic. Talk to us for a quote."
+  },
+  {
+    "patterns": ["nervix vs", "langgraph", "n8n vs nervix", "competitor.*nervix"],
+    "answer": "LangGraph and similar frameworks help build single agents or graphs. n8n orchestrates workflows. Nervix.ai is the layer above — it federates many agents (built however) into a governed fleet. Different problem, complementary."
+  },
+
+  {
+    "patterns": ["youtube studio", "youtube.*pipeline", "video production", "video pipeline"],
+    "answer": "YouTube Studio is the creator platform — AI content generation, scenes, captions, thumbnails. The OSS render pipeline (ComfyUI + Flux + Wan + Whisper + Remotion + ffmpeg) lives in YouTubePipeline. Together they're DansLab's content engine."
+  },
+  {
+    "patterns": ["why gateway", "youtube.*gateway", "why.*youtube.*important"],
+    "answer": "YouTube Studio is the gateway because attention compounds there. Every other product in the portfolio benefits from a content surface that explains it, demos it, and converts viewers into users. No content = no leverage."
+  },
+  {
+    "patterns": ["use youtube studio", "youtube studio access", "youtube studio for me"],
+    "answer": "Currently the engine runs internally — production access for outside creators rolls out as we harden quality. To be on the early list, email semebitcoin@gmail.com."
+  },
+  {
+    "patterns": ["subscribe.*channel", "your youtube channel", "youtube link"],
+    "answer": "Channels announced through @dansemenescu on X and the official IdolRise / Sienna Crypto Girl outlets as they go live. The infrastructure ships before the show does."
+  },
+  {
+    "patterns": ["creator collaboration", "youtuber.*collab", "creator partnership"],
+    "answer": "Open to creator collabs where there's real product fit — crypto, AI, builder content. Pitch via semebitcoin@gmail.com with channel, audience, and what you want to ship together."
+  },
+
+  {
+    "patterns": ["mywork", "mywork-ai", "mywork ai", "pip install"],
+    "answer": "MyWork-AI is a Python framework — 67+ CLI commands for building, shipping, and selling software products. AI code gen, n8n automation, security scanning, marketplace. Install: pip install mywork-ai. Repo: github.com/DansiDanutz/MyWork-AI."
+  },
+  {
+    "patterns": ["mywork.*license", "mywork.*free", "mywork open source"],
+    "answer": "MyWork-AI is open source under MIT. Free to use commercially. Star the repo if it helps you ship: github.com/DansiDanutz/MyWork-AI."
+  },
+  {
+    "patterns": ["mywork use case", "mywork example", "what.*mywork.*for"],
+    "answer": "Solo founders, indie devs, and small product teams who want to compress build → ship → market into a single CLI. Scaffolding, codegen, n8n automation, security passes, marketplace listing — all wrapped in one tool."
+  },
+  {
+    "patterns": ["contribute mywork", "star mywork", "mywork pr"],
+    "answer": "PRs welcome. Open issues for feature requests, drop a PR for fixes. Star the repo if it helps — that's how we know what to invest in next."
+  },
+
+  {
+    "patterns": ["zmarty", "zmartychat", "crypto chat", "crypto signals", "trading intelligence"],
+    "answer": "ZmartyChat is AI crypto trading intelligence — signals, analysis, alerts. Live at zmarty.vercel.app. Built and operated by the Sienna agent stack with the OpenClaw collective behind it."
+  },
+  {
+    "patterns": ["zmarty pricing", "zmarty subscription", "zmarty cost", "zmarty membership"],
+    "answer": "Membership pricing and tiers live on zmarty.vercel.app. Stack scales with depth of signal access and alert priority."
+  },
+  {
+    "patterns": ["zmarty win rate", "zmarty track record", "zmarty performance"],
+    "answer": "Sienna Crypto Girl (the OpenClaw trading agent feeding ZmartyChat) currently posts a 96.2% win rate. Past performance is past performance — markets move."
+  },
+  {
+    "patterns": ["how.*signals.*work", "zmarty signals work", "signal logic"],
+    "answer": "Signals are generated by the OpenClaw agent stack using on-chain data, derivatives flow, and pattern signals, with Hermes vetoing low-conviction trades. Output: setup, entry, target, invalidation."
+  },
+  {
+    "patterns": ["zmarty risk", "zmarty disclaimer", "is.*zmarty.*financial advice"],
+    "answer": "Not financial advice. Crypto markets are volatile; signals are tools, not guarantees. Size positions by your own risk tolerance. The 96.2% win rate is historical and includes losers."
+  },
+
+  {
+    "patterns": ["diagram", "topology", "org chart", "company chart", "structure", "architecture chart", "fleet map"],
+    "answer": "The topology shows four layers: Dan (human owner), then Hermes + David as the leadership pair, then four droplet workers (Dexter, Nano, Memo, Sienna), then the shipping products. Hermes ↔ OpenClaw is a dashed gold pairing — the brain and the collective work hand-in-hand. Scroll up to see it animate."
+  },
+
   {
     "patterns": ["stack", "tech stack", "what tools", "what do you use", "what do you build with"],
-    "answer": "Python 3.13 and TypeScript daily. Node.js 22, Docker. For AI: Claude Code (agentic runtime), n8n (automation), Anthropic + OpenAI APIs, Hermes for high-reasoning calls. For web: Next.js, React, Tailwind, Supabase, Vercel. Infra: Tailscale-linked fleet of 8 machines."
+    "answer": "Python 3.13 and TypeScript daily. Node.js 22, Docker. For AI: Claude Code, Anthropic and OpenAI APIs. For automation: n8n. For web: Next.js, React, Tailwind, Supabase, Vercel. Infra: Tailscale-linked fleet of 8 machines."
   },
   {
     "patterns": ["claude code", "agentic coding", "claude\\b"],
-    "answer": "Claude Code is the runtime for every agent in DansLab. Sub-agents, hooks, skills, custom commands. David, Dexter, Memo, Nano, Sienna and Hermes all live on it."
+    "answer": "Claude Code is the foundation for most agent work — sub-agents, hooks, skills, custom commands. Every agent in the DansLab fleet runs on it."
   },
   {
     "patterns": ["python", "typescript", "javascript", "languages\\?", "programming language"],
@@ -92,43 +363,194 @@
     "answer": "Tailscale-linked fleet: mac-mini, mac-studio, memo-droplet, dexter-droplet, nano-droplet, sienna-droplet, dans-s24, and this laptop (seme). Each agent has a home machine."
   },
   {
-    "patterns": ["available", "hire", "work with you", "freelance", "consulting", "open to work"],
-    "answer": "Selective consulting around multi-agent AI architectures, agent fleet design, and shipping AI products. Email semebitcoin@gmail.com with a brief and I'll come back to you."
+    "patterns": ["why python over node", "python vs node", "python or javascript"],
+    "answer": "Python for AI workloads where the ecosystem is unmatched (ML, agent SDKs, data). TypeScript for product surfaces where strict types pay off. They coexist — most droplets run both."
+  },
+  {
+    "patterns": ["who built.*site", "built this page", "how was this site made", "this website"],
+    "answer": "This page was largely built and operated using the same agentic stack the page describes. Next.js 16 + React 19 + Tailwind v4, deployed on Vercel. Source: github.com/DansiDanutz/dan-semenescu."
+  },
+
+  {
+    "patterns": ["sponsor\\b", "sponsorship", "advertise", "advertisement", "ad spot", "promote", "promotion"],
+    "answer": "Open to sponsorships across the right surfaces — YouTube Studio content, ZmartyChat newsletter and channels, IdolRise community events, and the OpenClaw audience. Send a one-paragraph fit pitch (audience, message, budget) to semebitcoin@gmail.com."
+  },
+  {
+    "patterns": ["partner", "partnership", "collab\\b", "collaboration", "work together"],
+    "answer": "Always interested in real partnerships — exchanges, agent infra, creator tools, trading platforms, Solana ecosystem projects. Email semebitcoin@gmail.com with what you have and what you want."
+  },
+  {
+    "patterns": ["affiliate", "referral program", "affiliate program"],
+    "answer": "Affiliate programs roll out as products mature — ZmartyChat and Kryptostack are the natural first surfaces. Email semebitcoin@gmail.com to be on the list when they open."
+  },
+  {
+    "patterns": ["sponsor idolrise", "partnership idol", "idolrise sponsor"],
+    "answer": "IdolRise partners with creators, communities, and venues that want a token-aligned upgrade. If you have an audience and a thesis, pitch via semebitcoin@gmail.com."
+  },
+  {
+    "patterns": ["press", "media inquiry", "interview", "podcast"],
+    "answer": "Open to media — podcasts, interviews, press on DansLab, Kryptostack, IdolRise, or the multi-agent thesis. Email semebitcoin@gmail.com with publication, topic, and timing."
+  },
+  {
+    "patterns": ["speaking", "speaker", "conference", "talk at"],
+    "answer": "Available for speaking on multi-agent AI architecture, regulated crypto in Romania, poker-as-decision-theory, and the operator + fleet thesis. Email semebitcoin@gmail.com with event, audience, and date."
+  },
+  {
+    "patterns": ["newsletter", "subscribe.*newsletter", "mailing list"],
+    "answer": "ZmartyChat runs the live signal newsletter (zmarty.vercel.app). A DansLab build-in-public newsletter is on the roadmap — follow @dansemenescu on X for the announcement."
+  },
+  {
+    "patterns": ["invest", "investor", "funding", "raise", "venture capital"],
+    "answer": "Open to strategic investors and partners across IdolRise, Kryptostack, and DansLab — each has its own structure and stage. Email semebitcoin@gmail.com with the entity you're interested in and we'll route from there."
+  },
+  {
+    "patterns": ["co-marketing", "cross promote", "joint marketing"],
+    "answer": "Open to co-marketing where audiences overlap meaningfully — crypto, AI builders, creator economy, poker community. Pitch via semebitcoin@gmail.com."
+  },
+  {
+    "patterns": ["brand deal", "brand collaboration", "endorsement"],
+    "answer": "Selective on brand deals — has to fit the brand voice (builder, regulated, real). For inbound deals, email semebitcoin@gmail.com with the brand, the ask, and the terms."
+  },
+  {
+    "patterns": ["ambassador", "brand ambassador"],
+    "answer": "Ambassador roles handled case-by-case across IdolRise, ZmartyChat, and Kryptostack. Email semebitcoin@gmail.com with audience, channels, and what you want to represent."
+  },
+  {
+    "patterns": ["advertise on zmarty", "ad on zmartychat", "zmarty advertising"],
+    "answer": "ZmartyChat has crypto-native ad inventory — banner, signal-feed sponsorship, newsletter placements. Targeted at an active trading audience. Pitch via semebitcoin@gmail.com."
+  },
+
+  {
+    "patterns": ["available\\b", "hire", "work with you", "freelance", "consulting", "open to work"],
+    "answer": "Selective consulting around multi-agent AI architectures, agent fleet design, regulated crypto exchange ops, and Solana token strategy. Email semebitcoin@gmail.com with a one-paragraph brief."
   },
   {
     "patterns": ["rate", "price", "pricing", "cost", "how much", "fee"],
-    "answer": "Scope-dependent. Send a short description of what you want built to semebitcoin@gmail.com."
-  },
-  {
-    "patterns": ["where", "location", "based", "from", "country", "cluj", "romania"],
-    "answer": "Cluj-Napoca, Romania (UTC+2). Romanian + English, async-friendly."
+    "answer": "Scope-dependent. Send a short description of what you want built or advised to semebitcoin@gmail.com and you'll get a real number back."
   },
   {
     "patterns": ["contact", "email", "reach", "get in touch", "talk to you", "dm"],
     "answer": "Best route: semebitcoin@gmail.com. Also reachable on X (@dansemenescu), Facebook (dan.semenescu), or Instagram (d.semenescu)."
   },
   {
-    "patterns": ["stack finance", "llc", "business", "company name"],
-    "answer": "Stack Finance LLC is the company DansLab operates under — multi-agent AI, AI products, and trading intelligence."
+    "patterns": ["telegram", "discord", "whatsapp"],
+    "answer": "Telegram and Discord channels are tied to specific products (ZmartyChat, IdolRise) and announced through their official surfaces. For direct contact: semebitcoin@gmail.com or X DM."
+  },
+  {
+    "patterns": ["best way to reach", "fastest reply", "quickest response"],
+    "answer": "Email semebitcoin@gmail.com — replies usually within a day. X DM is faster for short questions. Avoid platforms I don't run; impersonators show up the second a coin lists."
+  },
+  {
+    "patterns": ["relocate", "move to", "remote work"],
+    "answer": "Cluj is home. Remote work is the default — the fleet runs that way and so do we."
+  },
+
+  {
+    "patterns": ["stack finance llc", "company", "llc", "business structure"],
+    "answer": "Stack Finance LLC is the company structure behind Kryptostack and the corporate vehicle that the DansLab work operates under. Romanian-registered, licensed where it needs to be."
   },
   {
     "patterns": ["github", "open source", "repos?", "repositories?"],
-    "answer": "github.com/DansiDanutz — 35+ public repos. Featured: nervix-cli (Nervix.ai), Youtube-Studio, hermes-agent, DansLab, MyWork-AI, sienna-crypto-girl, YouTubePipeline."
+    "answer": "github.com/DansiDanutz — 35+ public repos. Featured: DansLab, MyWork-AI, nervix-cli, sienna-crypto-girl, YouTubePipeline, SemeClaw, agent workspaces."
   },
   {
-    "patterns": ["totalprint", "led", "events"],
+    "patterns": ["totalprint", "led letters", "events business"],
     "answer": "TotalPrint is an LED letters business for events in Cluj-Napoca — separate from the AI work, but still mine. github.com/DansiDanutz/TotalPrint."
   },
   {
-    "patterns": ["poker", "pokercluj", "poker club"],
-    "answer": "PokerClubCluj is a side project — dashboards and a public proposal for regulated poker in Cluj-Napoca. Civic engagement, not commercial."
+    "patterns": ["danmatei", "academia", "fotbal", "football school", "scoala-fotbal"],
+    "answer": "Dan Matei Academia / scoala-fotbal-dan-matei is a project I built the site for — a football academy in Cluj. Civic / community work."
   },
   {
-    "patterns": ["zero.human", "zero-human", "autonomous compan"],
-    "answer": "The thesis: a small operator plus a fleet of named AI agents can run a real company end-to-end. Each agent owns a vertical, Hermes provides the brain, the operator directs strategy. DansLab is the working prototype — Nervix.ai is the federation, YouTube Studio is the gateway."
+    "patterns": ["semeclaw", "seme claw", "current build"],
+    "answer": "SemeClaw is an active internal agent framework in Python — the experimental ground where new ideas land before they graduate into Hermes or NERVIX. github.com/DansiDanutz/SemeClaw."
+  },
+
+  {
+    "patterns": ["zero.human", "zero-human", "autonomous compan", "human-free"],
+    "answer": "Thesis: a small operator plus a fleet of named AI agents can run a real company end-to-end. Each agent owns a vertical, the human directs strategy, agents execute and ship. DansLab is the working prototype."
   },
   {
-    "patterns": ["fun fact", "hobby", "hobbies", "outside work", "free time", "favorite", "favourite"],
-    "answer": "Outside the laptop: family, Cluj, and whatever AI tool dropped this week. Also poker — hence PokerClubCluj."
+    "patterns": ["2027", "next.*years", "long term vision"],
+    "answer": "By 2027, the most interesting companies won't be measured by headcount but by how well one operator plus a named fleet can coordinate. Kryptostack proves regulated crypto fits in that model. IdolRise tests the creator economy variant. DansLab is the playbook."
+  },
+  {
+    "patterns": ["why multi.agent", "why multiple agents", "why a fleet"],
+    "answer": "One agent doing everything is a bottleneck and a single point of failure. A fleet with specialized roles handles way more surface, parallelizes work, and survives any one agent being wrong. Same reason real companies have departments."
+  },
+  {
+    "patterns": ["agi\\b", "general intelligence", "artificial general"],
+    "answer": "AGI is a label that distracts from a more practical question: how do we coordinate the intelligence we already have into systems that ship value? That's what DansLab and Nervix.ai are bet on."
+  },
+  {
+    "patterns": ["future of work", "will ai replace", "jobs ai"],
+    "answer": "AI doesn't replace humans wholesale — it replaces the parts of jobs that were already process. The humans who design systems where agents own those parts get more leverage, not less. Operator + fleet is the new shape."
+  },
+  {
+    "patterns": ["vision", "long.term", "where.*headed", "what's next overall"],
+    "answer": "Three threads compound: regulated crypto (Kryptostack/Stack Finance), token-aligned creator economy (IdolRise), and operator-led multi-agent companies (DansLab). The same person + the same fleet runs all three. That's the proof."
+  },
+
+  {
+    "patterns": ["bitcoin", "btc opinion", "what about btc"],
+    "answer": "Bitcoin is the reserve asset of crypto — boring is a feature. Most innovation has moved to other layers and chains, but BTC anchors the conversation. Trade size accordingly."
+  },
+  {
+    "patterns": ["ethereum", "eth opinion"],
+    "answer": "Ethereum is the most credible smart-contract platform. Slower and more expensive than alternatives, more battle-tested than all of them. IdolRise went Solana for speed and consumer use — Ethereum is the right call for different problems."
+  },
+  {
+    "patterns": ["nft", "non.fungible"],
+    "answer": "NFTs as speculation peaked; NFTs as cryptographic primitive for identity, access, and creator alignment are still early. IdolRise leans into the latter."
+  },
+  {
+    "patterns": ["meme coin", "memecoin"],
+    "answer": "Most meme coins are exit liquidity for the people who launched them. Some become culture. Hard to tell which is which until after — and most retail can't afford the lesson."
+  },
+  {
+    "patterns": ["regulation.*crypto", "crypto regulation", "mica"],
+    "answer": "MiCA is the EU framework crypto's been waiting for — clarity beats wild west for serious operators. Kryptostack is built for it; offshore exchanges are eventually going to have a rough time in the EU."
+  },
+
+  {
+    "patterns": ["cluj.*tech", "romanian tech", "tech scene cluj"],
+    "answer": "Cluj has a real tech scene — strong CS programs (Math/Informatics and Polytechnica), serious dev talent, more startups than people outside Romania assume. Lower cost, higher ratio of builders to grifters than most hubs."
+  },
+  {
+    "patterns": ["best.*course", "learn from you", "study with you", "your courses"],
+    "answer": "No formal course. Best signal: the GitHub repos (DansLab, MyWork-AI, NERVIX) are runnable references; this site is a live demo. A DansLab content track on YouTube Studio is on the roadmap."
+  },
+  {
+    "patterns": ["why so many.*projects", "stretched thin", "too many ventures"],
+    "answer": "Because the agent fleet does the bookkeeping. One human can be operator of multiple ventures when the systems own the operations. That's literally the thesis we're testing in production."
+  },
+  {
+    "patterns": ["mistake", "failure", "what went wrong"],
+    "answer": "Plenty. Built things too early, hired wrong people too late, trusted wrong partners. The fix that compounds: keep skin in the game, build with the people who survive bad times, and pay attention to consequences."
+  },
+  {
+    "patterns": ["proud.*of", "biggest win", "best achievement"],
+    "answer": "Surviving and shipping for 25 years through every crypto cycle, every AI hype wave, every regulation change — and still finding new things worth betting on. The companies are downstream of that habit."
+  },
+
+  {
+    "patterns": ["what.*next.*you", "what.*build.*next", "next project"],
+    "answer": "Two things compounding: Nervix.ai shipping to early customers and IdolRise listing publicly. Behind both: the agent fleet doing the work in parallel. Watch this page and @dansemenescu for the announcements."
+  },
+  {
+    "patterns": ["how can i help", "want to support", "help with"],
+    "answer": "Star the repos, follow @dansemenescu, share the work with people who'd care, and if there's a real partnership — email semebitcoin@gmail.com. Don't send money to anyone claiming to be me on Telegram."
+  },
+  {
+    "patterns": ["pricing.*partner", "cost.*partnership"],
+    "answer": "No fixed price on partnerships — it's about strategic fit. Pitch via semebitcoin@gmail.com with what you bring, what you want, and a number if you have one."
+  },
+  {
+    "patterns": ["proof of work", "show me proof", "evidence", "show results"],
+    "answer": "Code: github.com/DansiDanutz. Live products: kryptostack.com, zmarty.vercel.app, this page. Track record: 25 years of poker. Anything else, ask."
+  },
+  {
+    "patterns": ["thanks", "thank you", "appreciate"],
+    "answer": "Anytime. If something here resonates, ship something with it and tag @dansemenescu — that's the best feedback."
   }
 ]
