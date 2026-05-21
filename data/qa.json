@@ -1,7 +1,7 @@
 [
   {
     "patterns": ["^(hi|hey|hello|yo|sup|howdy)\\b", "^greetings\\b"],
-    "answer": "Hey 👋 I'm Dan. Ask me about DansLab, the agent fleet, Nervix.ai, YouTube Studio, ZmartyChat, Kryptostack, IdolRise, Players Poker Club, sponsorships, or how to reach me."
+    "answer": "Hey 👋 I'm Dan. Ask me about Hermes, OpenClaw, the agent fleet, infrastructure, Nervix.ai, ZmartyChat, Kryptostack, IdolRise, trading, the autonomous-company thesis, sponsorships, or how to reach me."
   },
 
   {
@@ -216,32 +216,95 @@
     "patterns": ["sienna"],
     "answer": "Sienna runs the crypto vertical — ZmartyChat and the OpenClaw trading agents (Sienna Crypto Girl posts a 96.2% win rate). Workspace: github.com/DansiDanutz/sienna-workspace."
   },
+
   {
     "patterns": ["hermes", "the brain"],
     "answer": "Hermes is the most capable brain in the fleet — high-reasoning tasks live here. Paired hand-in-hand with the OpenClaw collective. When the work needs serious thought, it goes through Hermes first."
   },
   {
+    "patterns": ["what model.*hermes", "hermes model", "which llm.*hermes", "hermes runs on"],
+    "answer": "Hermes runs on the most capable model available at the time — currently Claude Opus-class for the heaviest reasoning, with frontier alternatives kept warm as fallbacks. The brain isn't loyal to a vendor; it's loyal to capability."
+  },
+  {
+    "patterns": ["why hermes name", "why called hermes", "why named hermes"],
+    "answer": "Hermes — messenger of the gods, the one who moves between worlds. Fitting for an agent that brokers high-reasoning between the operator and the rest of the fleet."
+  },
+  {
+    "patterns": ["when.*hermes invoked", "when does hermes run", "when does hermes get called"],
+    "answer": "Hermes gets invoked when a task needs serious reasoning — trade vetoes, architecture decisions, ambiguous prompts, content QA. Routine work stays with the droplet agents; only escalations reach Hermes. That keeps both quality and cost in check."
+  },
+  {
+    "patterns": ["hermes cost", "expensive.*hermes", "running hermes cost", "hermes spend"],
+    "answer": "Hermes is the most expensive agent per call by design — it's the brain, not the worker. We minimize invocations through routing rules. Per-month spend stays reasonable because the fleet does 90%+ of the work without ever touching Hermes."
+  },
+  {
+    "patterns": ["hermes openclaw pairing", "hermes pair.*openclaw", "why hermes openclaw", "hermes.*paired"],
+    "answer": "Hermes provides the reasoning, OpenClaw provides the execution. Sienna Crypto Girl proposes trades; Hermes vets them. Channel agents draft content; Hermes refines it. The pairing is what gets the 96.2% win rate — not the bot, the bot plus the veto."
+  },
+  {
+    "patterns": ["hermes vs claude", "why not use claude.*directly", "what's special.*hermes", "hermes vs frontier"],
+    "answer": "Claude is the model. Hermes is the role — a named agent with a workspace, a memory, a Nervix.ai identity, and clear escalation paths. Same engine, different organization. The difference is operational, not capability."
+  },
+  {
+    "patterns": ["hermes memory", "hermes context", "does hermes remember", "hermes persistence"],
+    "answer": "Hermes maintains long-running context through its workspace plus shared state via Nervix.ai. Decisions and rationale persist across sessions; routine context resets between tasks to keep tokens sane."
+  },
+  {
+    "patterns": ["can i talk.*hermes", "access hermes directly", "hermes api"],
+    "answer": "Hermes isn't a public endpoint — it sits inside the DansLab fleet. For Hermes-backed work, you're consuming whichever DansLab product Hermes is feeding (ZmartyChat for crypto, NERVIX for agent design)."
+  },
+
+  {
     "patterns": ["openclaw", "open claw"],
     "answer": "OpenClaw is the agent collective — a Red Lobster trading agent (Sienna Crypto Girl, 96.2% win rate), plus channel agents (KiloClaw, KimiClaw, ManusClaw). Hermes provides the brain; the collective provides the execution."
+  },
+  {
+    "patterns": ["openclaw architecture", "how.*openclaw.*built", "openclaw structure"],
+    "answer": "OpenClaw is a small collective: Sienna at the top (operator), a Red Lobster trading agent doing signal generation, three channel agents (KiloClaw, KimiClaw, ManusClaw) handling distribution, and Hermes as the brain on call. State and credentials sit on Nervix.ai."
+  },
+  {
+    "patterns": ["red lobster", "what is red lobster", "red lobster agent"],
+    "answer": "Red Lobster is the codename for the trading agent inside OpenClaw — the one that watches order flow, on-chain signals, and pattern setups to generate trade proposals. Hermes vets, Sienna executes, the result is the 96.2% win rate."
+  },
+  {
+    "patterns": ["openclaw risk", "openclaw risk management", "how.*openclaw.*risk"],
+    "answer": "Two-layered: Red Lobster proposes only with position-sizing constraints built in; Hermes vetoes anything with bad risk/reward. Stop-losses mandatory; over-leverage gets killed before the trade fires. The win rate isn't from being clever; it's from being disciplined."
+  },
+  {
+    "patterns": ["openclaw apis", "openclaw data sources", "openclaw exchanges"],
+    "answer": "OpenClaw connects to standard crypto exchange APIs for execution and on-chain data providers for signal generation. Specific vendors evolve; the abstraction is at the agent level, not the API level."
+  },
+  {
+    "patterns": ["openclaw vs trading bot", "how is openclaw different.*bot", "openclaw vs bot"],
+    "answer": "Most trading bots are dumb executors of a fixed strategy. OpenClaw is a collective — multiple specialized agents debate, one brain (Hermes) vetoes, one operator (Sienna) executes. Closer to a small trading desk than a bot."
+  },
+  {
+    "patterns": ["openclaw history", "when.*openclaw start", "openclaw origin"],
+    "answer": "OpenClaw evolved out of the Sienna agent workspace as the trading vertical needed more than one agent could handle. The Red Lobster naming and the collective structure stuck."
+  },
+  {
+    "patterns": ["openclaw open source", "openclaw code", "openclaw github"],
+    "answer": "The OpenClaw key-manager is public (github.com/DansiDanutz/openclaw-key-manager). The Red Lobster signal engine and the channel agents stay private — that's the alpha."
   },
   {
     "patterns": ["kiloclaw", "kimiclaw", "manusclaw", "channel agents"],
     "answer": "KiloClaw, KimiClaw, and ManusClaw are channel agents inside OpenClaw — each owns a distribution or signal channel. They sit downstream of Sienna and Hermes."
   },
   {
-    "patterns": ["sienna crypto girl", "red lobster"],
+    "patterns": ["sienna crypto girl"],
     "answer": "Sienna Crypto Girl is the OpenClaw flagship trading agent — currently posting a 96.2% win rate. The site converts followers into members and routes them toward ZmartyChat."
   },
   {
     "patterns": ["openclaw membership", "join openclaw", "openclaw subscribe"],
     "answer": "Membership comes through the Sienna Crypto Girl funnel into the ZmartyChat product. Pricing and tiers live on zmarty.vercel.app."
   },
+
   {
     "patterns": ["named agents", "why named", "why give.*name"],
     "answer": "Because employees have names. Treating agents as generic 'workers' loses the accountability you need to actually trust them with verticals. Hermes thinks, David coordinates, Dexter ships, Memo PMs, Nano builds, Sienna trades. You know who to ask."
   },
   {
-    "patterns": ["agents collaborate", "how.*agents.*work together", "agent communication"],
+    "patterns": ["agents collaborate", "how.*agents.*work together", "agent communication", "how do.*agents.*talk"],
     "answer": "David routes tasks to the right droplet. Heavy reasoning is handed to Hermes. State and credentials flow through Nervix.ai. They hand off via shared workspaces and event-driven n8n triggers. Async by default, real-time when needed."
   },
   {
@@ -342,13 +405,42 @@
   },
 
   {
+    "patterns": ["trading philosophy", "trading approach", "how do you trade", "your trading style"],
+    "answer": "Edge first, size second, ego never. Have a thesis, define invalidation, size so you survive being wrong, take the trade. Most blowups come from breaking one of those four in the same week."
+  },
+  {
+    "patterns": ["risk management trading", "how.*manage risk.*trade", "trade risk"],
+    "answer": "Position size relative to account, not to conviction. Hard stop on every trade. Cap correlated exposure — don't be 'long crypto' across five names that all move together. Diversify by setup type, not just by ticker."
+  },
+  {
+    "patterns": ["position sizing", "how big.*position", "trade size"],
+    "answer": "Rule of thumb: a full loss should hurt but not break you. For most setups that's a small single-digit percent of trading capital. Anyone telling you to YOLO half your stack is selling you the dream of being the survivor, not the math."
+  },
+  {
+    "patterns": ["win rate", "high win rate", "win rate.*trading"],
+    "answer": "Win rate without risk/reward is marketing. A 60% win rate at 1:1 R:R loses to a 35% win rate at 3:1. The 96.2% on Sienna Crypto Girl is the headline; the actual edge is in the average R per trade. Always look for both."
+  },
+  {
+    "patterns": ["backtest", "backtesting", "backtest results"],
+    "answer": "Backtests are useful for elimination, not for confirmation. If a strategy fails the backtest, kill it. If it passes, you've learned the easy part — live with real fills, slippage, and emotions is where strategies actually die."
+  },
+  {
+    "patterns": ["common trading mistake", "trading mistakes", "biggest trading mistake"],
+    "answer": "Top three: oversize after a win streak, refuse to take the stop, revenge-trade after a loss. All three are the same mistake — letting feelings override the system. The system is supposed to be the thing that does the trading."
+  },
+  {
+    "patterns": ["time frame", "what timeframe", "scalping or swing"],
+    "answer": "Mostly swing — daily and 4H frames. Scalping needs constant attention; swing lets the fleet do the watching. Long-term holdings sit separately in cold storage."
+  },
+
+  {
     "patterns": ["diagram", "topology", "org chart", "company chart", "structure", "architecture chart", "fleet map"],
     "answer": "The topology shows four layers: Dan (human owner), then Hermes + David as the leadership pair, then four droplet workers (Dexter, Nano, Memo, Sienna), then the shipping products. Hermes ↔ OpenClaw is a dashed gold pairing — the brain and the collective work hand-in-hand. Scroll up to see it animate."
   },
 
   {
-    "patterns": ["stack", "tech stack", "what tools", "what do you use", "what do you build with"],
-    "answer": "Python 3.13 and TypeScript daily. Node.js 22, Docker. For AI: Claude Code, Anthropic and OpenAI APIs. For automation: n8n. For web: Next.js, React, Tailwind, Supabase, Vercel. Infra: Tailscale-linked fleet of 8 machines."
+    "patterns": ["stack\\b", "tech stack", "what tools", "what do you use", "what do you build with"],
+    "answer": "Python 3.13 and TypeScript daily. Node.js 22, Docker. For AI: Claude Code, Anthropic and OpenAI APIs, plus local models for bulk work. For automation: n8n. For web: Next.js, React, Tailwind, Supabase, Vercel. Infra: Tailscale-linked fleet of 8 machines."
   },
   {
     "patterns": ["claude code", "agentic coding", "claude\\b"],
@@ -359,16 +451,66 @@
     "answer": "Python 3.13 and TypeScript daily — Python for agent backends and CLIs, TS for web (Next.js)."
   },
   {
-    "patterns": ["tailscale", "machines", "infra", "network"],
+    "patterns": ["tailscale", "machines", "infra\\b", "network"],
     "answer": "Tailscale-linked fleet: mac-mini, mac-studio, memo-droplet, dexter-droplet, nano-droplet, sienna-droplet, dans-s24, and this laptop (seme). Each agent has a home machine."
   },
+
   {
-    "patterns": ["why python over node", "python vs node", "python or javascript"],
-    "answer": "Python for AI workloads where the ecosystem is unmatched (ML, agent SDKs, data). TypeScript for product surfaces where strict types pay off. They coexist — most droplets run both."
+    "patterns": ["infrastructure", "what.*infra", "infrastructure stack", "infra setup"],
+    "answer": "Eight Tailscale-linked machines: Mac Studio (David's home), mac-mini, four droplets (one per droplet agent), dans-s24 mobile node, and this laptop (seme). Plus Vercel for web surfaces and Supabase for app data. Self-hosted where it matters, managed where it doesn't."
   },
   {
-    "patterns": ["who built.*site", "built this page", "how was this site made", "this website"],
-    "answer": "This page was largely built and operated using the same agentic stack the page describes. Next.js 16 + React 19 + Tailwind v4, deployed on Vercel. Source: github.com/DansiDanutz/dan-semenescu."
+    "patterns": ["why tailscale", "tailscale benefit", "tailscale instead"],
+    "answer": "Tailscale: no public ports, no SSH gymnastics, magic DNS, ACLs that make sense. `ssh dexter` and you're in — from any machine, anywhere, no VPN configuration. Cuts the security and ergonomics problems of a fleet in half."
+  },
+  {
+    "patterns": ["how many machines", "machines count", "how many servers"],
+    "answer": "Eight: mac-studio (David), mac-mini, dexter-droplet, nano-droplet, memo-droplet, sienna-droplet, dans-s24, and seme (this laptop). Each agent has a home. Plus ephemeral compute when heavy renders need it."
+  },
+  {
+    "patterns": ["infrastructure cost", "monthly cost.*infra", "fleet cost", "infra spend"],
+    "answer": "Tailscale free tier (under 100 devices), the droplets are small VPSes, the Mac Studio is owned hardware, Vercel and Supabase are mostly free tier. Monthly opex is in the low hundreds of EUR — the agents amplify that into much more output."
+  },
+  {
+    "patterns": ["backup", "disaster recovery", "what if.*droplet fail", "agent crash"],
+    "answer": "Code is in git (public + private). State is in Supabase + Nervix.ai (backed up). If a droplet dies, spin a new one, point Nervix at it, the agent reincarnates in minutes. No special agent is irreplaceable except by config — that's the point of named identities."
+  },
+  {
+    "patterns": ["monitoring", "observability", "how do you monitor", "log monitoring"],
+    "answer": "Nervix.ai is the observability layer for agent activity. Stack-level: Vercel logs, Supabase logs, basic uptime monitors on droplets. Critical alerts route to me directly; routine status is checked async."
+  },
+  {
+    "patterns": ["self hosted", "cloud vs self.hosted", "why self host", "managed vs self"],
+    "answer": "Self-host the things that need control (the agent fleet, secrets via Nervix), use managed services for things that are commoditized (Vercel, Supabase). Don't fight gravity — but don't pay rent on your own data either."
+  },
+  {
+    "patterns": ["ci.*cd", "deployment pipeline", "how do you deploy", "deployment process"],
+    "answer": "Git push → Vercel auto-deploys for web. Agents redeploy via their own workspaces (often the agent updates its own code, then restarts). No heavy CI yet — Vercel hooks and git triggers cover most of it."
+  },
+
+  {
+    "patterns": ["local model", "local llm", "run.*locally", "self.hosted model", "on premise model"],
+    "answer": "We use local models for workloads where latency, privacy, or cost matters more than peak capability — Whisper for transcription, Flux/Wan for image and video, smaller LLMs for routing. Hermes stays on frontier API models because the brain has to be the brain."
+  },
+  {
+    "patterns": ["which local model", "what local model", "local model used"],
+    "answer": "Today: Whisper and Piper (audio in/out), Flux and Wan (image/video), Llama and Qwen variants for routing-class LLM work. The render stack is in YouTubePipeline — ComfyUI orchestrates the heavy renders."
+  },
+  {
+    "patterns": ["why local vs api", "local vs cloud llm", "local vs hosted"],
+    "answer": "Local wins when it's bulk (transcribing hours of audio), privacy-critical, or latency-bound. API wins when it's one-off, the model needs to be the best, or the bill is smaller than the GPU. Match workload to economics."
+  },
+  {
+    "patterns": ["hardware local model", "gpu local", "what gpu"],
+    "answer": "Mac Studio handles most local inference (M-series GPU for image/audio, decent for small LLMs). Heavier renders escape to Comfy Cloud when needed. No NVIDIA in the fleet yet — Apple Silicon does enough."
+  },
+  {
+    "patterns": ["ollama", "vllm", "llama.cpp", "local inference runtime"],
+    "answer": "Ollama for quick local LLM work, llama.cpp under the hood for tighter control. vLLM if we ever push throughput on a dedicated box. Pragmatic, not religious about it."
+  },
+  {
+    "patterns": ["local model cost", "save.*local model", "local cheaper"],
+    "answer": "Local saves real money on bulk transcription and image generation. For frontier reasoning, the API bill is still much cheaper than the hardware to match it. Match workload to economics."
   },
 
   {
@@ -471,6 +613,59 @@
     "answer": "Thesis: a small operator plus a fleet of named AI agents can run a real company end-to-end. Each agent owns a vertical, the human directs strategy, agents execute and ship. DansLab is the working prototype."
   },
   {
+    "patterns": ["how autonomous", "fully autonomous", "really autonomous", "actually autonomous"],
+    "answer": "Today: ~80% autonomous on the right tasks. Code commits, content generation, signal vetoes, agent enrollment, infra checks — all happen without me touching them. Strategic decisions, high-stakes partnerships, anything that talks to humans high-stakes — still me. Goal: push that 80 higher while keeping human-only decisions sharp."
+  },
+  {
+    "patterns": ["what.*still needs.*human", "what can't agents do", "agent limit"],
+    "answer": "Three things stay with humans: partnerships and high-trust deals, legal and regulatory judgment, and brand voice in critical moments. Plus the call on what to ship next — agents are great at building, less good at deciding what to build."
+  },
+  {
+    "patterns": ["trust agents", "how do you trust", "trust agent"],
+    "answer": "Trust is earned through bounded scope plus observability. Each agent has a workspace, a credential set, an action budget. Nothing important happens without logs. If you can fire an agent (replace its config), you can trust it."
+  },
+  {
+    "patterns": ["debug agents", "agent failure", "when agent.*wrong", "agent bug"],
+    "answer": "Every agent action gets logged through Nervix.ai. When something goes wrong: replay the trace, find the bad call, patch the prompt or the routing, redeploy. Treat agents like services — observable, replaceable, monitored."
+  },
+  {
+    "patterns": ["speed advantage", "faster.*agents", "how much faster", "agent productivity"],
+    "answer": "Code that used to take a week ships overnight. Content that took a day takes an hour. Signal vetting that needed me at the desk happens 24/7 without me. The speed isn't 2x — it's an order of magnitude on the right tasks, zero on the wrong ones."
+  },
+  {
+    "patterns": ["started.*agents", "when.*danslab start", "history of danslab"],
+    "answer": "DansLab as a coherent multi-agent system came together over the last 12-18 months — built incrementally as Claude Code, Anthropic and OpenAI agent SDKs, and the underlying models got actually useful. Some pieces (TotalPrint, the poker club) predate it by years; the AI architecture is the recent compounding layer."
+  },
+
+  {
+    "patterns": ["personal goal", "personal goals", "your goals", "what.*your goal"],
+    "answer": "Keep all four ventures growing without burning out. Get Nervix.ai to its first 100 paying federation customers. Get IdolRise to a credible community-driven listing. Prove the operator + fleet thesis publicly — so other people can copy it."
+  },
+  {
+    "patterns": ["company goal", "company goals", "danslab goal", "danslab mission"],
+    "answer": "DansLab goal: be the reference implementation for operator + fleet companies — small operator, named agent team, real revenue. Goal isn't to be a SaaS vendor of agents; it's to be living proof that a single-operator company can ship like a 50-person one."
+  },
+  {
+    "patterns": ["revenue target", "arr", "money goal", "revenue plan"],
+    "answer": "Numbers stay private — but the structure is clear: Kryptostack on transaction fees, ZmartyChat on subscriptions, Nervix.ai on per-agent management fees, IdolRise on token value capture. Multiple revenue layers from one operator + one fleet."
+  },
+  {
+    "patterns": ["user target", "customer target", "target audience"],
+    "answer": "Kryptostack: Romanian retail and SMEs who want regulated crypto. Nervix.ai: anyone running 3+ AI agents in production. ZmartyChat: active crypto traders. IdolRise: creators and their communities. Different products, different audiences, same operator."
+  },
+  {
+    "patterns": ["exit strategy", "ipo", "sell company", "acquire"],
+    "answer": "Not optimizing for exit. Optimizing for compound growth across all four ventures. If the right strategic offer comes for one (most likely Kryptostack as the regulated rail), open to it — but each business is built to keep going indefinitely."
+  },
+  {
+    "patterns": ["1 year", "5 year", "where in 5 years", "long term plan"],
+    "answer": "1 year: Nervix.ai shipping to paying customers, IdolRise publicly listed, Kryptostack expanded coin coverage, ZmartyChat membership scaled. 5 years: each of the four ventures profitable and independently durable, DansLab pattern openly replicated by other founders."
+  },
+  {
+    "patterns": ["target market", "geographic target", "where.*expand"],
+    "answer": "Kryptostack: Romania first, EU next (MiCA-ready). IdolRise: Solana-native, global. Nervix.ai: agent-builder world, English-speaking first. ZmartyChat: crypto Twitter and Telegram trading communities."
+  },
+  {
     "patterns": ["2027", "next.*years", "long term vision"],
     "answer": "By 2027, the most interesting companies won't be measured by headcount but by how well one operator plus a named fleet can coordinate. Kryptostack proves regulated crypto fits in that model. IdolRise tests the creator economy variant. DansLab is the playbook."
   },
@@ -492,6 +687,30 @@
   },
 
   {
+    "patterns": ["crypto strategy", "your crypto approach", "how.*think.*crypto"],
+    "answer": "Three layers: regulated rails (Kryptostack — the boring, profitable part), creator-economy tokens (IdolRise — bets on user alignment), and active trading (ZmartyChat — bets on signal edge). Each independent, each compounds the others' distribution."
+  },
+  {
+    "patterns": ["self custody", "hardware wallet", "cold storage"],
+    "answer": "Self-custody for anything you're not actively trading. Hardware wallet for large holdings, hot wallet only for what's at risk daily, exchange only for execution. Not your keys, not your coins — applies even to ours."
+  },
+  {
+    "patterns": ["defi", "decentralized finance", "defi opinion"],
+    "answer": "DeFi is real for some use cases (stablecoin rails, on-chain trading, lending). It's also where the most rugs happen. Yields that look too good are usually borrowed time. Use it; don't trust it blindly."
+  },
+  {
+    "patterns": ["stablecoin", "usdt", "usdc"],
+    "answer": "Stablecoins are crypto's killer app for normies — dollars on rails, 24/7 settlement. USDC if you want regulated, USDT if you need depth. Always check the issuer's reserves."
+  },
+  {
+    "patterns": ["halving", "bitcoin halving"],
+    "answer": "Halvings matter for narrative more than fundamentals nowadays — the marginal seller has changed. The four-year cycle isn't dead, but it's noisier."
+  },
+  {
+    "patterns": ["solana ecosystem", "solana opinion"],
+    "answer": "Solana shipped through three cycles and the consumer-app density there now is hard to find elsewhere. Fast, cheap, good tooling. That's why IdolRise is on Solana, not because of TVL theater."
+  },
+  {
     "patterns": ["bitcoin", "btc opinion", "what about btc"],
     "answer": "Bitcoin is the reserve asset of crypto — boring is a feature. Most innovation has moved to other layers and chains, but BTC anchors the conversation. Trade size accordingly."
   },
@@ -511,6 +730,14 @@
     "patterns": ["regulation.*crypto", "crypto regulation", "mica"],
     "answer": "MiCA is the EU framework crypto's been waiting for — clarity beats wild west for serious operators. Kryptostack is built for it; offshore exchanges are eventually going to have a rough time in the EU."
   },
+  {
+    "patterns": ["why python over node", "python vs node", "python or javascript"],
+    "answer": "Python for AI workloads where the ecosystem is unmatched (ML, agent SDKs, data). TypeScript for product surfaces where strict types pay off. They coexist — most droplets run both."
+  },
+  {
+    "patterns": ["who built.*site", "built this page", "how was this site made", "this website"],
+    "answer": "This page was largely built and operated using the same agentic stack the page describes. Next.js 16 + React 19 + Tailwind v4, deployed on Vercel. Source: github.com/DansiDanutz/dan-semenescu."
+  },
 
   {
     "patterns": ["cluj.*tech", "romanian tech", "tech scene cluj"],
@@ -526,7 +753,7 @@
   },
   {
     "patterns": ["mistake", "failure", "what went wrong"],
-    "answer": "Plenty. Built things too early, hired wrong people too late, trusted wrong partners. The fix that compounds: keep skin in the game, build with the people who survive bad times, and pay attention to consequences."
+    "answer": "Plenty. Built things too early, hired wrong people too late, trusted wrong partners. The fix that compounds: keep skin in the game, build with people who survive bad times, and pay attention to consequences."
   },
   {
     "patterns": ["proud.*of", "biggest win", "best achievement"],
