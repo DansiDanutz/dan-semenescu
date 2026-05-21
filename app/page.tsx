@@ -584,11 +584,11 @@ function BossModal({ boss, onClose }: { boss: Boss | null; onClose: () => void }
       aria-labelledby="boss-modal-title"
     >
       <div
-        className="w-full max-w-xl rounded-lg border-2 bg-background overflow-hidden max-h-[90vh] flex flex-col"
-        style={{ borderColor: boss.color, boxShadow: `0 0 60px -15px ${boss.color}` }}
+        className="boss-modal-shell w-full max-w-xl rounded-lg border-2 bg-background overflow-hidden max-h-[90vh] flex flex-col"
+        style={{ borderColor: boss.color, ["--bcolor" as never]: boss.color } as CSSProperties}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="relative aspect-video bg-background shrink-0">
+        <div className="relative aspect-video bg-background shrink-0 overflow-hidden">
           <video
             src={boss.video}
             poster={boss.img}
@@ -599,11 +599,12 @@ function BossModal({ boss, onClose }: { boss: Boss | null; onClose: () => void }
             preload="metadata"
             className="absolute inset-0 size-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent pointer-events-none" />
+          <div className="boss-scanlines" aria-hidden />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent pointer-events-none z-[2]" />
           <button
             type="button"
             onClick={onClose}
-            className="absolute top-2 right-2 size-9 flex items-center justify-center rounded-full bg-background/70 text-foreground hover:bg-background/95 transition-colors text-xl leading-none"
+            className="absolute top-2 right-2 z-[3] size-9 flex items-center justify-center rounded-full bg-background/70 text-foreground hover:bg-background/95 transition-colors text-xl leading-none"
             aria-label="Close"
           >
             ×
@@ -616,16 +617,16 @@ function BossModal({ boss, onClose }: { boss: Boss | null; onClose: () => void }
               style={{ background: boss.color, boxShadow: `0 0 10px ${boss.color}` }}
               aria-hidden
             />
-            <h3 id="boss-modal-title" className="font-bold text-2xl sm:text-3xl text-foreground">
+            <h3 id="boss-modal-title" className="boss-name font-bold text-2xl sm:text-3xl text-foreground">
               {boss.name}
             </h3>
-            <span className="text-dim text-sm" style={{ color: boss.color }}>
+            <span className="text-sm" style={{ color: boss.color }}>
               {boss.role}
             </span>
           </div>
-          <p className="text-foreground/95 leading-relaxed">{boss.bio}</p>
-          <p className="text-dim text-sm">{boss.focus}</p>
-          <p className="text-muted text-xs">// running on {boss.machine}</p>
+          <p className="boss-reveal-1 text-foreground/95 leading-relaxed">{boss.bio}</p>
+          <p className="boss-reveal-2 text-dim text-sm">{boss.focus}</p>
+          <p className="boss-reveal-3 text-muted text-xs">// running on {boss.machine}</p>
         </div>
       </div>
     </div>
