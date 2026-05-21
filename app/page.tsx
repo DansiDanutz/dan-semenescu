@@ -875,8 +875,8 @@ export default function Home() {
   };
 
   return (
-    <main className="flex-1 bg-background p-3 sm:p-5">
-      <div className="min-h-[calc(100vh-1.5rem)] sm:min-h-[calc(100vh-2.5rem)] rounded-lg border border-border flex flex-col">
+    <main className="flex-1 p-3 sm:p-5 relative z-10">
+      <div className="min-h-[calc(100vh-1.5rem)] sm:min-h-[calc(100vh-2.5rem)] rounded-lg border border-border bg-background/75 backdrop-blur-sm flex flex-col">
         <header className="flex items-center justify-between gap-4 border-b border-border px-4 sm:px-6 py-3">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
