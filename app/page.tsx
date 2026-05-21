@@ -4,6 +4,14 @@ import Image from "next/image";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type FormEvent } from "react";
 import qaData from "../data/qa.json";
 
+// ===== CONFIG =====
+// Dan's WhatsApp number in international format, digits only (no +, no spaces).
+// e.g. for +40 712 345 678 you write "40712345678"
+// TODO: replace placeholder with the real number.
+const WHATSAPP_NUMBER = "40700000000";
+const CONTACT_EMAIL = "semebitcoin@gmail.com";
+// ==================
+
 type Project = { name: string; description: string; tag: string; href: string; priority?: boolean };
 type Token = { text: string; cls?: string };
 type Boss = {
@@ -18,8 +26,9 @@ type Boss = {
   machine: string;
 };
 type ProductNode = { name: string; tag: string; x: number; color: string; dashed?: boolean };
+type ContactMode = "closed" | "contact" | "advertise";
+type OpenContact = (mode: "contact" | "advertise") => void;
 
-// Order: leaders first (Hermes, David), then droplets (Dexter, Nano, Memo, Sienna)
 const bosses: Boss[] = [
   { id: "hermes", name: "Hermes", role: "The Brain", focus: "Most capable model · paired hand-in-hand with OpenClaw", color: "#facc15", img: "/team/hermes.png", video: "/team/hermes.mp4", repo: "https://github.com/DansiDanutz/hermes-agent", machine: "high-reasoning" },
   { id: "david", name: "David", role: "Orchestrator", focus: "Fleet command · task routing · lab-sync workflows", color: "#22c55e", img: "/team/david.png", video: "/team/david.mp4", repo: "https://github.com/DansiDanutz/david-workspace", machine: "mac-studio" },
@@ -52,7 +61,7 @@ const contacts: { label: string; value: string; href: string }[] = [
   { label: "facebook", value: "dan.semenescu", href: "https://www.facebook.com/dan.semenescu/" },
   { label: "instagram", value: "d.semenescu", href: "https://www.instagram.com/d.semenescu/" },
   { label: "website ", value: "zmarty.vercel.app", href: "https://zmarty.vercel.app" },
-  { label: "email   ", value: "semebitcoin@gmail.com", href: "mailto:semebitcoin@gmail.com" },
+  { label: "email   ", value: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}` },
 ];
 
 const bioTokens: Token[] = [
@@ -146,7 +155,7 @@ const fullState = (def: SectionDef): SectionState => ({
   done: true,
 });
 
-const STORAGE_KEY = "danslab-portfolio-played-v5";
+const STORAGE_KEY = "danslab-portfolio-played-v6";
 
 // ---------- icons ----------
 function IconGitHub() {
@@ -195,6 +204,13 @@ function IconMail() {
     </svg>
   );
 }
+function IconWhatsapp() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="size-4" aria-hidden>
+      <path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413z" />
+    </svg>
+  );
+}
 
 const socials = [
   { href: "https://github.com/DansiDanutz", label: "GitHub", icon: <IconGitHub /> },
@@ -202,7 +218,7 @@ const socials = [
   { href: "https://www.facebook.com/dan.semenescu/", label: "Facebook", icon: <IconFacebook /> },
   { href: "https://www.instagram.com/d.semenescu/", label: "Instagram", icon: <IconInstagram /> },
   { href: "https://zmarty.vercel.app", label: "ZmartyChat", icon: <IconGlobe /> },
-  { href: "mailto:semebitcoin@gmail.com", label: "Email", icon: <IconMail /> },
+  { href: `mailto:${CONTACT_EMAIL}`, label: "Email", icon: <IconMail /> },
 ];
 
 // ---------- animation atoms ----------
@@ -282,8 +298,171 @@ function ToolBlock({ def, state, instant }: { def: SectionDef; state: SectionSta
   );
 }
 
+// ---------- contact / advertise modal ----------
+function ContactModal({ mode, onClose }: { mode: ContactMode; onClose: () => void }) {
+  const [name, setName] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  const isAdvertise = mode === "advertise";
+
+  // Set default message when modal opens or mode changes
+  useEffect(() => {
+    if (mode === "closed") return;
+    setMessage(
+      isAdvertise
+        ? "Hi Dan,\n\nI'd like to discuss advertising / sponsorship on one of your surfaces.\n\nSurface(s) of interest (YouTube Studio / ZmartyChat / IdolRise / OpenClaw):\n\nAudience / brand:\n\nBudget range:\n\nTimeline:\n"
+        : "Hi Dan,\n\nI'd like to connect about:\n\n"
+    );
+  }, [mode, isAdvertise]);
+
+  // Close on Escape
+  useEffect(() => {
+    if (mode === "closed") return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [mode, onClose]);
+
+  if (mode === "closed") return null;
+
+  const subject = isAdvertise
+    ? "Advertise / Sponsorship inquiry"
+    : "Contact from dansemenescu.vercel.app";
+
+  const composedBody = `${message}\n\n---\nName: ${name || "—"}\nWhatsApp: ${whatsapp || "—"}\nEmail: ${email || "—"}\nSent from: https://dansemenescu.vercel.app`;
+
+  const mailtoHref = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(composedBody)}`;
+  const whatsappHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`*${subject}*\n\n${composedBody}`)}`;
+
+  const accent = isAdvertise ? "#fb923c" : "#22d3ee";
+  const accentLabel = isAdvertise ? "advertise" : "contact";
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="contact-modal-title"
+    >
+      <div
+        className="w-full max-w-lg rounded-lg border-2 bg-background p-6 space-y-4 max-h-[90vh] overflow-y-auto"
+        style={{ borderColor: accent, boxShadow: `0 0 60px -15px ${accent}` }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-baseline justify-between gap-4">
+          <h3 id="contact-modal-title" className="text-xl font-bold" style={{ color: accent }}>
+            $ {accentLabel}&gt;
+          </h3>
+          <button
+            type="button"
+            onClick={onClose}
+            className="text-dim hover:text-foreground text-2xl leading-none px-1"
+            aria-label="Close"
+          >
+            ×
+          </button>
+        </div>
+
+        <p className="text-dim text-sm">
+          {isAdvertise
+            ? "Pitch a sponsorship or partnership across YouTube Studio, ZmartyChat, IdolRise, or OpenClaw. Reply usually within 24h."
+            : "Drop a line — consulting, partnerships, questions about the agent fleet. Reply usually within 24h."}
+        </p>
+
+        <div className="space-y-3">
+          <label className="block">
+            <span className="text-dim text-xs uppercase tracking-wide">name</span>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="mt-1 w-full bg-background border border-border rounded px-3 py-2 text-foreground focus:outline-none focus:border-current"
+              style={{ color: name ? "var(--foreground)" : undefined }}
+              placeholder="your name"
+              autoFocus
+            />
+          </label>
+
+          <label className="block">
+            <span className="text-dim text-xs uppercase tracking-wide">
+              whatsapp <span className="text-muted normal-case">(with country code, e.g. +40 7XX XXX XXX)</span>
+            </span>
+            <input
+              type="tel"
+              value={whatsapp}
+              onChange={(e) => setWhatsapp(e.target.value)}
+              className="mt-1 w-full bg-background border border-border rounded px-3 py-2 text-foreground focus:outline-none focus:border-current"
+              placeholder="+40 7XX XXX XXX"
+            />
+          </label>
+
+          <label className="block">
+            <span className="text-dim text-xs uppercase tracking-wide">email</span>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="mt-1 w-full bg-background border border-border rounded px-3 py-2 text-foreground focus:outline-none focus:border-current"
+              placeholder="you@example.com"
+            />
+          </label>
+
+          <label className="block">
+            <span className="text-dim text-xs uppercase tracking-wide">message</span>
+            <textarea
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              rows={isAdvertise ? 9 : 6}
+              className="mt-1 w-full bg-background border border-border rounded px-3 py-2 text-foreground focus:outline-none focus:border-current resize-none font-mono text-sm"
+            />
+          </label>
+        </div>
+
+        <div className="flex flex-col sm:flex-row gap-3 pt-1">
+          <a
+            href={mailtoHref}
+            className="flex-1 inline-flex items-center justify-center gap-2 rounded border-2 px-4 py-2.5 font-semibold hover:bg-current/10 transition-colors"
+            style={{ borderColor: accent, color: accent }}
+            onClick={() => window.setTimeout(onClose, 400)}
+          >
+            <IconMail />
+            <span>Send via Email</span>
+          </a>
+          <a
+            href={whatsappHref}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="flex-1 inline-flex items-center justify-center gap-2 rounded border-2 border-success bg-success/10 text-success px-4 py-2.5 font-semibold hover:bg-success/20 transition-colors"
+            onClick={() => window.setTimeout(onClose, 400)}
+          >
+            <IconWhatsapp />
+            <span>Send via WhatsApp</span>
+          </a>
+        </div>
+
+        <p className="text-muted text-xs leading-relaxed">
+          Your details are added to the message before send. Nothing is stored on this site — both buttons open your own email client / WhatsApp with everything prefilled.
+        </p>
+      </div>
+    </div>
+  );
+}
+
 // ---------- body renderers ----------
-function HeroBody({ step, streamingCursor }: { step: number; streamingCursor: boolean }) {
+function HeroBody({
+  step,
+  streamingCursor,
+  openContact,
+}: {
+  step: number;
+  streamingCursor: boolean;
+  openContact?: OpenContact;
+}) {
   return (
     <div className="flex flex-col sm:flex-row gap-8 sm:gap-12 items-start">
       {step >= 1 && (
@@ -330,6 +509,24 @@ function HeroBody({ step, streamingCursor }: { step: number; streamingCursor: bo
                 </a>
               ))}
             </div>
+            {openContact && (
+              <div className="flex flex-wrap gap-3 pt-4">
+                <button
+                  type="button"
+                  onClick={() => openContact("contact")}
+                  className="rounded border-2 border-accent/70 bg-accent/10 px-5 py-2.5 text-accent text-sm font-semibold hover:bg-accent/20 hover:border-accent transition-all hover:shadow-[0_0_20px_-5px_rgba(34,211,238,0.7)] cursor-pointer"
+                >
+                  ▶ contact
+                </button>
+                <button
+                  type="button"
+                  onClick={() => openContact("advertise")}
+                  className="rounded border-2 border-highlight/70 bg-highlight/10 px-5 py-2.5 text-highlight text-sm font-semibold hover:bg-highlight/20 hover:border-highlight transition-all hover:shadow-[0_0_20px_-5px_rgba(251,146,60,0.7)] cursor-pointer"
+                >
+                  ▶ advertise / sponsor
+                </button>
+              </div>
+            )}
           </>
         )}
         {streamingCursor && step < 5 && <Cursor />}
@@ -424,24 +621,18 @@ function DiagramBody({ step }: { step: number }) {
         role="img"
         aria-label="DansLab company topology — Dan, leadership (Hermes + David), 4 droplets, and products"
       >
-        {/* === Connectors (animated flowing dashes) === */}
         {step >= 2 && (
           <g fill="none" stroke="#52525b" strokeWidth="1.4" className="flow-line" opacity="0.85">
-            {/* Dan → David */}
             <path d="M 500 95 V 130 H 380 V 170" />
-            {/* Dan → Hermes */}
             <path d="M 500 95 V 130 H 620 V 170" />
           </g>
         )}
 
         {step >= 3 && (
           <g fill="none" stroke="#52525b" strokeWidth="1.4" className="flow-line" opacity="0.85">
-            {/* Leaders down to bar */}
             <path d="M 380 240 V 290" />
             <path d="M 620 240 V 290" />
-            {/* Horizontal leadership bar */}
             <path d="M 140 290 H 860" />
-            {/* Bar down to each droplet */}
             <path d="M 140 290 V 330" />
             <path d="M 380 290 V 330" />
             <path d="M 620 290 V 330" />
@@ -452,20 +643,13 @@ function DiagramBody({ step }: { step: number }) {
         {step >= 4 && (
           <>
             <g fill="none" stroke="#52525b" strokeWidth="1.4" className="flow-line" opacity="0.85">
-              {/* Dexter → Nervix.ai */}
               <path d="M 140 405 V 460 H 125 V 520" />
-              {/* Nano → Nervix.ai */}
               <path d="M 380 405 V 485 H 125 V 520" />
-              {/* Memo → MyWork-AI */}
               <path d="M 620 405 V 465 H 525 V 520" />
-              {/* Memo → YouTube Studio */}
               <path d="M 620 405 V 485 H 325 V 520" />
-              {/* Sienna → ZmartyChat */}
               <path d="M 860 405 V 465 H 725 V 520" />
-              {/* Sienna → OpenClaw */}
               <path d="M 860 405 V 485 H 925 V 520" />
             </g>
-            {/* Hermes ↔ OpenClaw — paired, pulsing gold */}
             <path
               d="M 620 240 V 255 H 965 V 505 H 925"
               fill="none"
@@ -476,7 +660,6 @@ function DiagramBody({ step }: { step: number }) {
           </>
         )}
 
-        {/* === Layer 1: Dan === */}
         {step >= 1 && (
           <g>
             <rect x="430" y="30" width="140" height="65" rx="6" fill="rgba(34,211,238,0.10)" stroke="#22d3ee" strokeWidth="1.8" />
@@ -485,7 +668,6 @@ function DiagramBody({ step }: { step: number }) {
           </g>
         )}
 
-        {/* === Layer 2: Hermes + David (leadership) === */}
         {step >= 2 && leaderNodes.map((node) => {
           const b = bossById[node.id];
           return (
@@ -507,7 +689,6 @@ function DiagramBody({ step }: { step: number }) {
           );
         })}
 
-        {/* === Layer 3: 4 Droplets === */}
         {step >= 3 && dropletNodes.map((node) => {
           const b = bossById[node.id];
           return (
@@ -529,7 +710,6 @@ function DiagramBody({ step }: { step: number }) {
           );
         })}
 
-        {/* === Layer 4: Products + OpenClaw === */}
         {step >= 4 && productNodes.map((p) => (
           <g key={`prod-${p.name}`}>
             <rect
@@ -548,7 +728,6 @@ function DiagramBody({ step }: { step: number }) {
           </g>
         ))}
 
-        {/* === Legend === */}
         {step >= 4 && (
           <g transform="translate(20, 615)" fontFamily="ui-monospace, monospace">
             <line x1="0" y1="-3" x2="22" y2="-3" stroke="#52525b" strokeWidth="1.4" strokeDasharray="3 5" />
@@ -586,32 +765,52 @@ function ProjectsBody({ step, streamingCursor }: { step: number; streamingCursor
   );
 }
 
-function ContactBody({ step, streamingCursor }: { step: number; streamingCursor: boolean }) {
+function ContactBody({ step, streamingCursor, openContact }: { step: number; streamingCursor: boolean; openContact?: OpenContact }) {
   return (
-    <ul className="space-y-2 text-base sm:text-lg">
-      {contacts.slice(0, step).map((c, i) => (
-        <li key={c.label}>
-          <span className="text-dim">{c.label}</span>{" "}
-          <a
-            href={c.href}
-            target={c.href.startsWith("mailto:") ? undefined : "_blank"}
-            rel="noreferrer noopener"
-            className="text-highlight hover:underline"
+    <div className="space-y-5">
+      <ul className="space-y-2 text-base sm:text-lg">
+        {contacts.slice(0, step).map((c, i) => (
+          <li key={c.label}>
+            <span className="text-dim">{c.label}</span>{" "}
+            <a
+              href={c.href}
+              target={c.href.startsWith("mailto:") ? undefined : "_blank"}
+              rel="noreferrer noopener"
+              className="text-highlight hover:underline"
+            >
+              {c.value}
+            </a>
+            {streamingCursor && i === step - 1 && step < contacts.length && <Cursor />}
+          </li>
+        ))}
+      </ul>
+      {openContact && step >= contacts.length && (
+        <div className="flex flex-wrap gap-3 pt-2">
+          <button
+            type="button"
+            onClick={() => openContact("contact")}
+            className="rounded border-2 border-accent/70 bg-accent/10 px-5 py-2.5 text-accent text-sm font-semibold hover:bg-accent/20 hover:border-accent transition-all hover:shadow-[0_0_20px_-5px_rgba(34,211,238,0.7)] cursor-pointer"
           >
-            {c.value}
-          </a>
-          {streamingCursor && i === step - 1 && step < contacts.length && <Cursor />}
-        </li>
-      ))}
-    </ul>
+            ▶ contact
+          </button>
+          <button
+            type="button"
+            onClick={() => openContact("advertise")}
+            className="rounded border-2 border-highlight/70 bg-highlight/10 px-5 py-2.5 text-highlight text-sm font-semibold hover:bg-highlight/20 hover:border-highlight transition-all hover:shadow-[0_0_20px_-5px_rgba(251,146,60,0.7)] cursor-pointer"
+          >
+            ▶ advertise / sponsor
+          </button>
+        </div>
+      )}
+    </div>
   );
 }
 
-function renderBody(def: SectionDef, state: SectionState, isActive: boolean) {
+function renderBody(def: SectionDef, state: SectionState, isActive: boolean, openContact?: OpenContact) {
   const streamingCursor = isActive && state.bodySteps < def.bodySteps;
   switch (def.bodyKind) {
     case "hero":
-      return <HeroBody step={state.bodySteps} streamingCursor={streamingCursor} />;
+      return <HeroBody step={state.bodySteps} streamingCursor={streamingCursor} openContact={openContact} />;
     case "bio":
       return <BioBody step={state.bodySteps} streamingCursor={streamingCursor} />;
     case "manifesto":
@@ -623,7 +822,7 @@ function renderBody(def: SectionDef, state: SectionState, isActive: boolean) {
     case "projects":
       return <ProjectsBody step={state.bodySteps} streamingCursor={streamingCursor} />;
     case "contact":
-      return <ContactBody step={state.bodySteps} streamingCursor={streamingCursor} />;
+      return <ContactBody step={state.bodySteps} streamingCursor={streamingCursor} openContact={openContact} />;
   }
 }
 
@@ -632,7 +831,7 @@ type QAEntry = { patterns: string[]; answer: string };
 const qa = qaData as QAEntry[];
 
 const FALLBACK_ANSWER =
-  "I don't have a canned answer for that one. Try asking about DansLab, Nervix.ai, YouTube Studio, Hermes, the team, the diagram, OpenClaw, availability, or my stack. For anything else, email semebitcoin@gmail.com.";
+  "I don't have a canned answer for that one. Try asking about DansLab, Nervix.ai, YouTube Studio, Hermes, OpenClaw, the team, trading, infrastructure, or sponsorships. Or hit the contact / advertise buttons.";
 
 function tokenize(text: string): string[] {
   return text.match(/\S+\s*/g) ?? [text];
@@ -745,7 +944,7 @@ function ChatInterface() {
   );
 }
 
-function SectionView({ def, state, isActive, instant }: { def: SectionDef; state: SectionState; isActive: boolean; instant: boolean }) {
+function SectionView({ def, state, isActive, instant, openContact }: { def: SectionDef; state: SectionState; isActive: boolean; instant: boolean; openContact?: OpenContact }) {
   const promptDone = state.promptChars >= def.prompt.length;
   const showTools = promptDone;
   const showBody = state.toolsCollapsed;
@@ -761,7 +960,7 @@ function SectionView({ def, state, isActive, instant }: { def: SectionDef; state
       </h2>
       <div className="border-l border-border/80 pl-6 sm:pl-8 space-y-4">
         {showTools && <ToolBlock def={def} state={state} instant={instant} />}
-        {showBody && renderBody(def, state, isActive)}
+        {showBody && renderBody(def, state, isActive, openContact)}
       </div>
     </section>
   );
@@ -773,8 +972,12 @@ export default function Home() {
   const [activeIdx, setActiveIdx] = useState(0);
   const [allDone, setAllDone] = useState(false);
   const [instant, setInstant] = useState(false);
+  const [contactMode, setContactMode] = useState<ContactMode>("closed");
   const startedRef = useRef(false);
   const cancelRef = useRef<{ cancelled: boolean }>({ cancelled: false });
+
+  const openContact: OpenContact = useCallback((mode) => setContactMode(mode), []);
+  const closeContact = useCallback(() => setContactMode("closed"), []);
 
   const startSequence = useCallback(() => {
     cancelRef.current.cancelled = true;
@@ -886,17 +1089,28 @@ export default function Home() {
             </div>
             <span className="text-dim text-sm hidden sm:inline">dan@danslab &mdash; ~/profile</span>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <button
+              type="button"
+              onClick={() => openContact("contact")}
+              className="rounded border border-accent/70 px-2.5 sm:px-3 py-1 text-accent text-xs sm:text-sm hover:bg-accent/10 transition-colors cursor-pointer"
+            >
+              contact
+            </button>
+            <button
+              type="button"
+              onClick={() => openContact("advertise")}
+              className="rounded border border-highlight/70 px-2.5 sm:px-3 py-1 text-highlight text-xs sm:text-sm hover:bg-highlight/10 transition-colors cursor-pointer"
+            >
+              advertise
+            </button>
             <button
               type="button"
               onClick={handleNewSession}
-              className="rounded border border-accent/70 px-3 py-1 text-accent text-xs sm:text-sm hover:bg-accent/10 transition-colors cursor-pointer"
+              className="rounded border border-border px-2.5 sm:px-3 py-1 text-dim text-xs sm:text-sm hover:text-foreground hover:border-foreground/40 transition-colors cursor-pointer hidden sm:inline-block"
             >
               new session
             </button>
-            <span className="rounded border border-border px-2 py-1 text-dim text-xs hidden sm:inline-block">
-              Ctrl+K
-            </span>
             <span className="flex items-center gap-2 text-dim text-xs sm:text-sm">
               <span className="size-2 rounded-full bg-success" aria-hidden />
               online
@@ -910,12 +1124,13 @@ export default function Home() {
             if (!visible) return null;
             const state = states[i];
             const isActive = !instant && i === activeIdx && !state.done;
-            return <SectionView key={def.id} def={def} state={state} isActive={isActive} instant={instant} />;
+            return <SectionView key={def.id} def={def} state={state} isActive={isActive} instant={instant} openContact={openContact} />;
           })}
 
           {allDone && <ChatInterface />}
         </div>
       </div>
+      <ContactModal mode={contactMode} onClose={closeContact} />
     </main>
   );
 }
