@@ -607,7 +607,7 @@ function BossModal({ boss, onClose }: { boss: Boss | null; onClose: () => void }
           <button
             type="button"
             onClick={onClose}
-            className="absolute top-2 right-2 z-[3] size-9 flex items-center justify-center rounded-full bg-background/70 text-foreground hover:bg-background/95 transition-colors text-xl leading-none"
+            className="absolute top-2 right-2 z-[3] size-11 sm:size-10 flex items-center justify-center rounded-full bg-background/70 text-foreground hover:bg-background/95 transition-colors text-2xl leading-none"
             aria-label="Close"
           >
             ×
@@ -702,22 +702,36 @@ function DiagramBody({ step }: { step: number }) {
         aria-label="DansLab company topology — Dan, leadership (Hermes + David), 4 droplets, and products"
       >
         {step >= 2 && (
-          <g fill="none" stroke="#52525b" strokeWidth="1.4" className="flow-line" opacity="0.85">
-            <path d="M 500 95 V 130 H 380 V 170" />
-            <path d="M 500 95 V 130 H 620 V 170" />
-          </g>
+          <>
+            <g fill="none" stroke="#52525b" strokeWidth="1.4" className="flow-line" opacity="0.85">
+              <path d="M 500 95 V 130 H 380 V 170" />
+              <path d="M 500 95 V 130 H 620 V 170" />
+            </g>
+            <g fill="none" stroke="#22d3ee" strokeWidth="1.8" className="flow-data" opacity="0.9">
+              <path d="M 500 95 V 130 H 380 V 170" />
+              <path d="M 500 95 V 130 H 620 V 170" />
+            </g>
+          </>
         )}
 
         {step >= 3 && (
-          <g fill="none" stroke="#52525b" strokeWidth="1.4" className="flow-line" opacity="0.85">
-            <path d="M 380 240 V 290" />
-            <path d="M 620 240 V 290" />
-            <path d="M 140 290 H 860" />
-            <path d="M 140 290 V 330" />
-            <path d="M 380 290 V 330" />
-            <path d="M 620 290 V 330" />
-            <path d="M 860 290 V 330" />
-          </g>
+          <>
+            <g fill="none" stroke="#52525b" strokeWidth="1.4" className="flow-line" opacity="0.85">
+              <path d="M 380 240 V 290" />
+              <path d="M 620 240 V 290" />
+              <path d="M 140 290 H 860" />
+              <path d="M 140 290 V 330" />
+              <path d="M 380 290 V 330" />
+              <path d="M 620 290 V 330" />
+              <path d="M 860 290 V 330" />
+            </g>
+            <g fill="none" stroke="#22d3ee" strokeWidth="1.8" className="flow-data flow-data-slow" opacity="0.85">
+              <path d="M 380 240 V 290 H 140 V 330" />
+              <path d="M 380 240 V 290 H 380 V 330" />
+              <path d="M 620 240 V 290 H 620 V 330" />
+              <path d="M 620 240 V 290 H 860 V 330" />
+            </g>
+          </>
         )}
 
         {step >= 4 && (
@@ -727,6 +741,13 @@ function DiagramBody({ step }: { step: number }) {
               <path d="M 380 405 V 485 H 125 V 520" />
               <path d="M 620 405 V 465 H 525 V 520" />
               <path d="M 620 405 V 485 H 325 V 520" />
+              <path d="M 860 405 V 465 H 725 V 520" />
+              <path d="M 860 405 V 485 H 925 V 520" />
+            </g>
+            <g fill="none" stroke="#fb923c" strokeWidth="1.8" className="flow-data flow-data-fast" opacity="0.9">
+              <path d="M 140 405 V 460 H 125 V 520" />
+              <path d="M 380 405 V 485 H 325 V 520" />
+              <path d="M 620 405 V 465 H 525 V 520" />
               <path d="M 860 405 V 465 H 725 V 520" />
               <path d="M 860 405 V 485 H 925 V 520" />
             </g>
@@ -923,7 +944,7 @@ type QAEntry = { patterns: string[]; answer: string };
 const qa = qaData as QAEntry[];
 
 const FALLBACK_ANSWER =
-  "I don't have a canned answer for that one. Try asking about DansLab, Nervix.ai, YouTube Studio, Hermes, OpenClaw, the team, trading, infrastructure, or sponsorships. Or hit the contact / advertise buttons.";
+  "I don't have a canned answer for that one. Try asking about DansLab, Nervix.ai, YouTube Studio, Hermes, OpenClaw, CrawdBot, KryptoStack, IdolRise, ZmartyChat, the team, trading, infrastructure, or sponsorships. Or hit the contact / advertise buttons.";
 
 function tokenize(text: string): string[] {
   return text.match(/\S+\s*/g) ?? [text];

@@ -111,6 +111,24 @@ body {
   animation: flow-pulse 2.4s ease-in-out infinite;
 }
 
+@keyframes flow-data {
+  to { stroke-dashoffset: -64; }
+}
+
+.flow-data path {
+  stroke-dasharray: 2 62;
+  animation: flow-data 2.4s linear infinite;
+  filter: drop-shadow(0 0 3px currentColor);
+}
+
+.flow-data-slow path {
+  animation-duration: 3.2s;
+}
+
+.flow-data-fast path {
+  animation-duration: 1.8s;
+}
+
 @keyframes topology-node-glow {
   0%, 100% {
     filter: drop-shadow(0 0 2px var(--node-color, #22d3ee));
