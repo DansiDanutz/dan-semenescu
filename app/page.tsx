@@ -17,6 +17,7 @@ type Boss = {
   name: string;
   role: string;
   focus: string;
+  bio: string;
   color: string;
   img: string;
   video: string;
@@ -28,12 +29,12 @@ type ContactMode = "closed" | "contact" | "advertise";
 type OpenContact = (mode: "contact" | "advertise") => void;
 
 const bosses: Boss[] = [
-  { id: "hermes", name: "Hermes", role: "The Brain", focus: "Most capable model · paired hand-in-hand with OpenClaw", color: "#facc15", img: "/team/hermes.png", video: "/team/hermes.mp4", repo: "https://github.com/DansiDanutz/hermes-agent", machine: "high-reasoning" },
-  { id: "david", name: "David", role: "Orchestrator", focus: "Fleet command · task routing · lab-sync workflows", color: "#22c55e", img: "/team/david.png", video: "/team/david.mp4", repo: "https://github.com/DansiDanutz/david-workspace", machine: "mac-studio" },
-  { id: "dexter", name: "Dexter", role: "Senior Dev", focus: "NERVIX backend · CrawdBot · DevOps", color: "#3b82f6", img: "/team/dexter.png", video: "/team/dexter.mp4", repo: "https://github.com/DansiDanutz/dexter-workspace", machine: "dexter-droplet" },
-  { id: "nano", name: "Nano", role: "Agent Creator", focus: "NERVIX enrollment · agent factory", color: "#a855f7", img: "/team/nano.png", video: "/team/nano.mp4", repo: "https://github.com/DansiDanutz/nano-workspace", machine: "nano-droplet" },
-  { id: "memo", name: "Memo", role: "Product Manager", focus: "MyWork framework · n8n automations", color: "#f97316", img: "/team/memo.png", video: "/team/memo.mp4", repo: "https://github.com/DansiDanutz/memo-workspace", machine: "memo-droplet" },
-  { id: "sienna", name: "Sienna", role: "Crypto Operator", focus: "ZmartyChat · OpenClaw trading", color: "#ec4899", img: "/team/sienna.png", video: "/team/sienna.mp4", repo: "https://github.com/DansiDanutz/sienna-workspace", machine: "sienna-droplet" },
+  { id: "hermes", name: "Hermes", role: "The Brain", focus: "Most capable model · paired hand-in-hand with OpenClaw", bio: "The most capable brain in the fleet. Hermes runs the highest-reasoning tasks and pairs hand-in-hand with the OpenClaw collective — heavy lifting on strategy, analysis, and the trades that need real thought behind them.", color: "#facc15", img: "/team/hermes.png", video: "/team/hermes.mp4", repo: "https://github.com/DansiDanutz/hermes-agent", machine: "high-reasoning" },
+  { id: "david", name: "David", role: "Orchestrator", focus: "Fleet command · task routing · lab-sync workflows", bio: "The orchestrator on Mac Studio. David sits between Dan and the droplet workers — translates strategy into routed tasks, keeps the lab in sync, and makes sure the fleet pulls in the same direction.", color: "#22c55e", img: "/team/david.png", video: "/team/david.mp4", repo: "https://github.com/DansiDanutz/david-workspace", machine: "mac-studio" },
+  { id: "dexter", name: "Dexter", role: "Senior Dev", focus: "NERVIX backend · CrawdBot · DevOps", bio: "Senior dev on the dexter-droplet. Owns the NERVIX backend, the CrawdBot crawler, and the DevOps pipeline — the engineer who keeps infrastructure boring and the deploys green.", color: "#3b82f6", img: "/team/dexter.png", video: "/team/dexter.mp4", repo: "https://github.com/DansiDanutz/dexter-workspace", machine: "dexter-droplet" },
+  { id: "nano", name: "Nano", role: "Agent Creator", focus: "NERVIX enrollment · agent factory", bio: "The agent factory. Nano handles NERVIX enrollment end-to-end — minting new agents, issuing credentials, and bringing them online with the right scopes and observability hooks already wired up.", color: "#a855f7", img: "/team/nano.png", video: "/team/nano.mp4", repo: "https://github.com/DansiDanutz/nano-workspace", machine: "nano-droplet" },
+  { id: "memo", name: "Memo", role: "Product Manager", focus: "MyWork framework · n8n automations", bio: "Product manager and automation specialist. Memo owns the MyWork framework plus the n8n event-driven workflows — the connective tissue that turns scattered agent activity into coordinated product motion.", color: "#f97316", img: "/team/memo.png", video: "/team/memo.mp4", repo: "https://github.com/DansiDanutz/memo-workspace", machine: "memo-droplet" },
+  { id: "sienna", name: "Sienna", role: "Crypto Operator", focus: "ZmartyChat · OpenClaw trading", bio: "Crypto operator on the sienna-droplet. Runs the ZmartyChat signal stack and the OpenClaw trading collective — the public scoreboard says 96.2% win rate on Sienna Crypto Girl's posts.", color: "#ec4899", img: "/team/sienna.png", video: "/team/sienna.mp4", repo: "https://github.com/DansiDanutz/sienna-workspace", machine: "sienna-droplet" },
 ];
 
 const productNodes: ProductNode[] = [
@@ -562,21 +563,35 @@ function ManifestoBody({ step, streamingCursor }: { step: number; streamingCurso
   );
 }
 
-function BossesBody({ step }: { step: number }) {
+function BossModal({ boss, onClose }: { boss: Boss | null; onClose: () => void }) {
+  useEffect(() => {
+    if (!boss) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [boss, onClose]);
+
+  if (!boss) return null;
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl">
-      {bosses.slice(0, step).map((b) => (
-        <a
-          key={b.id}
-          href={b.repo}
-          target="_blank"
-          rel="noreferrer noopener"
-          className="group relative block aspect-[3/4] overflow-hidden rounded-lg border border-border hover:border-[var(--bcolor)] transition-colors"
-          style={{ ["--bcolor" as never]: b.color } as CSSProperties}
-        >
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="boss-modal-title"
+    >
+      <div
+        className="w-full max-w-xl rounded-lg border-2 bg-background overflow-hidden max-h-[90vh] flex flex-col"
+        style={{ borderColor: boss.color, boxShadow: `0 0 60px -15px ${boss.color}` }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="relative aspect-video bg-background shrink-0">
           <video
-            src={b.video}
-            poster={b.img}
+            src={boss.video}
+            poster={boss.img}
             autoPlay
             loop
             muted
@@ -584,19 +599,79 @@ function BossesBody({ step }: { step: number }) {
             preload="metadata"
             className="absolute inset-0 size-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent pointer-events-none" />
-          <div className="absolute inset-x-0 bottom-0 p-4 space-y-1">
-            <div className="flex items-baseline gap-2">
-              <span className="size-2 rounded-full shrink-0" style={{ background: b.color, boxShadow: `0 0 10px ${b.color}` }} aria-hidden />
-              <span className="font-bold text-xl text-foreground">{b.name}</span>
-              <span className="text-dim text-xs">{b.role}</span>
-            </div>
-            <p className="text-foreground/90 text-sm leading-snug">{b.focus}</p>
-            <p className="text-muted text-xs">{b.machine}</p>
+          <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent pointer-events-none" />
+          <button
+            type="button"
+            onClick={onClose}
+            className="absolute top-2 right-2 size-9 flex items-center justify-center rounded-full bg-background/70 text-foreground hover:bg-background/95 transition-colors text-xl leading-none"
+            aria-label="Close"
+          >
+            ×
+          </button>
+        </div>
+        <div className="p-5 sm:p-6 space-y-3 overflow-y-auto">
+          <div className="flex items-baseline gap-2 flex-wrap">
+            <span
+              className="size-2.5 rounded-full shrink-0"
+              style={{ background: boss.color, boxShadow: `0 0 10px ${boss.color}` }}
+              aria-hidden
+            />
+            <h3 id="boss-modal-title" className="font-bold text-2xl sm:text-3xl text-foreground">
+              {boss.name}
+            </h3>
+            <span className="text-dim text-sm" style={{ color: boss.color }}>
+              {boss.role}
+            </span>
           </div>
-        </a>
-      ))}
+          <p className="text-foreground/95 leading-relaxed">{boss.bio}</p>
+          <p className="text-dim text-sm">{boss.focus}</p>
+          <p className="text-muted text-xs">// running on {boss.machine}</p>
+        </div>
+      </div>
     </div>
+  );
+}
+
+function BossesBody({ step }: { step: number }) {
+  const [selected, setSelected] = useState<Boss | null>(null);
+
+  return (
+    <>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl">
+        {bosses.slice(0, step).map((b) => (
+          <button
+            key={b.id}
+            type="button"
+            onClick={() => setSelected(b)}
+            className="group relative block aspect-[3/4] overflow-hidden rounded-lg border border-border hover:border-[var(--bcolor)] transition-colors text-left cursor-pointer focus:outline-none focus-visible:border-[var(--bcolor)]"
+            style={{ ["--bcolor" as never]: b.color } as CSSProperties}
+            aria-label={`Open ${b.name} details`}
+          >
+            <video
+              src={b.video}
+              poster={b.img}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              className="absolute inset-0 size-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent pointer-events-none" />
+            <div className="absolute inset-x-0 bottom-0 p-4 space-y-1">
+              <div className="flex items-baseline gap-2">
+                <span className="size-2 rounded-full shrink-0" style={{ background: b.color, boxShadow: `0 0 10px ${b.color}` }} aria-hidden />
+                <span className="font-bold text-xl text-foreground">{b.name}</span>
+                <span className="text-dim text-xs">{b.role}</span>
+              </div>
+              <p className="text-foreground/90 text-sm leading-snug">{b.focus}</p>
+              <p className="text-muted text-xs">{b.machine}</p>
+            </div>
+          </button>
+        ))}
+      </div>
+      <BossModal boss={selected} onClose={() => setSelected(null)} />
+    </>
   );
 }
 
