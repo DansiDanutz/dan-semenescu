@@ -41,7 +41,6 @@ const brightStars = makeStars(10, 2.5, 200);
 function Universe() {
   return (
     <div className="universe-bg" aria-hidden>
-      <div className="nebula" />
       {tinyStars.map((s, i) => (
         <span
           key={`t${i}`}
@@ -87,6 +86,8 @@ function Universe() {
       <div className="comet comet-1" />
       <div className="comet comet-2" />
       <div className="comet comet-3" />
+      <div className="comet comet-4" />
+      <div className="comet comet-5" />
     </div>
   );
 }
