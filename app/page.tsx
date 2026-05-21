@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import qaData from "../data/qa.json";
 
-type Project = { name: string; description: string; tag: string; href: string };
+type Project = { name: string; description: string; tag: string; href: string; priority?: boolean };
 type Token = { text: string; cls?: string };
 type Agent = { name: string; role: string; focus: string; color: string };
 
@@ -14,15 +14,16 @@ const agents: Agent[] = [
   { name: "Nano", role: "Agent Creator", focus: "NERVIX enrollment · agent factory", color: "#a855f7" },
   { name: "Memo", role: "Product Manager", focus: "MyWork framework · n8n automations", color: "#f97316" },
   { name: "Sienna", role: "Crypto Operator", focus: "ZmartyChat · OpenClaw trading", color: "#ec4899" },
+  { name: "Hermes", role: "The Brain", focus: "Most capable model · paired hand-in-hand with OpenClaw", color: "#facc15" },
 ];
 
 const projects: Project[] = [
+  { name: "Nervix.ai", description: "Agent federation layer — enrollment, credentials, governance, observability across the fleet", tag: "★ PRIORITY · federation", href: "https://github.com/DansiDanutz/nervix-cli", priority: true },
+  { name: "YouTube Studio", description: "Creator platform — AI content, scenes, captions, thumbnails · where attention compounds", tag: "★ GATEWAY · creator", href: "https://github.com/DansiDanutz/Youtube-Studio", priority: true },
   { name: "DansLab", description: "Multi-agent AI operating system — orchestration & fleet command", tag: "Python · MIT", href: "https://github.com/DansiDanutz/DansLab" },
+  { name: "OpenClaw × Hermes", description: "Agent collective wired to the most capable brain — Sienna Crypto Girl posts 96.2% win rate", tag: "powered by Hermes", href: "https://github.com/DansiDanutz/hermes-agent" },
   { name: "MyWork-AI", description: "67+ CLI commands · AI code gen · n8n automation · marketplace", tag: "pip install mywork-ai", href: "https://github.com/DansiDanutz/MyWork-AI" },
   { name: "ZmartyChat", description: "AI crypto trading intelligence — signals, analysis, alerts", tag: "live · zmarty.vercel.app", href: "https://zmarty.vercel.app" },
-  { name: "sienna-crypto-girl", description: "OpenClaw trading agent — 96.2% win rate, membership funnel", tag: "TypeScript", href: "https://github.com/DansiDanutz/sienna-crypto-girl" },
-  { name: "YouTubePipeline", description: "OSS video production — ComfyUI · Flux · Wan · Whisper · Remotion", tag: "Python · OSS", href: "https://github.com/DansiDanutz/YouTubePipeline" },
-  { name: "SemeClaw", description: "Active build — internal agent framework", tag: "Python · WIP", href: "https://github.com/DansiDanutz/SemeClaw" },
 ];
 
 const contacts: { label: string; value: string; href: string }[] = [
@@ -37,21 +38,21 @@ const contacts: { label: string; value: string; href: string }[] = [
 const bioTokens: Token[] = [
   { text: "Founder of " },
   { text: "DansLab", cls: "text-accent" },
-  { text: " — building a " },
+  { text: " — a " },
   { text: "multi-agent AI architecture", cls: "text-accent" },
   { text: " where a named fleet (" },
   { text: "David, Dexter, Nano, Memo, Sienna", cls: "text-accent" },
-  { text: ") orchestrates real products under " },
-  { text: "Stack Finance LLC", cls: "text-accent" },
-  { text: ". Shipping " },
-  { text: "MyWork-AI", cls: "text-accent" },
-  { text: " on pip, " },
-  { text: "ZmartyChat", cls: "text-accent" },
-  { text: " for AI crypto trading, and the " },
+  { text: ") plus " },
+  { text: "Hermes", cls: "text-accent" },
+  { text: " — the most capable brain, paired hand-in-hand with " },
   { text: "OpenClaw", cls: "text-accent" },
-  { text: " agent collective. The goal: " },
-  { text: "zero-human companies that still ship value", cls: "text-accent" },
-  { text: "." },
+  { text: " — orchestrates real products under " },
+  { text: "Stack Finance LLC", cls: "text-accent" },
+  { text: ". Priorities: " },
+  { text: "Nervix.ai", cls: "text-accent" },
+  { text: " (federation) and " },
+  { text: "YouTube Studio", cls: "text-accent" },
+  { text: " (gateway)." },
 ];
 
 const manifestoSections: { heading: string; body: string }[] = [
@@ -61,11 +62,15 @@ const manifestoSections: { heading: string; body: string }[] = [
   },
   {
     heading: "The architecture",
-    body: "Four layers stack together: a Tailscale-linked fleet of 8 machines as the substrate; a roster of named agents as the executive team; an OpenClaw collective handling trading and channel work; and a portfolio of shipping products on top — MyWork-AI on PyPI, ZmartyChat for crypto signals, NERVIX as the federation layer, YouTubePipeline for OSS video production.",
+    body: "Four layers stack together: a Tailscale-linked fleet of 8 machines as the substrate; a roster of named agents as the executive team; an OpenClaw collective handling trading and channel work; and a portfolio of shipping products on top — Nervix.ai, YouTube Studio, MyWork-AI, ZmartyChat.",
   },
   {
     heading: "The agents",
-    body: "Each agent has a name, a personality, a home machine, and a GitHub workspace. David orchestrates from the Mac Studio. Dexter ships backend code on a dedicated droplet. Memo runs PM and n8n flows. Nano enrolls new agents into the federation. Sienna runs the crypto vertical. They coordinate, hand off, and ship — without daily babysitting.",
+    body: "Each agent has a name, a personality, a home machine, and a GitHub workspace. David orchestrates from the Mac Studio. Dexter ships backend code. Memo runs PM and n8n flows. Nano enrolls new agents. Sienna runs the crypto vertical. And Hermes — the most capable brain in the fleet — works hand-in-hand with the OpenClaw collective. They coordinate, hand off, and ship — without daily babysitting.",
+  },
+  {
+    heading: "The priorities",
+    body: "Two surfaces lead the roadmap. Nervix.ai is the company's #1 priority — the federation layer where every agent enrolls, gets credentials, and is observed from one place. YouTube Studio is the gateway to success — the creator surface where DansLab meets the world and attention compounds into customers.",
   },
   {
     heading: "The stack",
@@ -91,8 +96,8 @@ const sectionDefs: SectionDef[] = [
   { id: "who", prompt: "who is dan semenescu?", tools: ["Pinging github.com/DansiDanutz", "Loading avatar", "Resolving Stack Finance LLC"], bodyKind: "hero", bodySteps: 5 },
   { id: "bg", prompt: "cat about.md", tools: ["Reading about.md", "Compiling DansLab manifest"], bodyKind: "bio", bodySteps: bioTokens.length },
   { id: "danslab", prompt: "cat ~/danslab/MANIFESTO.md", tools: ["Reading MANIFESTO.md", "Loading company architecture", "Stamping Stack Finance LLC"], bodyKind: "manifesto", bodySteps: manifestoSections.length },
-  { id: "agents", prompt: "ls ~/danslab/agents/", tools: ["Connecting to david@mac-studio", "Enumerating fleet", "Loading agent registry"], bodyKind: "agents", bodySteps: agents.length },
-  { id: "projects", prompt: "ls ~/danslab/projects/", tools: ["Fetching repos from github.com/DansiDanutz", "Loading metadata", "Sorting by impact"], bodyKind: "projects", bodySteps: projects.length },
+  { id: "agents", prompt: "ls ~/danslab/agents/", tools: ["Connecting to david@mac-studio", "Waking hermes", "Loading agent registry"], bodyKind: "agents", bodySteps: agents.length },
+  { id: "projects", prompt: "ls ~/danslab/projects/ --sort=priority", tools: ["Fetching repos from github.com/DansiDanutz", "Loading metadata", "Sorting by priority"], bodyKind: "projects", bodySteps: projects.length },
   { id: "contact", prompt: "cat contact.txt", tools: ["Reading contact.txt", "Validating links"], bodyKind: "contact", bodySteps: contacts.length },
 ];
 
@@ -120,7 +125,7 @@ const fullState = (def: SectionDef): SectionState => ({
   done: true,
 });
 
-const STORAGE_KEY = "danslab-portfolio-played-v2";
+const STORAGE_KEY = "danslab-portfolio-played-v3";
 
 // ---------- icons ----------
 function IconGitHub() {
@@ -373,7 +378,9 @@ function ProjectsBody({ step, streamingCursor }: { step: number; streamingCursor
             {p.name}
           </a>
           <span className="text-foreground/90">— {p.description}</span>
-          <span className="text-muted text-xs sm:ml-auto shrink-0">{p.tag}</span>
+          <span className={`${p.priority ? "text-highlight font-semibold" : "text-muted"} text-xs sm:ml-auto shrink-0`}>
+            {p.tag}
+          </span>
           {streamingCursor && i === step - 1 && step < projects.length && <Cursor />}
         </li>
       ))}
@@ -425,7 +432,7 @@ type QAEntry = { patterns: string[]; answer: string };
 const qa = qaData as QAEntry[];
 
 const FALLBACK_ANSWER =
-  "I don't have a canned answer for that one. Try asking about DansLab, the agent fleet, MyWork-AI, ZmartyChat, OpenClaw, availability, or my stack. For anything else, email semebitcoin@gmail.com.";
+  "I don't have a canned answer for that one. Try asking about DansLab, Nervix.ai, YouTube Studio, Hermes, the agent fleet, OpenClaw, availability, or my stack. For anything else, email semebitcoin@gmail.com.";
 
 function tokenize(text: string): string[] {
   return text.match(/\S+\s*/g) ?? [text];

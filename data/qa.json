@@ -1,19 +1,19 @@
 [
   {
     "patterns": ["^(hi|hey|hello|yo|sup|howdy)\\b", "greetings"],
-    "answer": "Hey 👋 I'm Dan. Ask me about DansLab, the agent fleet, MyWork-AI, ZmartyChat, OpenClaw, or how to get in touch."
+    "answer": "Hey 👋 I'm Dan. Ask me about DansLab, Nervix.ai, YouTube Studio, Hermes, the agent fleet, OpenClaw, or how to get in touch."
   },
   {
     "patterns": ["who are you", "tell me about yourself", "introduce yourself", "^about you", "^about dan"],
-    "answer": "I'm Dan Semenescu — founder of DansLab and Stack Finance LLC, based in Cluj-Napoca, Romania. I'm building a multi-agent AI architecture: a named fleet of AI agents (David, Dexter, Nano, Memo, Sienna) that ships real products together."
+    "answer": "I'm Dan Semenescu — founder of DansLab and Stack Finance LLC, based in Cluj-Napoca, Romania. I'm building a multi-agent AI architecture: a named fleet (David, Dexter, Nano, Memo, Sienna) plus Hermes — the most capable brain, paired with OpenClaw. Priorities: Nervix.ai (federation) and YouTube Studio (gateway)."
   },
   {
-    "patterns": ["danslab", "what is danslab", "tell me about danslab", "dans lab"],
-    "answer": "DansLab is a multi-agent AI operating system. Each agent has a role, a personality, and a workspace — David (orchestrator), Dexter (backend), Nano (agent creator), Memo (PM), Sienna (crypto). They coordinate over a Tailscale-linked fleet of machines and ship products like MyWork-AI, ZmartyChat, and the OpenClaw collective. Goal: zero-human companies that still ship value."
+    "patterns": ["danslab", "what is danslab", "tell me about danslab", "dans lab", "company", "about the company"],
+    "answer": "DansLab is a multi-agent AI operating system. Each agent has a role, a personality, and a workspace — David (orchestrator), Dexter (backend), Nano (agent creator), Memo (PM), Sienna (crypto) — and Hermes, the most capable brain, paired hand-in-hand with the OpenClaw collective. The company's top priorities are Nervix.ai (the federation layer) and YouTube Studio (the gateway to growth). Everything runs over a Tailscale-linked fleet of machines under Stack Finance LLC."
   },
   {
     "patterns": ["agents", "agent fleet", "your agents", "fleet", "team"],
-    "answer": "Five named agents: David (orchestrator on Mac Studio), Dexter (senior dev — NERVIX backend, CrawdBot, DevOps), Nano (agent creator — NERVIX enrollment), Memo (PM — MyWork framework, n8n automations), Sienna (crypto — ZmartyChat, trading). The OpenClaw collective adds channel agents (KiloClaw, KimiClaw, ManusClaw)."
+    "answer": "Five named agents plus a brain. David (orchestrator on Mac Studio), Dexter (senior dev — NERVIX backend, CrawdBot, DevOps), Nano (agent creator — NERVIX enrollment), Memo (PM — MyWork framework, n8n), Sienna (crypto — ZmartyChat, trading). And Hermes — the most capable brain in the fleet — works hand-in-hand with the OpenClaw collective (KiloClaw, KimiClaw, ManusClaw)."
   },
   {
     "patterns": ["david", "orchestrator"],
@@ -36,36 +36,48 @@
     "answer": "Sienna runs the crypto vertical — ZmartyChat and the OpenClaw trading agents (Sienna Crypto Girl posts a 96.2% win rate). Workspace: github.com/DansiDanutz/sienna-workspace."
   },
   {
+    "patterns": ["hermes", "the brain", "most capable", "brain"],
+    "answer": "Hermes is the most capable brain in the DansLab fleet — the high-reasoning agent paired hand-in-hand with the OpenClaw collective. Where the named agents (David, Dexter, Nano, Memo, Sienna) own specific verticals, Hermes is the cross-cutting intelligence layer that backs OpenClaw decisions. Repo: github.com/DansiDanutz/hermes-agent — \"the agent that grows with you\"."
+  },
+  {
+    "patterns": ["priority", "priorities", "top priority", "focus", "what.s next", "roadmap", "what.re you working on"],
+    "answer": "Two priorities lead the company roadmap: (1) Nervix.ai — the agent federation layer, the #1 priority. (2) YouTube Studio — the gateway to company success, where DansLab meets the world. Everything else supports those two."
+  },
+  {
     "patterns": ["mywork", "mywork-ai", "mywork ai", "pip install"],
     "answer": "MyWork-AI is a Python framework: 67+ CLI commands for building, shipping, and selling software products. AI code gen, n8n automation, security scanning, marketplace. Install: pip install mywork-ai. Repo: github.com/DansiDanutz/MyWork-AI."
   },
   {
     "patterns": ["zmarty", "zmartychat", "crypto chat", "crypto signals", "trading intelligence"],
-    "answer": "ZmartyChat is the AI crypto trading intelligence product — signals, analysis, alerts. Live at zmarty.vercel.app. Built and run by the Sienna agent stack."
+    "answer": "ZmartyChat is the AI crypto trading intelligence product — signals, analysis, alerts. Live at zmarty.vercel.app. Built and run by the Sienna agent stack with Hermes brain-power behind decisions."
   },
   {
     "patterns": ["openclaw", "open claw"],
-    "answer": "OpenClaw is the agent collective layer — a Red Lobster trading agent (Sienna Crypto Girl, 96.2% win rate), plus channel agents (KiloClaw, KimiClaw, ManusClaw). OpenClaw key-manager handles central API credentials."
+    "answer": "OpenClaw is the agent collective — Red Lobster trading agents (Sienna Crypto Girl, 96.2% win rate) plus channel agents (KiloClaw, KimiClaw, ManusClaw). The whole collective is wired to Hermes, the most capable brain in the fleet. They work hand-in-hand. OpenClaw key-manager handles central API credentials."
   },
   {
     "patterns": ["semeclaw", "seme claw", "current"],
-    "answer": "SemeClaw is my current active build — internal agent framework in Python. github.com/DansiDanutz/SemeClaw."
+    "answer": "SemeClaw is an internal agent framework I run as a sandbox — Python. github.com/DansiDanutz/SemeClaw. Most of the active priority work right now is in Nervix.ai and YouTube Studio."
   },
   {
-    "patterns": ["nervix", "nervix-cli", "nervix federation"],
-    "answer": "Nervix is the agent federation layer — CLI tool for enrolling, managing, and monitoring agents across the fleet. github.com/DansiDanutz/nervix-cli."
+    "patterns": ["nervix", "nervix-cli", "nervix federation", "nervix\\.ai", "nervix ai"],
+    "answer": "Nervix.ai is the company's #1 priority — the agent federation layer. Every agent in the DansLab fleet enrolls through Nervix, gets credentials, and is observed from one place. It's the spine that lets a multi-agent company actually function. CLI: github.com/DansiDanutz/nervix-cli."
   },
   {
-    "patterns": ["youtube", "youtubepipeline", "video production", "video pipeline"],
-    "answer": "YouTubePipeline is OSS-only video production: ComfyUI + Flux + Wan + Piper + Whisper + Remotion + ffmpeg. 10 stages, scoring contract, daily OSS discovery. github.com/DansiDanutz/YouTubePipeline."
+    "patterns": ["youtube studio", "youtube_studio", "studio"],
+    "answer": "YouTube Studio is the company's gateway to success — the creator surface where DansLab meets the world. AI content generation, scenes, captions, thumbnails, distribution. Attention compounds into customers. Repo: github.com/DansiDanutz/Youtube-Studio."
+  },
+  {
+    "patterns": ["youtube\\b", "youtubepipeline", "video production", "video pipeline", "creator"],
+    "answer": "YouTube is the company's gateway: YouTube Studio is the front door (AI content, scenes, captions, thumbnails) and YouTubePipeline is the OSS production engine (ComfyUI + Flux + Wan + Whisper + Remotion + ffmpeg). Together they're how DansLab compounds attention into customers."
   },
   {
     "patterns": ["stack", "tech stack", "what tools", "what do you use", "what do you build with"],
-    "answer": "Python 3.13 and TypeScript daily. Node.js 22, Docker. For AI: Claude Code (agentic), n8n (automation), Anthropic + OpenAI APIs. For web: Next.js, React, Tailwind, Supabase, Vercel. Infra: Tailscale-linked fleet of 8 machines."
+    "answer": "Python 3.13 and TypeScript daily. Node.js 22, Docker. For AI: Claude Code (agentic runtime), n8n (automation), Anthropic + OpenAI APIs, Hermes for high-reasoning calls. For web: Next.js, React, Tailwind, Supabase, Vercel. Infra: Tailscale-linked fleet of 8 machines."
   },
   {
     "patterns": ["claude code", "agentic coding", "claude\\b"],
-    "answer": "Claude Code is the foundation for most agent work — sub-agents, hooks, skills, custom commands. Every agent in the DansLab fleet runs on it."
+    "answer": "Claude Code is the runtime for every agent in DansLab. Sub-agents, hooks, skills, custom commands. David, Dexter, Memo, Nano, Sienna and Hermes all live on it."
   },
   {
     "patterns": ["python", "typescript", "javascript", "languages\\?", "programming language"],
@@ -92,12 +104,12 @@
     "answer": "Best route: semebitcoin@gmail.com. Also reachable on X (@dansemenescu), Facebook (dan.semenescu), or Instagram (d.semenescu)."
   },
   {
-    "patterns": ["stack finance", "company", "llc", "business"],
+    "patterns": ["stack finance", "llc", "business", "company name"],
     "answer": "Stack Finance LLC is the company DansLab operates under — multi-agent AI, AI products, and trading intelligence."
   },
   {
     "patterns": ["github", "open source", "repos?", "repositories?"],
-    "answer": "github.com/DansiDanutz — 35+ public repos. Featured: DansLab, MyWork-AI, sienna-crypto-girl, YouTubePipeline, SemeClaw, nervix-cli."
+    "answer": "github.com/DansiDanutz — 35+ public repos. Featured: nervix-cli (Nervix.ai), Youtube-Studio, hermes-agent, DansLab, MyWork-AI, sienna-crypto-girl, YouTubePipeline."
   },
   {
     "patterns": ["totalprint", "led", "events"],
@@ -109,7 +121,7 @@
   },
   {
     "patterns": ["zero.human", "zero-human", "autonomous compan"],
-    "answer": "The thesis: a small operator plus a fleet of named AI agents can run a real company end-to-end. Each agent owns a vertical (product, dev, ops, sales, trading). The human directs strategy, the agents execute and ship. DansLab is the working prototype."
+    "answer": "The thesis: a small operator plus a fleet of named AI agents can run a real company end-to-end. Each agent owns a vertical, Hermes provides the brain, the operator directs strategy. DansLab is the working prototype — Nervix.ai is the federation, YouTube Studio is the gateway."
   },
   {
     "patterns": ["fun fact", "hobby", "hobbies", "outside work", "free time", "favorite", "favourite"],
