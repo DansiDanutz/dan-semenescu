@@ -51,7 +51,7 @@ const projects: Project[] = [
   { name: "DansLab", description: "Multi-agent AI operating system — orchestration & fleet command", tag: "Python · MIT", href: "https://github.com/DansiDanutz/DansLab" },
   { name: "OpenClaw × Hermes", description: "Agent collective wired to the most capable brain — Sienna Crypto Girl posts 96.2% win rate", tag: "powered by Hermes", href: "https://github.com/DansiDanutz/hermes-agent" },
   { name: "MyWork-AI", description: "67+ CLI commands · AI code gen · n8n automation · marketplace", tag: "pip install mywork-ai", href: "https://github.com/DansiDanutz/MyWork-AI" },
-  { name: "ZmartyChat", description: "AI crypto trading intelligence — signals, analysis, alerts", tag: "live · zmarty.vercel.app", href: "https://zmarty.vercel.app" },
+  { name: "ZmartyChat", description: "AI crypto trading intelligence — signals, analysis, alerts", tag: "live · zmarty.me", href: "https://zmarty.me" },
 ];
 
 const contacts: { label: string; value: string; href: string }[] = [
@@ -59,10 +59,13 @@ const contacts: { label: string; value: string; href: string }[] = [
   { label: "x       ", value: "@dansemenescu", href: "https://x.com/dansemenescu" },
   { label: "facebook", value: "dan.semenescu", href: "https://www.facebook.com/dan.semenescu/" },
   { label: "instagram", value: "d.semenescu", href: "https://www.instagram.com/d.semenescu/" },
-  { label: "danslab ", value: "danslab.vercel.app", href: "https://danslab.vercel.app" },
-  { label: "nervix  ", value: "nervix.ai", href: "https://nervix.ai" },
-  { label: "website ", value: "zmarty.vercel.app", href: "https://zmarty.vercel.app" },
-  { label: "email   ", value: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}` },
+  { label: "danslab  ", value: "danslab.vercel.app", href: "https://danslab.vercel.app" },
+  { label: "nervix   ", value: "nervix.ai", href: "https://nervix.ai" },
+  { label: "zmarty   ", value: "zmarty.me", href: "https://zmarty.me" },
+  { label: "crawdbot ", value: "crawdbot.com", href: "https://crawdbot.com" },
+  { label: "kryptos  ", value: "kryptostack.com", href: "https://kryptostack.com" },
+  { label: "idolrise ", value: "idolrise.com", href: "https://idolrise.com" },
+  { label: "email    ", value: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}` },
 ];
 
 const bioTokens: Token[] = [
@@ -218,7 +221,7 @@ const socials = [
   { href: "https://x.com/dansemenescu", label: "X", icon: <IconX /> },
   { href: "https://www.facebook.com/dan.semenescu/", label: "Facebook", icon: <IconFacebook /> },
   { href: "https://www.instagram.com/d.semenescu/", label: "Instagram", icon: <IconInstagram /> },
-  { href: "https://zmarty.vercel.app", label: "ZmartyChat", icon: <IconGlobe /> },
+  { href: "https://zmarty.me", label: "ZmartyChat", icon: <IconGlobe /> },
   { href: `mailto:${CONTACT_EMAIL}`, label: "Email", icon: <IconMail /> },
 ];
 
@@ -690,10 +693,11 @@ function DiagramBody({ step }: { step: number }) {
   ];
 
   return (
-    <div className="max-w-5xl">
+    <div className="max-w-5xl topology-frame">
+      <div className="topology-scanner" aria-hidden />
       <svg
         viewBox="0 0 1000 640"
-        className="w-full h-auto"
+        className="w-full h-auto relative z-[1]"
         role="img"
         aria-label="DansLab company topology — Dan, leadership (Hermes + David), 4 droplets, and products"
       >
@@ -737,17 +741,21 @@ function DiagramBody({ step }: { step: number }) {
         )}
 
         {step >= 1 && (
-          <g>
+          <g className="topology-node" style={{ ["--node-color" as never]: "#22d3ee" } as CSSProperties}>
             <rect x="430" y="30" width="140" height="65" rx="6" fill="rgba(34,211,238,0.10)" stroke="#22d3ee" strokeWidth="1.8" />
             <text x="500" y="56" textAnchor="middle" fontSize="14" fontWeight="700" fill="#d4d4d8" fontFamily="ui-monospace, monospace">Dan Semenescu</text>
             <text x="500" y="76" textAnchor="middle" fontSize="11" fill="#a1a1aa" fontFamily="ui-monospace, monospace">// human owner</text>
           </g>
         )}
 
-        {step >= 2 && leaderNodes.map((node) => {
+        {step >= 2 && leaderNodes.map((node, i) => {
           const b = bossById[node.id];
           return (
-            <g key={`leader-${node.id}`}>
+            <g
+              key={`leader-${node.id}`}
+              className={`topology-node topology-node-${(i % 4) + 1}`}
+              style={{ ["--node-color" as never]: b.color } as CSSProperties}
+            >
               <rect
                 x={node.x - 70}
                 y="170"
@@ -765,10 +773,14 @@ function DiagramBody({ step }: { step: number }) {
           );
         })}
 
-        {step >= 3 && dropletNodes.map((node) => {
+        {step >= 3 && dropletNodes.map((node, i) => {
           const b = bossById[node.id];
           return (
-            <g key={`droplet-${node.id}`}>
+            <g
+              key={`droplet-${node.id}`}
+              className={`topology-node topology-node-${(i % 4) + 1}`}
+              style={{ ["--node-color" as never]: b.color } as CSSProperties}
+            >
               <rect
                 x={node.x - 60}
                 y="330"
@@ -786,8 +798,12 @@ function DiagramBody({ step }: { step: number }) {
           );
         })}
 
-        {step >= 4 && productNodes.map((p) => (
-          <g key={`prod-${p.name}`}>
+        {step >= 4 && productNodes.map((p, i) => (
+          <g
+            key={`prod-${p.name}`}
+            className={`topology-node topology-node-${(i % 4) + 1}`}
+            style={{ ["--node-color" as never]: p.color } as CSSProperties}
+          >
             <rect
               x={p.x - 70}
               y="520"

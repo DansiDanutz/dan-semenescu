@@ -111,11 +111,76 @@ body {
   animation: flow-pulse 2.4s ease-in-out infinite;
 }
 
+@keyframes topology-node-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 2px var(--node-color, #22d3ee));
+  }
+  50% {
+    filter: drop-shadow(0 0 10px var(--node-color, #22d3ee));
+  }
+}
+
+@keyframes topology-scanner {
+  0% { transform: translateX(-12%); opacity: 0; }
+  10% { opacity: 0.55; }
+  90% { opacity: 0.55; }
+  100% { transform: translateX(112%); opacity: 0; }
+}
+
+.topology-node {
+  animation: topology-node-glow 3.4s ease-in-out infinite;
+}
+
+.topology-node-2 { animation-delay: 0.4s; }
+.topology-node-3 { animation-delay: 0.9s; }
+.topology-node-4 { animation-delay: 1.5s; }
+
+.topology-frame {
+  position: relative;
+  isolation: isolate;
+}
+
+.topology-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(34, 211, 238, 0.04) 0px,
+    rgba(34, 211, 238, 0.04) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  mix-blend-mode: screen;
+  opacity: 0.6;
+}
+
+.topology-scanner {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 14%;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(34, 211, 238, 0.18) 50%,
+    transparent 100%
+  );
+  filter: blur(8px);
+  animation: topology-scanner 6s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .flow-line path,
-  .flow-paired {
+  .flow-paired,
+  .topology-node,
+  .topology-scanner {
     animation: none;
   }
+  .topology-scanner { display: none; }
 }
 
 /* ---------- universe background: clean deep space + stars + comets ---------- */
