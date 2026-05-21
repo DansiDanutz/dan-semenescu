@@ -1,20 +1,39 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type FormEvent } from "react";
 import qaData from "../data/qa.json";
 
 type Project = { name: string; description: string; tag: string; href: string; priority?: boolean };
 type Token = { text: string; cls?: string };
-type Agent = { name: string; role: string; focus: string; color: string };
+type Boss = {
+  id: string;
+  name: string;
+  role: string;
+  focus: string;
+  color: string;
+  img: string;
+  video: string;
+  repo: string;
+  machine: string;
+};
+type ProductNode = { name: string; tag: string; x: number; color: string; dashed?: boolean };
 
-const agents: Agent[] = [
-  { name: "David", role: "Orchestrator", focus: "Mac Studio · fleet command · lab-sync", color: "#22c55e" },
-  { name: "Dexter", role: "Senior Dev", focus: "NERVIX backend · CrawdBot · DevOps", color: "#3b82f6" },
-  { name: "Nano", role: "Agent Creator", focus: "NERVIX enrollment · agent factory", color: "#a855f7" },
-  { name: "Memo", role: "Product Manager", focus: "MyWork framework · n8n automations", color: "#f97316" },
-  { name: "Sienna", role: "Crypto Operator", focus: "ZmartyChat · OpenClaw trading", color: "#ec4899" },
-  { name: "Hermes", role: "The Brain", focus: "Most capable model · paired hand-in-hand with OpenClaw", color: "#facc15" },
+const bosses: Boss[] = [
+  { id: "david", name: "David", role: "Orchestrator", focus: "Fleet command · task routing · lab-sync workflows", color: "#22c55e", img: "/team/david.png", video: "/team/david.mp4", repo: "https://github.com/DansiDanutz/david-workspace", machine: "mac-studio" },
+  { id: "dexter", name: "Dexter", role: "Senior Dev", focus: "NERVIX backend · CrawdBot · DevOps", color: "#3b82f6", img: "/team/dexter.png", video: "/team/dexter.mp4", repo: "https://github.com/DansiDanutz/dexter-workspace", machine: "dexter-droplet" },
+  { id: "nano", name: "Nano", role: "Agent Creator", focus: "NERVIX enrollment · agent factory", color: "#a855f7", img: "/team/nano.png", video: "/team/nano.mp4", repo: "https://github.com/DansiDanutz/nano-workspace", machine: "nano-droplet" },
+  { id: "memo", name: "Memo", role: "Product Manager", focus: "MyWork framework · n8n automations", color: "#f97316", img: "/team/memo.png", video: "/team/memo.mp4", repo: "https://github.com/DansiDanutz/memo-workspace", machine: "memo-droplet" },
+  { id: "sienna", name: "Sienna", role: "Crypto Operator", focus: "ZmartyChat · OpenClaw trading", color: "#ec4899", img: "/team/sienna.png", video: "/team/sienna.mp4", repo: "https://github.com/DansiDanutz/sienna-workspace", machine: "sienna-droplet" },
+  { id: "hermes", name: "Hermes", role: "The Brain", focus: "Most capable model · paired hand-in-hand with OpenClaw", color: "#facc15", img: "/team/hermes.png", video: "/team/hermes.mp4", repo: "https://github.com/DansiDanutz/hermes-agent", machine: "high-reasoning" },
+];
+
+const productNodes: ProductNode[] = [
+  { name: "Nervix.ai", tag: "★ PRIORITY · federation", x: 100, color: "#fb923c" },
+  { name: "YouTube Studio", tag: "★ GATEWAY · creator", x: 300, color: "#fb923c" },
+  { name: "MyWork-AI", tag: "pip install mywork-ai", x: 500, color: "#22d3ee" },
+  { name: "ZmartyChat", tag: "AI crypto trading", x: 700, color: "#22d3ee" },
+  { name: "OpenClaw", tag: "collective × Hermes", x: 900, color: "#facc15", dashed: true },
 ];
 
 const projects: Project[] = [
@@ -82,7 +101,7 @@ const manifestoSections: { heading: string; body: string }[] = [
   },
 ];
 
-type BodyKind = "hero" | "bio" | "manifesto" | "agents" | "projects" | "contact";
+type BodyKind = "hero" | "bio" | "manifesto" | "bosses" | "diagram" | "projects" | "contact";
 
 type SectionDef = {
   id: string;
@@ -96,7 +115,8 @@ const sectionDefs: SectionDef[] = [
   { id: "who", prompt: "who is dan semenescu?", tools: ["Pinging github.com/DansiDanutz", "Loading avatar", "Resolving Stack Finance LLC"], bodyKind: "hero", bodySteps: 5 },
   { id: "bg", prompt: "cat about.md", tools: ["Reading about.md", "Compiling DansLab manifest"], bodyKind: "bio", bodySteps: bioTokens.length },
   { id: "danslab", prompt: "cat ~/danslab/MANIFESTO.md", tools: ["Reading MANIFESTO.md", "Loading company architecture", "Stamping Stack Finance LLC"], bodyKind: "manifesto", bodySteps: manifestoSections.length },
-  { id: "agents", prompt: "ls ~/danslab/agents/", tools: ["Connecting to david@mac-studio", "Waking hermes", "Loading agent registry"], bodyKind: "agents", bodySteps: agents.length },
+  { id: "bosses", prompt: "ls ~/danslab/bosses/", tools: ["Booting fleet", "Loading portraits", "Waking hermes"], bodyKind: "bosses", bodySteps: bosses.length },
+  { id: "diagram", prompt: "cat ~/danslab/topology.svg", tools: ["Reading topology", "Resolving connections", "Rendering org chart"], bodyKind: "diagram", bodySteps: 3 },
   { id: "projects", prompt: "ls ~/danslab/projects/ --sort=priority", tools: ["Fetching repos from github.com/DansiDanutz", "Loading metadata", "Sorting by priority"], bodyKind: "projects", bodySteps: projects.length },
   { id: "contact", prompt: "cat contact.txt", tools: ["Reading contact.txt", "Validating links"], bodyKind: "contact", bodySteps: contacts.length },
 ];
@@ -125,7 +145,7 @@ const fullState = (def: SectionDef): SectionState => ({
   done: true,
 });
 
-const STORAGE_KEY = "danslab-portfolio-played-v3";
+const STORAGE_KEY = "danslab-portfolio-played-v4";
 
 // ---------- icons ----------
 function IconGitHub() {
@@ -344,25 +364,143 @@ function ManifestoBody({ step, streamingCursor }: { step: number; streamingCurso
   );
 }
 
-function AgentsBody({ step, streamingCursor }: { step: number; streamingCursor: boolean }) {
+function BossesBody({ step }: { step: number }) {
   return (
-    <ul className="space-y-3 text-base sm:text-lg">
-      {agents.slice(0, step).map((a, i) => (
-        <li key={a.name} className="flex flex-col sm:flex-row sm:items-baseline sm:gap-4">
-          <span className="shrink-0 flex items-center gap-2.5 min-w-[9rem]">
-            <span
-              className="size-2.5 rounded-full"
-              style={{ background: a.color, boxShadow: `0 0 12px ${a.color}` }}
-              aria-hidden
-            />
-            <span className="font-semibold" style={{ color: a.color }}>{a.name}</span>
-            <span className="text-dim text-sm">{a.role}</span>
-          </span>
-          <span className="text-foreground/90">— {a.focus}</span>
-          {streamingCursor && i === step - 1 && step < agents.length && <Cursor />}
-        </li>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl">
+      {bosses.slice(0, step).map((b) => (
+        <a
+          key={b.id}
+          href={b.repo}
+          target="_blank"
+          rel="noreferrer noopener"
+          className="group relative block aspect-[3/4] overflow-hidden rounded-lg border border-border hover:border-[var(--bcolor)] transition-colors"
+          style={{ ["--bcolor" as never]: b.color } as CSSProperties}
+        >
+          <video
+            src={b.video}
+            poster={b.img}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            className="absolute inset-0 size-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent pointer-events-none" />
+          <div className="absolute inset-x-0 bottom-0 p-4 space-y-1">
+            <div className="flex items-baseline gap-2">
+              <span className="size-2 rounded-full shrink-0" style={{ background: b.color, boxShadow: `0 0 10px ${b.color}` }} aria-hidden />
+              <span className="font-bold text-xl text-foreground">{b.name}</span>
+              <span className="text-dim text-xs">{b.role}</span>
+            </div>
+            <p className="text-foreground/90 text-sm leading-snug">{b.focus}</p>
+            <p className="text-muted text-xs">{b.machine}</p>
+          </div>
+        </a>
       ))}
-    </ul>
+    </div>
+  );
+}
+
+function DiagramBody({ step }: { step: number }) {
+  return (
+    <div className="max-w-5xl">
+      <svg
+        viewBox="0 0 1000 520"
+        className="w-full h-auto"
+        role="img"
+        aria-label="DansLab company topology — Dan, the agent fleet, and shipping products"
+      >
+        {/* Connectors render under nodes */}
+        {step >= 2 && (
+          <g stroke="#52525b" strokeWidth="1.4" fill="none" opacity="0.7">
+            {bosses.map((b, i) => {
+              const x = 100 + i * 160;
+              return <path key={`dan-${b.id}`} d={`M 500 95 L 500 130 L ${x} 130 L ${x} 160`} />;
+            })}
+          </g>
+        )}
+        {step >= 3 && (
+          <>
+            <g stroke="#52525b" strokeWidth="1.4" fill="none" opacity="0.7">
+              {/* Dexter (260) → Nervix.ai (100) */}
+              <path d="M 260 235 L 260 295 L 100 295 L 100 410" />
+              {/* Nano (420) → Nervix.ai (100) */}
+              <path d="M 420 235 L 420 305 L 100 305 L 100 410" />
+              {/* Memo (580) → MyWork-AI (500) */}
+              <path d="M 580 235 L 580 280 L 500 280 L 500 410" />
+              {/* Memo (580) → YouTube Studio (300) */}
+              <path d="M 580 235 L 580 290 L 300 290 L 300 410" />
+              {/* Sienna (740) → ZmartyChat (700) */}
+              <path d="M 740 235 L 740 280 L 700 280 L 700 410" />
+              {/* Sienna (740) → OpenClaw (900) */}
+              <path d="M 740 235 L 740 320 L 900 320 L 900 410" />
+            </g>
+            {/* Hermes ↔ OpenClaw — paired, dashed gold */}
+            <path
+              d="M 900 235 L 900 410"
+              stroke="#facc15"
+              strokeWidth="2.5"
+              strokeDasharray="6 4"
+              fill="none"
+              opacity="0.95"
+            />
+          </>
+        )}
+
+        {/* Layer 1: Dan */}
+        {step >= 1 && (
+          <g>
+            <rect x="430" y="35" width="140" height="60" rx="6" fill="rgba(34,211,238,0.08)" stroke="#22d3ee" strokeWidth="1.5" />
+            <text x="500" y="60" textAnchor="middle" fontSize="14" fontWeight="600" fill="#d4d4d8" fontFamily="ui-monospace, monospace">Dan Semenescu</text>
+            <text x="500" y="80" textAnchor="middle" fontSize="11" fill="#a1a1aa" fontFamily="ui-monospace, monospace">// operator · strategy</text>
+          </g>
+        )}
+
+        {/* Layer 2: 6 Bosses */}
+        {step >= 2 && bosses.map((b, i) => {
+          const x = 100 + i * 160;
+          return (
+            <g key={`node-${b.id}`}>
+              <rect x={x - 55} y="160" width="110" height="75" rx="6"
+                fill={`${b.color}1A`} stroke={b.color} strokeWidth="1.5" />
+              <text x={x} y="184" textAnchor="middle" fontSize="14" fontWeight="700" fill={b.color} fontFamily="ui-monospace, monospace">{b.name}</text>
+              <text x={x} y="203" textAnchor="middle" fontSize="10" fill="#a1a1aa" fontFamily="ui-monospace, monospace">{b.role}</text>
+              <text x={x} y="220" textAnchor="middle" fontSize="9" fill="#71717a" fontFamily="ui-monospace, monospace">{b.machine}</text>
+            </g>
+          );
+        })}
+
+        {/* Layer 3: Products + OpenClaw */}
+        {step >= 3 && productNodes.map((p) => (
+          <g key={`prod-${p.name}`}>
+            <rect
+              x={p.x - 70}
+              y="410"
+              width="140"
+              height="55"
+              rx="6"
+              fill="rgba(39,39,42,0.5)"
+              stroke={p.color}
+              strokeWidth="1.5"
+              strokeDasharray={p.dashed ? "4 3" : undefined}
+            />
+            <text x={p.x} y="432" textAnchor="middle" fontSize="13" fontWeight="700" fill={p.color} fontFamily="ui-monospace, monospace">{p.name}</text>
+            <text x={p.x} y="452" textAnchor="middle" fontSize="9" fill="#a1a1aa" fontFamily="ui-monospace, monospace">{p.tag}</text>
+          </g>
+        ))}
+
+        {/* Legend */}
+        {step >= 3 && (
+          <g transform="translate(20, 495)" fontFamily="ui-monospace, monospace">
+            <line x1="0" y1="-3" x2="22" y2="-3" stroke="#52525b" strokeWidth="1.4" />
+            <text x="28" y="0" fontSize="10" fill="#a1a1aa">reports to</text>
+            <line x1="120" y1="-3" x2="142" y2="-3" stroke="#facc15" strokeWidth="2" strokeDasharray="4 3" />
+            <text x="148" y="0" fontSize="10" fill="#a1a1aa">Hermes ↔ OpenClaw (paired)</text>
+          </g>
+        )}
+      </svg>
+    </div>
   );
 }
 
@@ -420,8 +558,10 @@ function renderBody(def: SectionDef, state: SectionState, isActive: boolean) {
       return <BioBody step={state.bodySteps} streamingCursor={streamingCursor} />;
     case "manifesto":
       return <ManifestoBody step={state.bodySteps} streamingCursor={streamingCursor} />;
-    case "agents":
-      return <AgentsBody step={state.bodySteps} streamingCursor={streamingCursor} />;
+    case "bosses":
+      return <BossesBody step={state.bodySteps} />;
+    case "diagram":
+      return <DiagramBody step={state.bodySteps} />;
     case "projects":
       return <ProjectsBody step={state.bodySteps} streamingCursor={streamingCursor} />;
     case "contact":
@@ -434,7 +574,7 @@ type QAEntry = { patterns: string[]; answer: string };
 const qa = qaData as QAEntry[];
 
 const FALLBACK_ANSWER =
-  "I don't have a canned answer for that one. Try asking about DansLab, Nervix.ai, YouTube Studio, Hermes, the agent fleet, OpenClaw, availability, or my stack. For anything else, email semebitcoin@gmail.com.";
+  "I don't have a canned answer for that one. Try asking about DansLab, Nervix.ai, YouTube Studio, Hermes, the team, the diagram, OpenClaw, availability, or my stack. For anything else, email semebitcoin@gmail.com.";
 
 function tokenize(text: string): string[] {
   return text.match(/\S+\s*/g) ?? [text];
@@ -615,7 +755,12 @@ export default function Home() {
         update(i, { toolsCollapsed: true });
         await sleep(120);
 
-        const stepDelay = def.bodyKind === "bio" ? 45 : def.bodyKind === "manifesto" ? 280 : 60;
+        const stepDelay =
+          def.bodyKind === "bio" ? 45
+          : def.bodyKind === "manifesto" ? 280
+          : def.bodyKind === "bosses" ? 220
+          : def.bodyKind === "diagram" ? 380
+          : 60;
         for (let s = 1; s <= def.bodySteps; s++) {
           if (token.cancelled) return;
           await sleep(stepDelay);

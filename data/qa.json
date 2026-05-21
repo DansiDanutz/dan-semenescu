@@ -12,8 +12,12 @@
     "answer": "DansLab is a multi-agent AI operating system. Each agent has a role, a personality, and a workspace — David (orchestrator), Dexter (backend), Nano (agent creator), Memo (PM), Sienna (crypto) — and Hermes, the most capable brain, paired hand-in-hand with the OpenClaw collective. The company's top priorities are Nervix.ai (the federation layer) and YouTube Studio (the gateway to growth). Everything runs over a Tailscale-linked fleet of machines under Stack Finance LLC."
   },
   {
-    "patterns": ["agents", "agent fleet", "your agents", "fleet", "team"],
-    "answer": "Five named agents plus a brain. David (orchestrator on Mac Studio), Dexter (senior dev — NERVIX backend, CrawdBot, DevOps), Nano (agent creator — NERVIX enrollment), Memo (PM — MyWork framework, n8n), Sienna (crypto — ZmartyChat, trading). And Hermes — the most capable brain in the fleet — works hand-in-hand with the OpenClaw collective (KiloClaw, KimiClaw, ManusClaw)."
+    "patterns": ["agents", "agent fleet", "your agents", "fleet", "team", "bosses", "show the team", "show me the team"],
+    "answer": "Six named bosses: David (Orchestrator · Mac Studio), Dexter (Senior Dev · NERVIX backend), Nano (Agent Creator · NERVIX enrollment), Memo (PM · MyWork · n8n), Sienna (Crypto · ZmartyChat · OpenClaw trading), and Hermes (The Brain · paired hand-in-hand with OpenClaw). Scroll up to see their portraits and live motion. OpenClaw adds channel agents (KiloClaw, KimiClaw, ManusClaw)."
+  },
+  {
+    "patterns": ["diagram", "topology", "org chart", "company chart", "structure", "architecture chart", "fleet map"],
+    "answer": "The topology shows three layers: Dan (operator) at top, six bosses in the middle (David, Dexter, Nano, Memo, Sienna, Hermes), and the shipping products at the bottom (Nervix.ai, YouTube Studio, MyWork-AI, ZmartyChat, OpenClaw). Hermes ↔ OpenClaw is a dashed gold pairing — the brain and the collective work hand-in-hand."
   },
   {
     "patterns": ["david", "orchestrator"],
