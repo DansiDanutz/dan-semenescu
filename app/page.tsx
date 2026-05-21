@@ -58,6 +58,8 @@ const contacts: { label: string; value: string; href: string }[] = [
   { label: "x       ", value: "@dansemenescu", href: "https://x.com/dansemenescu" },
   { label: "facebook", value: "dan.semenescu", href: "https://www.facebook.com/dan.semenescu/" },
   { label: "instagram", value: "d.semenescu", href: "https://www.instagram.com/d.semenescu/" },
+  { label: "danslab ", value: "danslab.vercel.app", href: "https://danslab.vercel.app" },
+  { label: "nervix  ", value: "nervix.ai", href: "https://nervix.ai" },
   { label: "website ", value: "zmarty.vercel.app", href: "https://zmarty.vercel.app" },
   { label: "email   ", value: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}` },
 ];
@@ -462,10 +464,10 @@ function HeroBody({
   openContact?: OpenContact;
 }) {
   return (
-    <div className="flex flex-col sm:flex-row gap-8 sm:gap-12 items-start">
+    <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-center lg:items-start">
       {step >= 1 && (
         <div className="shrink-0 flex flex-col items-center gap-3">
-          <div className="avatar-ring size-40 sm:size-52 rounded-full p-[3px]">
+          <div className="avatar-ring size-32 sm:size-44 lg:size-52 rounded-full p-[3px]">
             <div className="size-full rounded-full overflow-hidden bg-background">
               <Image
                 src="/dan.jpeg"
@@ -480,11 +482,11 @@ function HeroBody({
           <span className="text-muted text-xs">dan.jpeg</span>
         </div>
       )}
-      <div className="space-y-4 sm:pt-2 min-h-[12rem]">
+      <div className="space-y-4 lg:pt-2 min-h-[12rem] min-w-0 w-full lg:w-auto text-center lg:text-left">
         {step >= 2 && (
-          <h1 className="text-4xl sm:text-6xl font-bold tracking-wide text-foreground">DAN SEMENESCU</h1>
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-wide text-foreground break-words">DAN SEMENESCU</h1>
         )}
-        {step >= 3 && <p className="text-success text-xl sm:text-2xl">Founder, DansLab — Multi-Agent AI Architecture</p>}
+        {step >= 3 && <p className="text-success text-lg sm:text-xl lg:text-2xl">Founder, DansLab — Multi-Agent AI Architecture</p>}
         {step >= 4 && (
           <p className="text-lg max-w-xl text-foreground/95 leading-relaxed">
             Building <span className="text-accent">named AI agent fleets</span> that orchestrate, ship, and operate real products.
@@ -493,7 +495,7 @@ function HeroBody({
         {step >= 5 && (
           <>
             <p className="text-dim text-sm">// Cluj-Napoca, Romania · Stack Finance LLC</p>
-            <div className="flex gap-5 pt-2 text-dim">
+            <div className="flex gap-5 pt-2 text-dim justify-center lg:justify-start">
               {socials.map((s) => (
                 <a
                   key={s.label}
@@ -508,18 +510,18 @@ function HeroBody({
               ))}
             </div>
             {openContact && (
-              <div className="flex flex-wrap gap-3 pt-4">
+              <div className="flex flex-wrap gap-3 pt-4 justify-center lg:justify-start">
                 <button
                   type="button"
                   onClick={() => openContact("contact")}
-                  className="rounded border-2 border-accent/70 bg-accent/10 px-5 py-2.5 text-accent text-sm font-semibold hover:bg-accent/20 hover:border-accent transition-all hover:shadow-[0_0_20px_-5px_rgba(34,211,238,0.7)] cursor-pointer"
+                  className="rounded border-2 border-accent/70 bg-accent/10 px-4 sm:px-5 py-2 sm:py-2.5 text-accent text-xs sm:text-sm font-semibold hover:bg-accent/20 hover:border-accent transition-all hover:shadow-[0_0_20px_-5px_rgba(34,211,238,0.7)] cursor-pointer"
                 >
                   ▶ contact
                 </button>
                 <button
                   type="button"
                   onClick={() => openContact("advertise")}
-                  className="rounded border-2 border-highlight/70 bg-highlight/10 px-5 py-2.5 text-highlight text-sm font-semibold hover:bg-highlight/20 hover:border-highlight transition-all hover:shadow-[0_0_20px_-5px_rgba(251,146,60,0.7)] cursor-pointer"
+                  className="rounded border-2 border-highlight/70 bg-highlight/10 px-4 sm:px-5 py-2 sm:py-2.5 text-highlight text-xs sm:text-sm font-semibold hover:bg-highlight/20 hover:border-highlight transition-all hover:shadow-[0_0_20px_-5px_rgba(251,146,60,0.7)] cursor-pointer"
                 >
                   ▶ advertise / sponsor
                 </button>
@@ -949,14 +951,14 @@ function SectionView({ def, state, isActive, instant, openContact }: { def: Sect
 
   return (
     <section className="space-y-6">
-      <h2 className="flex items-baseline gap-3 text-base sm:text-lg">
-        <span className="text-accent">&gt;</span>
-        <span className="text-accent">
+      <h2 className="flex items-baseline gap-3 text-sm sm:text-base lg:text-lg">
+        <span className="text-accent shrink-0">&gt;</span>
+        <span className="text-accent break-all min-w-0">
           {def.prompt.slice(0, state.promptChars)}
           {isActive && !promptDone && <Cursor />}
         </span>
       </h2>
-      <div className="border-l border-border/80 pl-6 sm:pl-8 space-y-4">
+      <div className="border-l border-border/80 pl-4 sm:pl-6 lg:pl-8 space-y-4">
         {showTools && <ToolBlock def={def} state={state} instant={instant} />}
         {showBody && renderBody(def, state, isActive, openContact)}
       </div>
@@ -1109,9 +1111,9 @@ export default function Home() {
             >
               new session
             </button>
-            <span className="flex items-center gap-2 text-dim text-xs sm:text-sm">
+            <span className="flex items-center gap-1.5 sm:gap-2 text-dim text-xs sm:text-sm">
               <span className="size-2 rounded-full bg-success" aria-hidden />
-              online
+              <span className="hidden sm:inline">online</span>
             </span>
           </div>
         </header>
