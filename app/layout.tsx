@@ -12,10 +12,51 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const SITE_URL = "https://dansemenescu.vercel.app";
+const SITE_TITLE = "Dan Semenescu — Founder, DansLab";
+const SITE_DESCRIPTION =
+  "Multi-Agent AI Architecture. Founder of DansLab and Stack Finance LLC — building named AI agent fleets that orchestrate, ship, and operate real products. Nervix.ai, YouTube Studio, WorldCup Central (14K subs), ZmartyChat, Reality, OpenClaw.";
+
 export const metadata: Metadata = {
-  title: "Dan Semenescu — Founder, DansLab",
-  description:
-    "Multi-Agent AI Architecture. Founder of DansLab and Stack Finance LLC — building named AI agent fleets that orchestrate, ship, and operate real products. Nervix.ai, YouTube Studio, WorldCup Central (14K subs), ZmartyChat, Reality, OpenClaw.",
+  metadataBase: new URL(SITE_URL),
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
+  openGraph: {
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+    siteName: "Dan Semenescu",
+    type: "profile",
+    images: [{ url: "/dan.jpeg", width: 800, height: 800, alt: "Dan Semenescu" }],
+  },
+  twitter: {
+    card: "summary",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    creator: "@dansemenescu",
+    images: ["/dan.jpeg"],
+  },
+};
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Dan Semenescu",
+  url: SITE_URL,
+  image: `${SITE_URL}/dan.jpeg`,
+  jobTitle: "Founder",
+  worksFor: { "@type": "Organization", name: "DansLab / Stack Finance LLC" },
+  address: { "@type": "PostalAddress", addressLocality: "Cluj-Napoca", addressCountry: "RO" },
+  sameAs: [
+    "https://github.com/DansiDanutz",
+    "https://x.com/dansemenescu",
+    "https://www.facebook.com/dan.semenescu/",
+    "https://www.instagram.com/d.semenescu/",
+    "https://www.youtube.com/@DansLab-WorldCup",
+    "https://danslab.vercel.app",
+    "https://nervix.ai",
+    "https://zmarty.me",
+  ],
 };
 
 // Deterministic pseudo-random for SSR-safe star placement
@@ -103,6 +144,10 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background relative">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
         <Universe />
         {children}
       </body>
