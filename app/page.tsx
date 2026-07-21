@@ -1003,20 +1003,36 @@ function tokenize(text: string): string[] {
   return text.match(/\S+\s*/g) ?? [text];
 }
 
-function findAnswer(question: string): string {
+// Score-based matcher: prefer the entry with the most (and longest) pattern hits
+// instead of first-match, so specific answers beat generic ones.
+function findAnswer(question: string): { answer: string; matched: boolean } {
+  let best: { score: number; answer: string } | null = null;
   for (const entry of qa) {
+    let score = 0;
     for (const pattern of entry.patterns) {
       try {
-        if (new RegExp(pattern, "i").test(question)) return entry.answer;
+        const m = question.match(new RegExp(pattern, "i"));
+        if (m) score += 10 + Math.min(m[0].length, 20);
       } catch {
         // skip invalid regex silently
       }
     }
+    if (score > 0 && (!best || score > best.score)) best = { score, answer: entry.answer };
   }
-  return FALLBACK_ANSWER;
+  if (best) return { answer: best.answer, matched: true };
+  return { answer: FALLBACK_ANSWER, matched: false };
 }
 
-type HistoryItem = { id: number; q: string; words: string[]; shown: number };
+const SUGGESTED_QUESTIONS = [
+  "what is danslab?",
+  "what have you shipped in 2026?",
+  "who is hermes?",
+  "tell me about the youtube channel",
+  "what is reality?",
+  "how do I sponsor?",
+];
+
+type HistoryItem = { id: number; q: string; words: string[]; shown: number; matched: boolean };
 
 function ChatPrompt({ children }: { children: React.ReactNode }) {
   return (
@@ -1033,6 +1049,8 @@ function ChatInterface() {
   const bottomRef = useRef<HTMLDivElement>(null);
   const streamRef = useRef<{ cancelled: boolean }>({ cancelled: false });
   const idRef = useRef(0);
+  const askedRef = useRef<string[]>([]);
+  const histPosRef = useRef(-1);
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -1048,16 +1066,17 @@ function ChatInterface() {
     };
   }, []);
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    const q = value.trim();
+  const ask = (raw: string) => {
+    const q = raw.trim();
     if (!q) return;
     setValue("");
+    askedRef.current.push(q);
+    histPosRef.current = -1;
 
-    const answer = findAnswer(q);
+    const { answer, matched } = findAnswer(q);
     const words = tokenize(answer);
     const id = ++idRef.current;
-    setHistory((prev) => [...prev, { id, q, words, shown: 0 }]);
+    setHistory((prev) => [...prev, { id, q, words, shown: 0, matched }]);
 
     streamRef.current.cancelled = true;
     const token = { cancelled: false };
@@ -1073,6 +1092,24 @@ function ChatInterface() {
     })();
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const asked = askedRef.current;
+    if (e.key === "ArrowUp" && asked.length) {
+      e.preventDefault();
+      histPosRef.current = histPosRef.current === -1 ? asked.length - 1 : Math.max(0, histPosRef.current - 1);
+      setValue(asked[histPosRef.current]);
+    } else if (e.key === "ArrowDown" && histPosRef.current !== -1) {
+      e.preventDefault();
+      histPosRef.current = histPosRef.current + 1 >= asked.length ? -1 : histPosRef.current + 1;
+      setValue(histPosRef.current === -1 ? "" : asked[histPosRef.current]);
+    }
+  };
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    ask(value);
+  };
+
   return (
     <div className="space-y-6 pt-2">
       {history.map((h) => {
@@ -1086,9 +1123,37 @@ function ChatInterface() {
               {h.words.slice(0, h.shown).join("")}
               {streaming && <Cursor />}
             </p>
+            {!h.matched && (
+              <div className="pl-6 pt-1">
+                <a
+                  href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Hi Dan — question from your site:\n\n${h.q}`)}`}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="inline-flex items-center gap-2 rounded border border-success/70 bg-success/10 px-3 py-1.5 text-success text-sm hover:bg-success/20 transition-colors"
+                >
+                  <IconWhatsapp />
+                  <span>ask Dan directly on WhatsApp</span>
+                </a>
+              </div>
+            )}
           </div>
         );
       })}
+
+      {history.length === 0 && (
+        <div className="flex flex-wrap gap-2">
+          {SUGGESTED_QUESTIONS.map((q) => (
+            <button
+              key={q}
+              type="button"
+              onClick={() => ask(q)}
+              className="rounded border border-border px-3 py-1.5 text-dim text-xs sm:text-sm hover:text-accent hover:border-accent/60 transition-colors cursor-pointer"
+            >
+              {q}
+            </button>
+          ))}
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} className="flex items-center gap-2 text-base sm:text-lg">
         <span className="text-accent shrink-0">$ ask&gt;</span>
@@ -1097,6 +1162,7 @@ function ChatInterface() {
           type="text"
           value={value}
           onChange={(e) => setValue(e.target.value)}
+          onKeyDown={handleKeyDown}
           spellCheck={false}
           autoComplete="off"
           aria-label="Ask a question about Dan"
