@@ -1029,6 +1029,58 @@ function findAnswer(question: string): { answer: string; matched: boolean } {
   return { answer: FALLBACK_ANSWER, matched: false };
 }
 
+// real terminal commands the ask> prompt understands
+const OPEN_TARGETS: Record<string, string> = {
+  zmarty: "https://zmarty.me",
+  nervix: "https://nervix.ai",
+  danslab: "https://danslab.vercel.app",
+  youtube: "https://www.youtube.com/@DansLab-WorldCup",
+  worldcup: "https://worldcup-ten-eta.vercel.app",
+  reality: "https://github.com/DansiDanutz/Reality",
+  github: "https://github.com/DansiDanutz",
+};
+
+function runCommand(q: string): { answer: string; matched: boolean } | "clear" | null {
+  const cmd = q.trim().toLowerCase();
+  if (cmd === "clear") return "clear";
+  if (cmd === "help" || cmd === "/help" || cmd === "man dan") {
+    return {
+      matched: true,
+      answer:
+        "Available commands: help · ls (list projects) · whoami · date · uptime · open <zmarty|nervix|danslab|youtube|worldcup|reality|github> · contact · advertise · clear · sudo hire dan. Or just ask anything in plain English.",
+    };
+  }
+  if (cmd === "ls" || cmd === "ls projects" || cmd === "ls ~/danslab") {
+    return { matched: true, answer: featured.map((f) => `${f.name.toLowerCase().replace(/\s+/g, "-")}/  → ${f.href}`).join("\n") };
+  }
+  if (cmd === "whoami") {
+    return { matched: true, answer: "visitor@dansemenescu — a curious human (or agent?) browsing the profile. Nice to have you here. Type `help` to see what this terminal can do." };
+  }
+  if (cmd === "date" || cmd === "time") {
+    const now = new Date().toLocaleString("en-GB", { timeZone: "Europe/Bucharest", weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+    return { matched: true, answer: `${now} — Cluj-Napoca time (UTC+2/+3). The fleet runs 24/7 either way.` };
+  }
+  if (cmd === "uptime") {
+    return { matched: true, answer: "fleet uptime: Mac Studio + 4 droplets (dexter, memo, sienna, nano) — online. Hermes: reasoning. David: orchestrating. The lights stay on overnight." };
+  }
+  if (cmd.startsWith("open ")) {
+    const key = cmd.slice(5).trim();
+    const url = OPEN_TARGETS[key];
+    if (url) {
+      window.open(url, "_blank", "noopener");
+      return { matched: true, answer: `Opening ${key} → ${url}` };
+    }
+    return { matched: true, answer: `Unknown target "${key}". Try: open ${Object.keys(OPEN_TARGETS).join(" | open ")}` };
+  }
+  if (cmd === "sudo hire dan" || cmd === "hire dan" || cmd === "sudo hire") {
+    return { matched: true, answer: "Permission granted ✅ — root access to a founder who ships with an AI fleet. Hit the contact button, or WhatsApp +40 744 602 272 and let's talk." };
+  }
+  if (cmd === "sudo rm -rf /" || cmd.startsWith("rm -rf")) {
+    return { matched: true, answer: "Nice try 😄 — the fleet has backups of its backups. Sienna logged this attempt with a 96.2% confidence you were joking." };
+  }
+  return null;
+}
+
 const SUGGESTED_QUESTIONS = [
   "what is danslab?",
   "what have you shipped in 2026?",
@@ -1048,7 +1100,7 @@ function ChatPrompt({ children }: { children: React.ReactNode }) {
   );
 }
 
-function ChatInterface() {
+function ChatInterface({ openContact }: { openContact?: OpenContact }) {
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [value, setValue] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -1079,7 +1131,18 @@ function ChatInterface() {
     askedRef.current.push(q);
     histPosRef.current = -1;
 
-    const { answer, matched } = findAnswer(q);
+    const cmdLower = q.toLowerCase();
+    if (openContact && (cmdLower === "contact" || cmdLower === "advertise")) {
+      openContact(cmdLower as "contact" | "advertise");
+      return;
+    }
+    const cmdResult = runCommand(q);
+    if (cmdResult === "clear") {
+      setHistory([]);
+      return;
+    }
+
+    const { answer, matched } = cmdResult ?? findAnswer(q);
     const words = tokenize(answer);
     const id = ++idRef.current;
     setHistory((prev) => [...prev, { id, q, words, shown: 0, matched }]);
@@ -1125,7 +1188,7 @@ function ChatInterface() {
             <div>
               <ChatPrompt>{h.q}</ChatPrompt>
             </div>
-            <p className="pl-6 text-foreground leading-relaxed max-w-3xl">
+            <p className="pl-6 text-foreground leading-relaxed max-w-3xl whitespace-pre-line">
               {h.words.slice(0, h.shown).join("")}
               {streaming && <Cursor />}
             </p>
@@ -1173,7 +1236,7 @@ function ChatInterface() {
           autoComplete="off"
           aria-label="Ask a question about Dan"
           className="flex-1 bg-transparent outline-none border-none text-foreground caret-accent placeholder:text-muted"
-          placeholder="ask me anything…"
+          placeholder='ask me anything… or type "help"'
         />
       </form>
 
@@ -1365,7 +1428,7 @@ export default function Home() {
             return <SectionView key={def.id} def={def} state={state} isActive={isActive} instant={instant} openContact={openContact} />;
           })}
 
-          {allDone && <ChatInterface />}
+          {allDone && <ChatInterface openContact={openContact} />}
         </div>
       </div>
       <ContactModal mode={contactMode} onClose={closeContact} />
