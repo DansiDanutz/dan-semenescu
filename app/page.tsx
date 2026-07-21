@@ -71,6 +71,7 @@ const contacts: { label: string; value: string; href: string }[] = [
   { label: "dailystock", value: "dailystock-cyan.vercel.app", href: "https://dailystock-cyan.vercel.app" },
   { label: "kryptos  ", value: "kryptostack.com", href: "https://kryptostack.com" },
   { label: "idolrise ", value: "idolrise.com", href: "https://idolrise.com" },
+  { label: "whatsapp ", value: "+40 744 602 272", href: `https://wa.me/${WHATSAPP_NUMBER}` },
   { label: "email    ", value: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}` },
 ];
 
@@ -232,6 +233,7 @@ const socials = [
   { href: "https://www.facebook.com/dan.semenescu/", label: "Facebook", icon: <IconFacebook /> },
   { href: "https://www.instagram.com/d.semenescu/", label: "Instagram", icon: <IconInstagram /> },
   { href: "https://zmarty.me", label: "ZmartyChat", icon: <IconGlobe /> },
+  { href: `https://wa.me/${WHATSAPP_NUMBER}`, label: "WhatsApp", icon: <IconWhatsapp /> },
   { href: `mailto:${CONTACT_EMAIL}`, label: "Email", icon: <IconMail /> },
 ];
 
