@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Dan Semenescu — Founder, DansLab",
   description:
-    "Multi-Agent AI Architecture. Founder of DansLab and Stack Finance LLC — building named AI agent fleets that orchestrate, ship, and operate real products. MyWork-AI, ZmartyChat, OpenClaw.",
+    "Multi-Agent AI Architecture. Founder of DansLab and Stack Finance LLC — building named AI agent fleets that orchestrate, ship, and operate real products. Nervix.ai, YouTube Studio, WorldCup Central (14K subs), ZmartyChat, Reality, OpenClaw.",
 };
 
 // Deterministic pseudo-random for SSR-safe star placement

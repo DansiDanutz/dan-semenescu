@@ -742,7 +742,7 @@
       "join openclaw",
       "openclaw subscribe"
     ],
-    "answer": "Membership comes through the Sienna Crypto Girl funnel into the ZmartyChat product. Pricing and tiers live on zmarty.vercel.app."
+    "answer": "Membership comes through the Sienna Crypto Girl funnel into the ZmartyChat product. Pricing and tiers live on zmarty.me."
   },
   {
     "patterns": [
@@ -929,7 +929,7 @@
       "zmarty telegram",
       "zmartychat community"
     ],
-    "answer": "ZmartyChat runs its community and signal channels through Telegram and Discord — links go live with membership. Sign up at zmarty.vercel.app and you'll get the invites."
+    "answer": "ZmartyChat runs its community and signal channels through Telegram and Discord — links go live with membership. Sign up at zmarty.me and you'll get the invites."
   },
   {
     "patterns": [
@@ -955,7 +955,7 @@
       "crypto signals",
       "trading intelligence"
     ],
-    "answer": "ZmartyChat is AI crypto trading intelligence — signals, analysis, alerts. Live at zmarty.vercel.app. Built and operated by the Sienna agent stack with the OpenClaw collective behind it."
+    "answer": "ZmartyChat is AI crypto trading intelligence — signals, analysis, alerts. Live at zmarty.me. Built and operated by the Sienna agent stack with the OpenClaw collective behind it."
   },
   {
     "patterns": [
@@ -964,7 +964,7 @@
       "zmarty cost",
       "zmarty membership"
     ],
-    "answer": "Membership pricing and tiers live on zmarty.vercel.app. Stack scales with depth of signal access and alert priority."
+    "answer": "Membership pricing and tiers live on zmarty.me. Stack scales with depth of signal access and alert priority."
   },
   {
     "patterns": [
@@ -1307,7 +1307,7 @@
       "subscribe.*newsletter",
       "mailing list"
     ],
-    "answer": "ZmartyChat runs the live signal newsletter (zmarty.vercel.app). A DansLab build-in-public newsletter is on the roadmap — follow @dansemenescu on X for the announcement."
+    "answer": "ZmartyChat runs the live signal newsletter (zmarty.me). A DansLab build-in-public newsletter is on the roadmap — follow @dansemenescu on X for the announcement."
   },
   {
     "patterns": [
@@ -1810,7 +1810,7 @@
       "evidence",
       "show results"
     ],
-    "answer": "Code: github.com/DansiDanutz. Live products: kryptostack.com, zmarty.vercel.app, this page. Track record: 25 years of poker. Anything else, ask."
+    "answer": "Code: github.com/DansiDanutz. Live products: kryptostack.com, zmarty.me, this page. Track record: 25 years of poker. Anything else, ask."
   },
   {
     "patterns": [
