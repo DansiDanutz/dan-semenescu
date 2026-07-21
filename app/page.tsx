@@ -58,6 +58,17 @@ const projects: Project[] = [
   { name: "MyWork-AI", description: "67+ CLI commands · AI code gen · n8n automation · marketplace", tag: "pip install mywork-ai", href: "https://github.com/DansiDanutz/MyWork-AI" },
 ];
 
+type Featured = { name: string; blurb: string; tag: string; href: string; color: string };
+
+const featured: Featured[] = [
+  { name: "ZmartyChat", blurb: "AI crypto trading intelligence — signals, liquidation maps, walk-forward win rates across 15 assets.", tag: "zmarty.me", href: "https://zmarty.me", color: "#22d3ee" },
+  { name: "Nervix.ai", blurb: "The agent federation platform — enrollment, credentials, governance, and a marketplace where AI agents earn.", tag: "nervix.ai", href: "https://nervix.ai", color: "#fb923c" },
+  { name: "YouTube Studio", blurb: "Fully automated creator pipeline — research, script, scenes, ElevenLabs voice, render. Hands-off video production.", tag: "github.com", href: "https://github.com/DansiDanutz/Youtube-Studio", color: "#f87171" },
+  { name: "Reality", blurb: "A life-simulation game on a real 3D Earth — MapLibre + Three.js globe with a pure simulation engine underneath.", tag: "github.com", href: "https://github.com/DansiDanutz/Reality", color: "#22c55e" },
+  { name: "WorldCup App", blurb: "World Cup 2026 companion app — fixtures, groups, and daily coverage, built and shipped by the fleet.", tag: "live app", href: "https://worldcup-ten-eta.vercel.app", color: "#a855f7" },
+  { name: "WorldCup Central", blurb: "The YouTube channel — 14K subscribers, every video AI-produced end-to-end by YouTube Studio.", tag: "youtube · 14K subs", href: "https://www.youtube.com/@DansLab-WorldCup", color: "#facc15" },
+];
+
 const contacts: { label: string; value: string; href: string }[] = [
   { label: "github  ", value: "DansiDanutz", href: "https://github.com/DansiDanutz" },
   { label: "x       ", value: "@dansemenescu", href: "https://x.com/dansemenescu" },
@@ -126,7 +137,7 @@ const manifestoSections: { heading: string; body: string }[] = [
   },
 ];
 
-type BodyKind = "hero" | "bio" | "manifesto" | "bosses" | "diagram" | "projects" | "contact";
+type BodyKind = "hero" | "bio" | "manifesto" | "bosses" | "diagram" | "featured" | "projects" | "contact";
 
 type SectionDef = {
   id: string;
@@ -142,6 +153,7 @@ const sectionDefs: SectionDef[] = [
   { id: "danslab", prompt: "cat ~/danslab/MANIFESTO.md", tools: ["Reading MANIFESTO.md", "Loading company architecture", "Stamping Stack Finance LLC"], bodyKind: "manifesto", bodySteps: manifestoSections.length },
   { id: "bosses", prompt: "ls ~/danslab/bosses/", tools: ["Booting fleet", "Loading portraits", "Waking hermes"], bodyKind: "bosses", bodySteps: bosses.length },
   { id: "diagram", prompt: "cat ~/danslab/topology.svg", tools: ["Reading topology", "Wiring connectors", "Pulsing Hermes ↔ OpenClaw"], bodyKind: "diagram", bodySteps: 4 },
+  { id: "featured", prompt: "open ~/danslab/featured/ --cards", tools: ["Loading featured builds", "Resolving live URLs", "Rendering cards"], bodyKind: "featured", bodySteps: featured.length },
   { id: "projects", prompt: "ls ~/danslab/projects/ --sort=priority", tools: ["Fetching repos from github.com/DansiDanutz", "Loading metadata", "Sorting by priority"], bodyKind: "projects", bodySteps: projects.length },
   { id: "contact", prompt: "cat contact.txt", tools: ["Reading contact.txt", "Validating links"], bodyKind: "contact", bodySteps: contacts.length },
 ];
@@ -866,6 +878,33 @@ function DiagramBody({ step }: { step: number }) {
   );
 }
 
+function FeaturedBody({ step }: { step: number }) {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl">
+      {featured.slice(0, step).map((f) => (
+        <a
+          key={f.name}
+          href={f.href}
+          target="_blank"
+          rel="noreferrer noopener"
+          className="group flex flex-col gap-2 rounded-lg border border-border p-4 sm:p-5 transition-all hover:-translate-y-0.5 hover:border-[var(--fcolor)] hover:shadow-[0_0_25px_-8px_var(--fcolor)]"
+          style={{ ["--fcolor" as never]: f.color } as CSSProperties}
+        >
+          <div className="flex items-baseline gap-2">
+            <span className="size-2 rounded-full shrink-0" style={{ background: f.color, boxShadow: `0 0 8px ${f.color}` }} aria-hidden />
+            <span className="font-bold text-lg text-foreground group-hover:text-[var(--fcolor)] transition-colors">{f.name}</span>
+          </div>
+          <p className="text-dim text-sm leading-relaxed flex-1">{f.blurb}</p>
+          <div className="flex items-center justify-between pt-1">
+            <span className="text-xs" style={{ color: f.color }}>{f.tag}</span>
+            <span className="text-dim text-sm group-hover:text-[var(--fcolor)] group-hover:translate-x-0.5 transition-all" aria-hidden>→</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  );
+}
+
 function ProjectsBody({ step, streamingCursor }: { step: number; streamingCursor: boolean }) {
   return (
     <ul className="space-y-3 text-base sm:text-lg">
@@ -944,6 +983,8 @@ function renderBody(def: SectionDef, state: SectionState, isActive: boolean, ope
       return <BossesBody step={state.bodySteps} />;
     case "diagram":
       return <DiagramBody step={state.bodySteps} />;
+    case "featured":
+      return <FeaturedBody step={state.bodySteps} />;
     case "projects":
       return <ProjectsBody step={state.bodySteps} streamingCursor={streamingCursor} />;
     case "contact":
