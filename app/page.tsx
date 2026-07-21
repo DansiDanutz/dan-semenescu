@@ -495,17 +495,23 @@ function HeroBody({
     <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-center lg:items-start">
       {step >= 1 && (
         <div className="shrink-0 flex flex-col items-center gap-3">
-          <div className="avatar-ring size-32 sm:size-44 lg:size-52 rounded-full p-[3px]">
-            <div className="size-full rounded-full overflow-hidden bg-background">
-              <Image
-                src="/dan.jpeg"
-                alt="Dan Semenescu"
-                width={208}
-                height={208}
-                priority
-                className="size-full object-cover"
-              />
+          <div className="avatar-wrap relative">
+            <div className="avatar-ring avatar-birth size-32 sm:size-44 lg:size-52 rounded-full p-[3px]">
+              <div className="relative size-full rounded-full overflow-hidden bg-background">
+                <Image
+                  src="/dan.jpeg"
+                  alt="Dan Semenescu"
+                  width={208}
+                  height={208}
+                  priority
+                  className="size-full object-cover"
+                />
+                <span className="avatar-shimmer" aria-hidden />
+              </div>
             </div>
+            <span className="avatar-orbit" aria-hidden>
+              <span className="avatar-orbit-star" />
+            </span>
           </div>
           <span className="text-muted text-xs">dan.jpeg</span>
         </div>
