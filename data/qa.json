@@ -1854,5 +1854,66 @@
       "appreciate"
     ],
     "answer": "Anytime. If something here resonates, ship something with it and tag @dansemenescu — that's the best feedback."
+  },
+  {
+    "patterns": [
+      "youtube",
+      "worldcup",
+      "world cup",
+      "channel",
+      "subscribers",
+      "14k"
+    ],
+    "answer": "DansLab runs WorldCup Central — youtube.com/@DansLab-WorldCup — currently at 14K subscribers. Every video is produced end-to-end by the YouTube Studio pipeline: research, script, scene design, ElevenLabs narration, and final render, all automated. YouTube is the gateway surface where DansLab meets the world."
+  },
+  {
+    "patterns": [
+      "reality",
+      "game",
+      "life sim",
+      "3d earth",
+      "simulation game"
+    ],
+    "answer": "Reality is a life-simulation game on a real 3D Earth — React 19 + TypeScript, MapLibre GL and Three.js for the globe, a pure simulation engine underneath, and a Postgres-backed live server layer on Vercel + Neon. Multiple AI agents build it in parallel through a PR-only workflow. It's in active development."
+  },
+  {
+    "patterns": [
+      "dexty",
+      "assistant",
+      "digital assistant",
+      "whatsapp"
+    ],
+    "answer": "Dexty is my personal AI assistant — an agent with full access to the Mac Studio, reachable over WhatsApp. It handles day-to-day requests, file work, and fleet checks, and a voice avatar (phone-answering Dexty) is in progress. It's the 'personal' end of the DansLab fleet."
+  },
+  {
+    "patterns": [
+      "paperclip",
+      "control plane",
+      "dashboard",
+      "observability"
+    ],
+    "answer": "Paperclip is the fleet's control plane — a local dashboard where every agent, task, heartbeat, and issue is observable and governable from one place. It also powers YouTube Studio's production board. If DansLab is a company of agents, Paperclip is its office."
+  },
+  {
+    "patterns": [
+      "scoreboard",
+      "achievements",
+      "2026",
+      "shipped",
+      "what have you (built|done|shipped)",
+      "recent",
+      "lately",
+      "what's new",
+      "whats new"
+    ],
+    "answer": "2026 so far: Nervix.ai live in production (agent federation), WorldCup Central grown to 14K YouTube subscribers on fully AI-produced videos, ZmartyChat shipped walk-forward historical win rates across 15 assets, Paperclip control plane running the fleet, Dexty answering on WhatsApp, Reality (3D Earth life-sim) in active build, plus DailyStock, the OmniRoute AI gateway, and a daily video production pipeline. One operator, one Mac Studio, four droplets."
+  },
+  {
+    "patterns": [
+      "dailystock",
+      "stock dashboard",
+      "market dashboard"
+    ],
+    "answer": "DailyStock is a live stock & crypto market dashboard at dailystock-cyan.vercel.app — daily market briefings generated and deployed by the fleet."
   }
 ]

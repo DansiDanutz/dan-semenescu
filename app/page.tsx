@@ -39,19 +39,23 @@ const bosses: Boss[] = [
 
 const productNodes: ProductNode[] = [
   { name: "Nervix.ai", tag: "★ PRIORITY · federation", x: 125, color: "#fb923c" },
-  { name: "YouTube Studio", tag: "★ GATEWAY · creator", x: 325, color: "#fb923c" },
-  { name: "MyWork-AI", tag: "pip install mywork-ai", x: 525, color: "#22d3ee" },
+  { name: "YouTube Studio", tag: "★ GATEWAY · 14K subs", x: 325, color: "#fb923c" },
+  { name: "Reality", tag: "3D Earth life-sim", x: 525, color: "#22d3ee" },
   { name: "ZmartyChat", tag: "AI crypto trading", x: 725, color: "#22d3ee" },
   { name: "OpenClaw", tag: "collective × Hermes", x: 925, color: "#facc15", dashed: true },
 ];
 
 const projects: Project[] = [
-  { name: "Nervix.ai", description: "Agent federation layer — enrollment, credentials, governance, observability across the fleet", tag: "★ PRIORITY · federation", href: "https://github.com/DansiDanutz/nervix-cli", priority: true },
-  { name: "YouTube Studio", description: "Creator platform — AI content, scenes, captions, thumbnails · where attention compounds", tag: "★ GATEWAY · creator", href: "https://github.com/DansiDanutz/Youtube-Studio", priority: true },
-  { name: "DansLab", description: "Multi-agent AI operating system — orchestration & fleet command", tag: "Python · MIT", href: "https://github.com/DansiDanutz/DansLab" },
+  { name: "Nervix.ai", description: "Agent federation layer — enrollment, credentials, governance, observability · live in production", tag: "★ PRIORITY · nervix.ai", href: "https://nervix.ai", priority: true },
+  { name: "YouTube Studio", description: "Fully automated AI creator pipeline — research, script, scenes, voice, render · powers the channels", tag: "★ GATEWAY · creator", href: "https://github.com/DansiDanutz/Youtube-Studio", priority: true },
+  { name: "WorldCup Central", description: "DansLab's YouTube channel — 14K subscribers, AI-produced World Cup 2026 content end-to-end", tag: "★ LIVE · 14K subs", href: "https://www.youtube.com/@DansLab-WorldCup", priority: true },
+  { name: "ZmartyChat", description: "AI crypto trading intelligence — signals, liquidation maps, walk-forward historical win rates across 15 assets", tag: "live · zmarty.me", href: "https://zmarty.me" },
+  { name: "Reality", description: "Life-simulation game on a real 3D Earth — React 19, MapLibre + Three.js, one simulation engine", tag: "in build · 3D Earth", href: "https://github.com/DansiDanutz/Reality" },
+  { name: "DansLab", description: "Multi-agent AI operating system — orchestration & fleet command", tag: "danslab.vercel.app", href: "https://danslab.vercel.app" },
   { name: "OpenClaw × Hermes", description: "Agent collective wired to the most capable brain — Sienna Crypto Girl posts 96.2% win rate", tag: "powered by Hermes", href: "https://github.com/DansiDanutz/hermes-agent" },
+  { name: "Dexty", description: "Personal AI assistant with full Mac access — reachable over WhatsApp, voice avatar in progress", tag: "WhatsApp · live", href: "https://github.com/DansiDanutz" },
+  { name: "DailyStock", description: "Stock & crypto market dashboard — live daily briefings", tag: "live · vercel", href: "https://dailystock-cyan.vercel.app" },
   { name: "MyWork-AI", description: "67+ CLI commands · AI code gen · n8n automation · marketplace", tag: "pip install mywork-ai", href: "https://github.com/DansiDanutz/MyWork-AI" },
-  { name: "ZmartyChat", description: "AI crypto trading intelligence — signals, analysis, alerts", tag: "live · zmarty.me", href: "https://zmarty.me" },
 ];
 
 const contacts: { label: string; value: string; href: string }[] = [
@@ -63,6 +67,8 @@ const contacts: { label: string; value: string; href: string }[] = [
   { label: "nervix   ", value: "nervix.ai", href: "https://nervix.ai" },
   { label: "zmarty   ", value: "zmarty.me", href: "https://zmarty.me" },
   { label: "crawdbot ", value: "crawdbot.com", href: "https://crawdbot.com" },
+  { label: "youtube  ", value: "@DansLab-WorldCup", href: "https://www.youtube.com/@DansLab-WorldCup" },
+  { label: "dailystock", value: "dailystock-cyan.vercel.app", href: "https://dailystock-cyan.vercel.app" },
   { label: "kryptos  ", value: "kryptostack.com", href: "https://kryptostack.com" },
   { label: "idolrise ", value: "idolrise.com", href: "https://idolrise.com" },
   { label: "email    ", value: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}` },
@@ -108,6 +114,10 @@ const manifestoSections: { heading: string; body: string }[] = [
   {
     heading: "The stack",
     body: "Claude Code is the agent runtime. Python and TypeScript are the daily languages. n8n handles event-driven automation. Supabase plus Vercel run the web surfaces. The whole fleet sits behind Tailscale — no public ports, no SSH gymnastics, just `ssh dexter` and you're in.",
+  },
+  {
+    heading: "The scoreboard (2026)",
+    body: "Shipped this year, from one Mac Studio and four droplets: Nervix.ai live in production with the agent federation API. WorldCup Central grown to 14K YouTube subscribers on fully AI-produced content, powered by the YouTube Studio pipeline (research → script → scenes → voice → render, hands-off). ZmartyChat shipped walk-forward historical win rates across 15 asset cards at zmarty.me. Paperclip became the fleet's control plane — every agent, task, and heartbeat observable from one dashboard. Dexty, a personal AI assistant with full Mac access, answers on WhatsApp. Reality — a life-simulation game on a real 3D Earth — is in active build. Plus DailyStock, the OmniRoute AI gateway, and a Remotion-based video production pipeline running daily.",
   },
   {
     heading: "The bet",
@@ -944,7 +954,7 @@ type QAEntry = { patterns: string[]; answer: string };
 const qa = qaData as QAEntry[];
 
 const FALLBACK_ANSWER =
-  "I don't have a canned answer for that one. Try asking about DansLab, Nervix.ai, YouTube Studio, Hermes, OpenClaw, CrawdBot, KryptoStack, IdolRise, ZmartyChat, the team, trading, infrastructure, or sponsorships. Or hit the contact / advertise buttons.";
+  "I don't have a canned answer for that one. Try asking about DansLab, Nervix.ai, YouTube Studio, the WorldCup channel, Reality, Dexty, Paperclip, Hermes, OpenClaw, CrawdBot, KryptoStack, IdolRise, ZmartyChat, the team, trading, infrastructure, or sponsorships. Or hit the contact / advertise buttons.";
 
 function tokenize(text: string): string[] {
   return text.match(/\S+\s*/g) ?? [text];
