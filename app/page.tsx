@@ -1249,6 +1249,7 @@ export default function Home() {
   const [activeIdx, setActiveIdx] = useState(0);
   const [allDone, setAllDone] = useState(false);
   const [instant, setInstant] = useState(false);
+  const [sessionEpoch, setSessionEpoch] = useState(0);
   const [contactMode, setContactMode] = useState<ContactMode>("closed");
   const startedRef = useRef(false);
   const cancelRef = useRef<{ cancelled: boolean }>({ cancelled: false });
@@ -1351,6 +1352,7 @@ export default function Home() {
     } catch {
       // ignore
     }
+    setSessionEpoch((epoch) => epoch + 1);
     startSequence();
   };
 
@@ -1401,7 +1403,7 @@ export default function Home() {
             if (!visible) return null;
             const state = states[i];
             const isActive = !instant && i === activeIdx && !state.done;
-            return <SectionView key={def.id} def={def} state={state} isActive={isActive} instant={instant} openContact={openContact} />;
+            return <SectionView key={`${sessionEpoch}:${def.id}`} def={def} state={state} isActive={isActive} instant={instant} openContact={openContact} />;
           })}
 
           {allDone && <ChatInterface openContact={openContact} />}
