@@ -267,26 +267,14 @@ function Cursor() {
 
 function ToolBlock({ def, state, instant }: { def: SectionDef; state: SectionState; instant: boolean }) {
   const allDone = state.toolsDone >= def.tools.length;
-  const [collapsed, setCollapsed] = useState(false);
-  const prevCollapseRef = useRef(state.toolsCollapsed);
-
-  useEffect(() => {
-    if (instant) {
-      setCollapsed(true);
-      prevCollapseRef.current = true;
-      return;
-    }
-    if (state.toolsCollapsed && !prevCollapseRef.current) {
-      setCollapsed(true);
-    }
-    prevCollapseRef.current = state.toolsCollapsed;
-  }, [state.toolsCollapsed, instant]);
+  const [expanded, setExpanded] = useState(false);
+  const collapsed = (instant || state.toolsCollapsed) && !expanded;
 
   if (collapsed && allDone) {
     return (
       <button
         type="button"
-        onClick={() => setCollapsed(false)}
+        onClick={() => setExpanded(true)}
         className="text-dim text-sm hover:text-foreground transition-colors flex items-center gap-2"
       >
         <span className="text-success">●</span>
@@ -303,7 +291,7 @@ function ToolBlock({ def, state, instant }: { def: SectionDef; state: SectionSta
       {allDone && (
         <button
           type="button"
-          onClick={() => setCollapsed(true)}
+          onClick={() => setExpanded(false)}
           className="flex items-center gap-2 hover:text-foreground transition-colors"
         >
           <span className="text-success">●</span>
@@ -327,35 +315,23 @@ function ToolBlock({ def, state, instant }: { def: SectionDef; state: SectionSta
 }
 
 // ---------- contact / advertise modal ----------
-function ContactModal({ mode, onClose }: { mode: ContactMode; onClose: () => void }) {
+function ContactModal({ mode, onClose }: { mode: Exclude<ContactMode, "closed">; onClose: () => void }) {
   const [name, setName] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
   const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-
   const isAdvertise = mode === "advertise";
-
-  // Set default message when modal opens or mode changes
-  useEffect(() => {
-    if (mode === "closed") return;
-    setMessage(
-      isAdvertise
-        ? "Hi Dan,\n\nI'd like to discuss advertising / sponsorship on one of your surfaces.\n\nSurface(s) of interest (YouTube Studio / ZmartyChat / IdolRise / OpenClaw):\n\nAudience / brand:\n\nBudget range:\n\nTimeline:\n"
-        : "Hi Dan,\n\nI'd like to connect about:\n\n"
-    );
-  }, [mode, isAdvertise]);
+  const [message, setMessage] = useState(() => isAdvertise
+    ? "Hi Dan,\n\nI'd like to discuss advertising / sponsorship on one of your surfaces.\n\nSurface(s) of interest (YouTube Studio / ZmartyChat / IdolRise / OpenClaw):\n\nAudience / brand:\n\nBudget range:\n\nTimeline:\n"
+    : "Hi Dan,\n\nI'd like to connect about:\n\n");
 
   // Close on Escape
   useEffect(() => {
-    if (mode === "closed") return;
     const handler = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [mode, onClose]);
-
-  if (mode === "closed") return null;
+  }, [onClose]);
 
   const subject = isAdvertise
     ? "Advertise / Sponsorship inquiry"
@@ -528,7 +504,7 @@ function HeroBody({
         )}
         {step >= 5 && (
           <>
-            <p className="text-dim text-sm">// Cluj-Napoca, Romania · Stack Finance LLC</p>
+            <p className="text-dim text-sm">{"// Cluj-Napoca, Romania · Stack Finance LLC"}</p>
             <div className="flex gap-5 pt-2 text-dim justify-center lg:justify-start">
               {socials.map((s) => (
                 <a
@@ -659,7 +635,7 @@ function BossModal({ boss, onClose }: { boss: Boss | null; onClose: () => void }
           </div>
           <p className="boss-reveal-1 text-foreground/95 leading-relaxed">{boss.bio}</p>
           <p className="boss-reveal-2 text-dim text-sm">{boss.focus}</p>
-          <p className="boss-reveal-3 text-muted text-xs">// running on {boss.machine}</p>
+          <p className="boss-reveal-3 text-muted text-xs">{"// running on "}{boss.machine}</p>
         </div>
       </div>
     </div>
@@ -795,7 +771,7 @@ function DiagramBody({ step }: { step: number }) {
           <g className="topology-node" style={{ ["--node-color" as never]: "#22d3ee" } as CSSProperties}>
             <rect x="430" y="30" width="140" height="65" rx="6" fill="rgba(34,211,238,0.10)" stroke="#22d3ee" strokeWidth="1.8" />
             <text x="500" y="56" textAnchor="middle" fontSize="14" fontWeight="700" fill="#d4d4d8" fontFamily="ui-monospace, monospace">Dan Semenescu</text>
-            <text x="500" y="76" textAnchor="middle" fontSize="11" fill="#a1a1aa" fontFamily="ui-monospace, monospace">// human owner</text>
+            <text x="500" y="76" textAnchor="middle" fontSize="11" fill="#a1a1aa" fontFamily="ui-monospace, monospace">{"// human owner"}</text>
           </g>
         )}
 
@@ -1431,7 +1407,9 @@ export default function Home() {
           {allDone && <ChatInterface openContact={openContact} />}
         </div>
       </div>
-      <ContactModal mode={contactMode} onClose={closeContact} />
+      {contactMode !== "closed" && (
+        <ContactModal key={contactMode} mode={contactMode} onClose={closeContact} />
+      )}
     </main>
   );
 }
